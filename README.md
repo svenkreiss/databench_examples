@@ -18,7 +18,7 @@ pip install -r requirements.txt
 ```
 
 
-## The `simplepi` Example
+## The `simplepi` Example included here
 
 Create a project with this structure:
 ```
