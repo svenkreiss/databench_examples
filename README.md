@@ -1,6 +1,6 @@
 # Databench Examples
 
-> Examples for `databench`.
+> Examples for [databench](https://github.com/svenkreiss/databench).
 
 [![Build Status](https://travis-ci.org/svenkreiss/databench_examples.png?branch=master)](https://travis-ci.org/svenkreiss/databench_examples)
 
