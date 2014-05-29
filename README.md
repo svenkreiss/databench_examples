@@ -10,10 +10,10 @@
 Setup your environment and install dependencies with
 
 ```bash
+git clone https://github.com/svenkreiss/databench_examples.git .
+
 virtualenv venv
 source venv/bin/activate
-
-git clone https://github.com/svenkreiss/databench_examples.git .
 pip install -r requirements.txt
 ```
 
