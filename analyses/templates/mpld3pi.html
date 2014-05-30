@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}mpld3pi{% endblock %}
+
+
+{% block content %}
+<h1>
+    mpld3pi
+    <small><i>π = <span id="pi">0.0 ± 1.0</span></i></small>
+</h1>
+
+<p>This little demo uses two random numbers \(r_1\) and \(r_2\) and
+then does a comparison $$r_1^2 + r_2^2 < 1.0$$ to figure out whether
+the generated point is inside the first quadrant of the unit circle.</p>
+
+<p>Below are histograms created with <i>matplotlib</i> and rendered in <i>d3.js</i> using <i>mpld3</i>.</p> 
+
+<div id="mpld3canvas"></div>
+
+<pre id="log"></pre>
+{% endblock %}
+
+
+{% block footerscripts %}
+<script>
+	var databench = Databench('mpld3pi');
+	databench.genericElements.log($('#log'));
+	databench.genericElements.mpld3canvas($("#mpld3canvas"));
+
+	databench.signals.on('status', function(msg) {
+		$('#pi').text(msg['pi-estimate'].toFixed(3)+' ± '+msg['pi-uncertainty'].toFixed(3));
+	});
+</script>
+{% endblock %}

@@ -25,7 +25,7 @@ def calc():
 	for i in range(100):
 		jobs.append(q.enqueue(inside, i))
 		signals.emit('log', {'enqueued_job': i})
-	
+
 	drawsCount = 0
 	insideCount = 0
 	while jobs:
@@ -47,4 +47,3 @@ def calc():
 
 slowpi = databench.Analysis('slowpi', __name__, signals)
 slowpi.description = "Calculating \(\pi\) the redis-queue way ... yes, in parallel."
-
