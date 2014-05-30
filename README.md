@@ -18,7 +18,12 @@ pip install -r requirements.txt
 ```
 
 
-## The `simplepi` Example included here
+## Example Output
+
+![mpld3pi](doc/images/mpld3pi_demo.png)
+
+
+## The `simplepi` Example
 
 Create a project with this structure:
 ```
