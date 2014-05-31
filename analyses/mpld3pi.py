@@ -2,7 +2,6 @@ import math
 from time import sleep
 from random import random
 
-import pylab
 import matplotlib.pyplot as plt, mpld3
 
 import databench

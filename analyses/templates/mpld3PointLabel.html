@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}mpld3PointLabel{% endblock %}
+
+
+{% block content %}
+<h1>mpld3PointLabel</h1>
+
+<p>Testing the PointLabelTooltip plugin of mpld3. The plot is created with <i>matplotlib</i> and rendered in <i>d3.js</i> using <i>mpld3</i>.</p> 
+
+<div id="mpld3canvas"></div>
+
+<pre id="log"></pre>
+{% endblock %}
+
+
+{% block footerscripts %}
+<script>
+	var databench = Databench('mpld3PointLabel');
+	databench.genericElements.log($('#log'));
+	databench.genericElements.mpld3canvas($("#mpld3canvas"));
+</script>
+{% endblock %}
