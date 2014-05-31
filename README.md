@@ -22,6 +22,7 @@ pip install -r requirements.txt
 
 ![mpld3pi](doc/images/mpld3pi_demo.png)
 ![mpld3pi](doc/images/mpld3_PointLabel.png)
+![mpld3pi](doc/images/mpld3_heart_path.png)
 
 
 ## The `simplepi` Example
