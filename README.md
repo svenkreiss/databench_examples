@@ -18,9 +18,10 @@ pip install -r requirements.txt
 ```
 
 
-## Example Output
+## Example Outputs
 
 ![mpld3pi](doc/images/mpld3pi_demo.png)
+![mpld3pi](doc/images/mpld3_PointLabel.png)
 
 
 ## The `simplepi` Example
