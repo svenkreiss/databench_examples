@@ -36,4 +36,5 @@ def onconnect():
 
 
 simplepi = databench.Analysis('simplepi', __name__, signals)
+simplepi.thumbnail = 'simplepi.png'
 simplepi.description = "Calculating \(\pi\) the simple way."

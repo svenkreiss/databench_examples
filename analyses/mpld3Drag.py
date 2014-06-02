@@ -69,4 +69,5 @@ def onconnect():
 
 
 mpld3Drag = databench.Analysis('mpld3Drag', __name__, signals)
+mpld3Drag.thumbnail = 'mpld3Drag.png'
 mpld3Drag.description = "Testing a custom mpld3 plugin to drag points. Based on the heart_path example in the mpld3 gallery."

@@ -24,4 +24,5 @@ def onconnect():
 
 
 mpld3PointLabel = databench.Analysis('mpld3PointLabel', __name__, signals)
+mpld3PointLabel.thumbnail = 'mpld3PointLabel.png'
 mpld3PointLabel.description = "Testing the PointLabelTooltip plugin of mpld3."

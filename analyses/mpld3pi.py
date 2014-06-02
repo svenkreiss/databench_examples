@@ -73,4 +73,5 @@ def onconnect():
 
 
 mpld3pi = databench.Analysis('mpld3pi', __name__, signals)
+mpld3pi.thumbnail = 'mpld3pi.png'
 mpld3pi.description = "Calculating \(\pi\) the simple way, but with mpld3."

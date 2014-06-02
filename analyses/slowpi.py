@@ -46,4 +46,5 @@ def calc():
 
 
 slowpi = databench.Analysis('slowpi', __name__, signals)
+slowpi.thumbnail = 'slowpi.png'
 slowpi.description = "Calculating \(\pi\) the redis-queue way ... yes, in parallel."
