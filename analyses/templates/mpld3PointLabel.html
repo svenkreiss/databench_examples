@@ -3,12 +3,19 @@
 
 
 {% block content %}
-<h1>mpld3PointLabel</h1>
 
-<p>Testing the PointLabelTooltip plugin of mpld3. The plot is created with <i>matplotlib</i> and rendered in <i>d3.js</i> using <i>mpld3</i>.</p> 
+{% filter markdown %}
+# mpld3PointLabel
+
+Testing the PointLabelTooltip plugin of [mpld3](http://mpld3.github.io/). 
+The plot is created with [matplotlib](http://matplotlib.org/) and rendered 
+in [d3.js](http://d3js.org/) using [mpld3](http://mpld3.github.io/).
+
+If you look at the source code for this template, you will also see that 
+this documentation is a block of `markdown` embedded in the HTML.
+{% endfilter %}
 
 <div id="mpld3canvas"></div>
-
 <pre id="log"></pre>
 {% endblock %}
 

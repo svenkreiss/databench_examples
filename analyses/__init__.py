@@ -1,5 +1,7 @@
-import simplepi
-import slowpi
-import mpld3pi
-import mpld3PointLabel
-import mpld3Drag
+"""Examples in databench_examples."""
+
+import analyses.simplepi
+import analyses.slowpi
+import analyses.mpld3pi
+import analyses.mpld3PointLabel
+import analyses.mpld3Drag
