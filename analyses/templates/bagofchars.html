@@ -1,0 +1,47 @@
+{% from 'macros.html' import include_src %}
+{% extends "base.html" %}
+
+
+{% block title %}bagofchars{% endblock %}
+
+
+{% block content %}
+<h1>Bag of Chars</h1>
+
+<form class="form-inline" role="form" id="sentence">
+	<div class="form-group">
+		<label class="sr-only" for="sentenceText">Sentence</label>
+		<input type="text" class="form-control" id="sentenceText" placeholder="type a phrase" size="80" />
+	</div>
+	<button type="submit" class="btn btn-default">Submit</button>
+</form>
+
+<br />
+<pre id="log"></pre>
+
+<br /><br /><hr />
+<h3>Source Code</h3>
+bagofchars.py: {{ include_src('bagofchars.py', 'python') }}
+bagofchars.html: {{ include_src('templates/bagofchars.html') }}
+{% endblock %}
+
+
+{% block footerscripts %}
+<script>
+	var databench = Databench('bagofchars');
+	databench.genericElements.log($('#log'));
+
+	$('#sentence').on('submit', function(event) {		
+		event.preventDefault();
+		console.log($(this).find("input[type=text]").val());
+
+		databench.signals.emit('sentence', {
+			sentence: $(this).find("input[type=text]").val()
+		});
+	});
+
+	databench.signals.on('status', function(msg) {
+		$('#pi').text(msg['pi-estimate'].toFixed(3)+' ± '+msg['pi-uncertainty'].toFixed(3));
+	});
+</script>
+{% endblock %}

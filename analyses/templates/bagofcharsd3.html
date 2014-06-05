@@ -1,0 +1,92 @@
+{% from 'macros.html' import include_src %}
+{% extends "base.html" %}
+
+
+{% block title %}bagofcharsd3{% endblock %}
+
+
+{% block head %}
+<style>
+
+p{
+	max-width:60em;
+}
+
+path.slice{
+	stroke-width:2px;
+}
+
+polyline{
+	opacity: .3;
+	stroke: black;
+	stroke-width: 2px;
+	fill: none;
+}
+
+</style>
+{% endblock %}
+
+
+{% block content %}
+<h1>Bag of Chars</h1>
+
+<form class="form-inline" role="form" id="sentence">
+	<div class="form-group">
+		<label class="sr-only" for="sentenceText">Sentence</label>
+		<input type="text" class="form-control" id="sentenceText" 
+		       placeholder="type a phrase" size="80" 
+		       autocomplete="off" autofocus />
+	</div>
+</form>
+
+<br />
+<div id="viz" style="height: 300px; width: 500px;"></div>
+
+{% filter markdown %}
+### Documentation
+
+This demo shows the interaction between a frontend input field, a `Python`
+backend that does a trivial analysis and a `d3.js` visualization of the
+analysis. So when you change the phrase, the frontend sends a message to the
+backend with the new input, which replies with a simple dictionary that is also
+shown in the `log` view below and the `d3.js` visualization is updated.
+{% endfilter %}
+
+<h3>Log</h3>
+<pre id="log"></pre>
+
+<br /><br /><hr />
+<h3>Source Code</h3>
+bagofcharsd3.py: {{ include_src('bagofcharsd3.py', 'python') }}
+bagofcharsd3.html: {{ include_src('templates/bagofcharsd3.html') }}
+d3charcount.js: {{ include_src('static/d3charcount.js', 'js') }}
+{% endblock %}
+
+
+{% block footerscripts %}
+<script src="/bagofcharsd3/static/d3charcount.js"></script>
+<script>
+	var databench = Databench('bagofcharsd3');
+	databench.genericElements.log($('#log'));
+
+	$('#sentenceText').on('keyup', function(event) {
+		databench.signals.emit('sentence', {
+			sentence: $(this).val()
+		});
+	});
+
+	
+	var d3viz = d3charcount(d3.select("#viz"));
+
+	databench.signals.on('counts', function(msg) {
+		console.log(msg);
+		var reformattedData = Object.keys(msg).map(function(letter) {
+			return {label:letter, value:msg[letter]};
+		});
+		console.log(reformattedData);
+		if (reformattedData.length > 0) d3viz(reformattedData);
+	});
+
+	databench.signals.emit('sentence', {sentence:'type a phrase'});
+</script>
+{% endblock %}
