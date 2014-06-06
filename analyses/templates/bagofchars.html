@@ -33,8 +33,6 @@ bagofchars.html: {{ include_src('templates/bagofchars.html') }}
 
 	$('#sentence').on('submit', function(event) {		
 		event.preventDefault();
-		console.log($(this).find("input[type=text]").val());
-
 		databench.signals.emit('sentence', {
 			sentence: $(this).find("input[type=text]").val()
 		});

@@ -12,7 +12,7 @@ import databench
 
 bagofcharsd3 = databench.Analysis('bagofcharsd3', __name__)
 bagofcharsd3.description = __doc__
-# bagofcharsd3.thumbnail = 'bagofcharsd3.png'
+bagofcharsd3.thumbnail = 'bagofcharsd3.png'
 
 @bagofcharsd3.signals.on('connect')
 def onconnect():

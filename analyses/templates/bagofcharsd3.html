@@ -69,6 +69,13 @@ d3charcount.js: {{ include_src('static/d3charcount.js', 'js') }}
 	var databench = Databench('bagofcharsd3');
 	databench.genericElements.log($('#log'));
 
+	$('#sentence').on('submit', function(event) {		
+		event.preventDefault();
+		databench.signals.emit('sentence', {
+			sentence: $(this).find("input[type=text]").val()
+		});
+	});
+
 	$('#sentenceText').on('keyup', function(event) {
 		databench.signals.emit('sentence', {
 			sentence: $(this).val()
