@@ -25,6 +25,6 @@ pip install -r requirements.txt
 ![mpld3pi](doc/images/mpld3_heart_path.png)
 
 
-## More documentation
+## More Documentation
 
 Please have a look at the first blog post describing analyses with Databench: [www.svenkreiss.com/blog/databench-initial/](www.svenkreiss.com/blog/databench-initial/)
