@@ -7,3 +7,4 @@ import analyses.mpld3PointLabel
 import analyses.mpld3Drag
 import analyses.bagofchars
 import analyses.bagofcharsd3
+import analyses.angular

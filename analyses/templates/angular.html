@@ -1,0 +1,105 @@
+{% from 'macros.html' import include_src %}
+{% extends "base.html" %}
+
+
+{% block title %}Angular{% endblock %}
+
+
+{% block content %}
+<div ng-app="angularApp" ng-strict-di>
+	<ul ng-controller="navCtrl" class="nav nav-tabs">
+        <li class="[[navClass('home')]]"><a href='#/home'>Home</a></li>
+        <li class="[[navClass('experiment')]]"><a href='#/experiment'>Experiment</a></li>
+        <li class="[[navClass('logmessages')]]"><a href='#/logmessages'>Log Messages</a></li>
+        <li class="[[navClass('sourcecode')]]"><a href='#/sourcecode'>Source Code</a></li>
+    </ul>
+
+    <div class="view" id="home" ng-controller="test">
+    	<h1>Angular.js Test</h1>
+
+{% filter markdown %}
+The standard hello world example for frameworks like `angular.js` is:
+{% endfilter %}
+
+<div ng-non-bindable>
+{% highlight 'html' %}
+<input ng-model="chapter"><br />
+What you just typed: [[chapter]]
+{% endhighlight %}
+</div>
+
+		<h3>Live Demo</h3>
+		<div class="row">
+			<div class="col-md-6">
+				<input type="text" class="form-control"
+				       autocomplete="off" autofocus ng-model="chapter" />
+			</div>
+			<div class="col-md-6">
+				What you just typed: 
+				<span class="label label-info">[[chapter]]</span>
+			</div>
+		</div>
+
+		<h1>Simplepi</h1>
+		<p>Click on the Experiment, Log Messages and Source Code tabs. This
+		demo is a modified version of the simplepi demo and all the outputs
+		are shown under these tabs.</p>
+    </div>
+
+	<div class="view" id="experiment" ng-controller="experiment">
+   		<h1>
+		    Angular
+		    <small><i>π = [[pi]]</i></small>
+		</h1>
+
+		<p>This little demo uses two random numbers \(r_1\) and \(r_2\) and
+		then does a comparison $$r_1^2 + r_2^2 &le; 1.0$$ to figure out whether
+		the generated point is inside the first quadrant of the unit circle.</p>
+	</div>
+
+	<div class="view" id="logmessages">
+		<h1>Log Messages</h1>
+		<pre id="log"></pre>
+	</div>
+
+	<div class="view" id="sourcecode">
+		<h1>Source Code</h1>
+		angular.py: {{ include_src('angular.py', 'python') }}
+		angular.html: {{ include_src('templates/angular.html') }}
+	</div>
+</div>
+{% endblock %}
+
+
+{% block footerscripts %}
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+<script>
+	var databench = Databench('angular');
+	databench.genericElements.log($('#log'));
+
+
+	angular.module('angularApp', [], function ($interpolateProvider) {
+	    $interpolateProvider.startSymbol('[[');
+	    $interpolateProvider.endSymbol(']]');
+	})
+	.controller('navCtrl', ['$scope', '$location', function ($scope, $location) {
+	    $scope.navClass = function (page) {
+	        var currentRoute = $location.path().substring(1) || 'home';
+	        $('.view').hide();
+	        $('#'+currentRoute).show();
+	        return page === currentRoute ? 'active' : '';
+	    };        
+	}])
+	.controller('test', ['$scope', function($scope) {
+		$scope.chapter = 'modify me';
+	}])
+	.controller('experiment', ['$scope', function($scope) {
+		$scope.pi = '0.0 ± 1.0';
+
+		databench.signals.on('status', function(msg) {
+			$scope.pi = msg['pi-estimate'].toFixed(3)+' ± '+msg['pi-uncertainty'].toFixed(3);
+			$scope.$apply();
+		});
+	}]);
+</script>
+{% endblock %}
