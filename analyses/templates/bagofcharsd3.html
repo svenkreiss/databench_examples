@@ -7,22 +7,18 @@
 
 {% block head %}
 <style>
-
 p{
-	max-width:60em;
+	max-width: 60em;
 }
-
 path.slice{
-	stroke-width:2px;
+	stroke-width: 2px;
 }
-
 polyline{
 	opacity: .3;
 	stroke: black;
 	stroke-width: 2px;
 	fill: none;
 }
-
 </style>
 {% endblock %}
 
@@ -30,17 +26,12 @@ polyline{
 {% block content %}
 <h1>Bag of Chars</h1>
 
-<form class="form-inline" role="form" id="sentence">
-	<div class="form-group">
-		<label class="sr-only" for="sentenceText">Sentence</label>
-		<input type="text" class="form-control" id="sentenceText" 
-		       placeholder="type a phrase" size="80" 
-		       autocomplete="off" autofocus />
-	</div>
-</form>
+<input type="text" class="form-control" id="sentence"
+       placeholder="type a phrase"
+       autocomplete="off" autofocus />
 
 <br />
-<div id="viz" style="height: 300px; width: 500px;"></div>
+<div id="viz" style="height: 300px; width: 100%;"></div>
 
 {% filter markdown %}
 ### Documentation
@@ -69,17 +60,8 @@ d3charcount.js: {{ include_src('static/d3charcount.js', 'js') }}
 	var databench = Databench('bagofcharsd3');
 	databench.genericElements.log($('#log'));
 
-	$('#sentence').on('submit', function(event) {		
-		event.preventDefault();
-		databench.signals.emit('sentence', {
-			sentence: $(this).find("input[type=text]").val()
-		});
-	});
-
-	$('#sentenceText').on('keyup', function(event) {
-		databench.signals.emit('sentence', {
-			sentence: $(this).val()
-		});
+	$('#sentence').on('keyup', function(event) {
+		databench.signals.emit('sentence', {sentence: $(this).val()});
 	});
 
 	
