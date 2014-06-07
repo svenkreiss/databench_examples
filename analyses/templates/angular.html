@@ -7,7 +7,7 @@
 
 {% block content %}
 {% filter markdown %}
-# Angular.js Test
+# Angular.js Demo
 
 [angular.js](https://angularjs.org/) is a popular MVW (Model-View-Whatever) framework. On the [angular.js](https://angularjs.org/) front page, scroll down to __The Basics__ to see an overview of `angular.js` features.
 {% endfilter %}
@@ -30,6 +30,8 @@
 This page shows two of `angular.js` most popular applications. First, you get the nav-bar on top almost for free. The four tabs it accesses are part of a single page. This is pure JavaScript and you always stay inside this one page (even though the url bar of your browser updates). Second, the standard hello world example for frameworks like `angular.js` is tested below.
 
 The `simplepi` example that is also included here (in the other tabs) makes use of angular's data-binding. When a `status` signal is received from the Databench backend, the callback function does not use `jQuery` anymore to modify the DOM, but simply assigns the new estimate of \\(\\pi\\) to a variable of an angular controller, say `pi`. In the Databench frontend, the `<span id="pi">0.0</span>` is replaced with an angular variable placeholder <code ng-non-bindable>[[pi]]</code>.
+
+When using `jinja2` templates and `angular.js` together, the notation for variables `{{ '{{myVar}}' }}` conflicts. Therefore, `angular.js` is reconfigured to use <code ng-non-bindable>[[myVar]]</code> instead.
 
 
 ### Live Demo of Data Binding
