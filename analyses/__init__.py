@@ -1,5 +1,6 @@
 """Examples in databench_examples."""
 
+import analyses.helloworld
 import analyses.simplepi
 import analyses.slowpi
 import analyses.mpld3pi

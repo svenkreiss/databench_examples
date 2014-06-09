@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hello World</title>
+</head>
+<body>
+	<p id="log"></p>
+
+	<script src="/static/socket.io/socket.io.min.js"></script>
+	<script src="/static/databench.js"></script>
+	<script>
+		var databench = Databench('helloworld');
+		
+		databench.signals.on('log', function(json) {
+			document.getElementById('log').innerHTML = json.message;
+		});
+	</script>
+</body>
+</html>
