@@ -1,9 +1,10 @@
 // based on http://bl.ocks.org/dbuezas/9572040
 
 function d3charcount(selector) {
-	var svg = selector
-		.append("svg")
-		.append("g")
+	var svgElement = d3.select(selector)
+		.append("svg");
+	var svg = svgElement
+		.append("g");
 
 	svg.append("g")
 		.attr("class", "slices");
@@ -12,15 +13,26 @@ function d3charcount(selector) {
 	svg.append("g")
 		.attr("class", "lines");
 
-	var width = parseInt(selector.style('width')),
-	    height = parseInt(selector.style('height')),
-		radius = Math.min(width, height) / 2;
+	var width = $(selector).width(),
+	    height = $(selector).height(),
+		radius = Math.min(width-100, height) / 2;
+	var aspectRatio = width/height;
+
+	// attempt at responsive element
+	svgElement.attr("width", width);
+	svgElement.attr("height", width/aspectRatio);
+	svgElement.attr("viewBox", "0 0 "+width+" "+height)
+	$(window).on("resize", function() {
+		width = $(selector).width();
+		height = $(selector).width()/aspectRatio;
+		$(selector).height(height);
+		svgElement.attr("width", width);
+		svgElement.attr("height", height);
+	}).trigger("resize");
 
 	var pie = d3.layout.pie()
 		.sort(null)
-		.value(function(d) {
-			return d.value;
-		});
+		.value(function(d) { return d.value; });
 
 	var arc = d3.svg.arc()
 		.outerRadius(radius * 0.8)

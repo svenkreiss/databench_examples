@@ -65,7 +65,7 @@ d3charcount.js: {{ include_src('static/d3charcount.js', 'js') }}
 	});
 
 	
-	var d3viz = d3charcount(d3.select("#viz"));
+	var d3viz = d3charcount("#viz");
 
 	databench.signals.on('counts', function(msg) {
 		console.log(msg);
