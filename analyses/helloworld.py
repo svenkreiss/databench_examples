@@ -9,4 +9,4 @@ helloworld.description = __doc__
 @helloworld.signals.on('connect')
 def onconnect():
     """Run as soon as a browser connects to this."""    
-    helloworld.signals.emit('log', {'message': 'Hello World'})
+    helloworld.signals.emit('status', {'message': 'Hello World'})
