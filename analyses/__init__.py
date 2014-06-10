@@ -9,3 +9,5 @@ import analyses.mpld3Drag
 import analyses.bagofchars
 import analyses.bagofcharsd3
 import analyses.angular
+import analyses.redispub
+import analyses.redissub

@@ -1,0 +1,47 @@
+{% from 'macros.html' import include_src %}
+{% extends "base.html" %}
+
+
+{% block head %}
+<style>
+#genValue, #recValue {
+	font-size:600%; color:#008;
+}
+</style>
+{% endblock %}
+
+
+{% block title %}Redis Sub{% endblock %}
+
+
+{% block content %}
+{% filter markdown %}
+# Redis Subscription Test
+
+You need an async listener to subscribe to a Redis channel. Trying to do this with a greenlet. You need something that publishes to that channel. The `redispub` demo does just that. So run the two demos in two browser windows in parallel.
+{% endfilter %}
+
+<h3>Dashboard</h3>
+<span id="recValue">50</span>%
+
+
+<h3>Log</h3>
+<pre id="log"></pre>
+
+<br /><br /><hr />
+<h3>Source Code</h3>
+redissub.py: {{ include_src('redissub.py', 'python') }}
+redissub.html: {{ include_src('templates/redissub.html') }}
+{% endblock %}
+
+
+{% block footerscripts %}
+<script>
+	var databench = Databench('redissub');
+	databench.genericElements.log($('#log'));
+
+	databench.signals.on('status', function(json) {
+		$("#recValue").text((json*100.0).toFixed(1));
+	});
+</script>
+{% endblock %}

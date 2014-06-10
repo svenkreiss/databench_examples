@@ -1,0 +1,55 @@
+{% from 'macros.html' import include_src %}
+{% extends "base.html" %}
+
+
+{% block head %}
+<style>
+#genValue, #recValue {
+	font-size:600%; color:#008;
+}
+</style>
+{% endblock %}
+
+
+{% block title %}Redis Pub{% endblock %}
+
+
+{% block content %}
+{% filter markdown %}
+# Redis Publishing Test
+
+Publishing is the easy part. This is just the data generator for the `redissub` demo.
+{% endfilter %}
+
+<h3>Generator</h3>
+<span id="genValue">50</span>%
+
+<h3>Log</h3>
+<pre id="log"></pre>
+
+<br /><br /><hr />
+<h3>Source Code</h3>
+redispub.py: {{ include_src('redispub.py', 'python') }}
+redispub.html: {{ include_src('templates/redispub.html') }}
+{% endblock %}
+
+
+{% block footerscripts %}
+<script>
+	var databench = Databench('redispub');
+	databench.genericElements.log($('#log'));
+
+	var time = 0.0;
+	var dt = 0.01;
+	function changeValue() {
+		time += dt;
+		var value = (0.5 + 0.4 * Math.sin(time));
+		databench.signals.emit('stats', {
+			'passingUnitTests': value
+		});
+		$("#genValue").text((value*100.0).toFixed(1));
+		setTimeout(changeValue, 100.0);
+	}
+	changeValue();
+</script>
+{% endblock %}
