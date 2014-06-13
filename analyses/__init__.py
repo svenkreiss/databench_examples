@@ -1,4 +1,12 @@
-"""Examples in databench_examples."""
+"""Databench is a tool that connects a Python analysis to a custom html
+frontend. Here are some examples of what Databench can do. The source
+code is available on GitHub:
+[svenkreiss/databench_examples](https://github.com/svenkreiss/databench_examples).
+
+Main GitHub repository: [svenkreiss/databench](https://github.com/svenkreiss/databench)  
+User guide and API: 
+[svenkreiss.com/databench/](http://www.svenkreiss.com/databench/)"""
+
 
 import analyses.helloworld
 import analyses.simplepi
