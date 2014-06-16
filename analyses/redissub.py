@@ -1,35 +1,40 @@
 """Testing async subscription to redis channel."""
 
 import gevent
-from redis import StrictRedis
+from analyses.redispub import redis_creator
 from flask import copy_current_request_context
 
 import databench
 
 
-redissub = databench.Analysis('redissub', __name__)
-redissub.description = __doc__
-# redissub.thumbnail = 'redissub.png'
+ANALYSIS = databench.Analysis('redissub', __name__)
+ANALYSIS.description = __doc__
+# ANALYSIS.thumbnail = 'redissub.png'
 
-@redissub.signals.on('connect')
+@ANALYSIS.signals.on('connect')
 def onconnect():
     """Run as soon as a browser connects to this."""
-    redissub.signals.emit('log', {'action': 'backend started'})
 
-    redis_client = StrictRedis()
-    redis_sub = StrictRedis().pubsub()
+    ANALYSIS.signals.emit('log', {'action': 'backend started'})
 
+    # create a connection to redis
+    redis_client = redis_creator().pubsub()
 
+    # asynchronously listen to a redis channel
     @copy_current_request_context
     def listener():
-        redis_sub.subscribe('someStatsProvider')
-        for m in redis_sub.listen():
-            redissub.signals.emit('log', m)
+        """Runs inside a spawned greenlet to asynchronously listen."""
+
+        redis_client.subscribe('someStatsProvider')
+        for m in redis_client.listen():
+            ANALYSIS.signals.emit('log', m)
             if 'type' in m  and  m['type'] == 'message'  and  'data' in m:
-                redissub.signals.emit('status', m['data'])
+                ANALYSIS.signals.emit('status', m['data'])
     greenlet = gevent.Greenlet.spawn(listener)
 
 
-    @redissub.signals.on('disconnect')
+    @ANALYSIS.signals.on('disconnect')
     def ondisconnect():
+        """Cleanup greenlet."""
+
         greenlet.join()

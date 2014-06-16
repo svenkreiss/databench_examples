@@ -1,25 +1,39 @@
 """Testing publishing to a redis channel."""
 
-import gevent
-from redis import StrictRedis
-from flask import copy_current_request_context
+import os
+import redis
+import urlparse
 
 import databench
 
 
-redispub = databench.Analysis('redispub', __name__)
-redispub.description = __doc__
-# redispub.thumbnail = 'redispub.png'
+ANALYSIS = databench.Analysis('redispub', __name__)
+ANALYSIS.description = __doc__
+# ANALYSIS.thumbnail = 'redispub.png'
 
-@redispub.signals.on('connect')
+def redis_creator():
+    """Checks enironment for certatin redis providers and creates
+    a redis client."""
+
+    rediscloudenv = os.environ.get('REDISCLOUD_URL')
+    if rediscloudenv:
+        url = urlparse.urlparse(rediscloudenv)
+        r = redis.Redis(host=url.hostname, port=url.port, password=url.password)
+    else:
+        r = redis.StrictRedis()
+
+    return r
+
+@ANALYSIS.signals.on('connect')
 def onconnect():
     """Run as soon as a browser connects to this."""
-    redispub.signals.emit('log', {'action': 'backend started'})
+    ANALYSIS.signals.emit('log', {'action': 'backend started'})
 
-    redis_client = StrictRedis()
-    redis_sub = StrictRedis().pubsub()
+    redis_client = redis_creator()
 
-    # listen for new messages from front end and push to redis channel
-    @redispub.signals.on('stats')
+    @ANALYSIS.signals.on('stats')
     def onstats(msg):
-        redis_client.publish('someStatsProvider', msg['passingUnitTests'])
+        """Listens for new messages from frontend and pushes to
+        redis channel."""
+
+        redis_client.publish('someStatsProvider', msg)

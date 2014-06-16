@@ -4,8 +4,8 @@
 
 {% block head %}
 <style>
-#genValue, #recValue {
-	font-size:600%; color:#008;
+.recValue {
+	font-size:300%; color:#008;
 }
 </style>
 {% endblock %}
@@ -16,13 +16,15 @@
 
 {% block content %}
 {% filter markdown %}
-# Redis Subscription Test
+# Redis Subscription
 
-You need an async listener to subscribe to a Redis channel. Trying to do this with a greenlet. You need something that publishes to that channel. The `redispub` demo does just that. So run the two demos in two browser windows in parallel.
+You need an async listener to subscribe to a Redis channel. This can be done with a `gevent.Greenlet`. The listener forwards all incoming messages via `signals.emit()` to the frontend. In this demo, the frontend splits the message into a (key,value) pair and updates its internal data. It keeps track of when it received the last message and only keeps values that were received less than 1.5s ago. This data is handed to a custom `d3.js` element that handles the creation and deletion of status boxes and the update of the values in the Dashboard view.
+
+You need something that publishes to the channel. The `redispub` demo does just that, so you need to run the two demos in two browser windows in parallel. All users subscribe to the same messages and publish to the same system.
 {% endfilter %}
 
 <h3>Dashboard</h3>
-<span id="recValue">50</span>%
+<div id="recValues"></div>
 
 
 <h3>Log</h3>
@@ -40,8 +42,59 @@ redissub.html: {{ include_src('templates/redissub.html') }}
 	var databench = Databench('redissub');
 	databench.genericElements.log($('#log'));
 
+
+	// using d3.js to drive a list of html elements
+	var d3List = function(selector) {
+		var _selector = d3.select(selector);
+
+		// for layouting with Twitter bootstrap, make this div a row
+		_selector.attr("class", "row");
+
+		function update(inputData) {
+			// inputData: dictionary where key is the name of the information
+			//     source and the value is its value
+
+			var selection = _selector.selectAll(".col-sm-3")
+				.data(d3.entries(inputData));
+
+			// new element
+			selection.enter()
+				.append("div")
+				.attr("class","col-sm-3");
+
+			// update (also runs with new element)
+			selection
+				.text(function(e) { return e.key; })
+				.append("div")
+					.attr("class", "recValue")
+					.text(function(e) { return (e.value*100.0).toFixed(1); });
+
+			// deleted
+			selection.exit()
+				.remove();
+		}
+
+		return update;
+	}
+	// new use this d3 element
+	var recValuesList = d3List("#recValues");
+
+
+	// listen for data from backend
+	var inputData = {};
+	var lastUpdate = {};
 	databench.signals.on('status', function(json) {
-		$("#recValue").text((json*100.0).toFixed(1));
+		var srcName = json.split('=')[0].trim();
+		inputData[ srcName ] = json.split('=')[1];
+		lastUpdate[ srcName ] = Date.now();
+
+		// remove old values from data
+		for (k in lastUpdate) {
+			if (Date.now()-lastUpdate[k] > 1500) delete inputData[k];
+		}
+
+		// update d3 element
+		recValuesList(inputData);
 	});
 </script>
 {% endblock %}
