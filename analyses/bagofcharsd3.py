@@ -3,28 +3,24 @@
 Don't google bag-of-chars. I just made that up.
 """
 
-import math
-from time import sleep
-from random import random
-
 import databench
 
 
-bagofcharsd3 = databench.Analysis('bagofcharsd3', __name__)
-bagofcharsd3.description = __doc__
-bagofcharsd3.thumbnail = 'bagofcharsd3.png'
+ANALYSIS = databench.Analysis('bagofcharsd3', __name__)
+ANALYSIS.description = __doc__
+ANALYSIS.thumbnail = 'bagofcharsd3.png'
 
-@bagofcharsd3.signals.on('connect')
+@ANALYSIS.signals.on('connect')
 def onconnect():
     """Run as soon as a browser connects to this."""
-    bagofcharsd3.signals.emit('log', {
+    ANALYSIS.signals.emit('log', {
         'backend': 'started and listening for signals from frontend'
     })
 
-@bagofcharsd3.signals.on('sentence')
+@ANALYSIS.signals.on('sentence')
 def onsentence(json):
     """Takes a sentence and counts the characters."""
-    if 'sentence' not in json: 
+    if 'sentence' not in json:
         return
     sentence = json['sentence'].lower()
 
@@ -35,5 +31,5 @@ def onsentence(json):
         if c not in counts:
             counts[c] = sentence.count(c)
 
-    bagofcharsd3.signals.emit('log', counts)
-    bagofcharsd3.signals.emit('counts', counts)
+    ANALYSIS.signals.emit('log', counts)
+    ANALYSIS.signals.emit('counts', counts)

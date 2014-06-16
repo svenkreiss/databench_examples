@@ -1,17 +1,11 @@
-"""Testing a custom mpld3 plugin to drag points. 
+"""Testing a custom mpld3 plugin to drag points.
 
 Based on the heart_path example in the mpld3 gallery.
 """
 
-import math
-from time import sleep
-from random import random
 
-import numpy as np
-import matplotlib.pyplot as plt, mpld3
+import mpld3
 import matplotlib as mpl
-import matplotlib.path as mpath
-import matplotlib.patches as mpatches
 
 import databench
 
@@ -30,29 +24,32 @@ class LinkedDragPlugin(mpld3.plugins.PluginBase):
                       "idpatch": mpld3.utils.get_id(patch)}
 
 
-mpld3Drag = databench.Analysis('mpld3Drag', __name__)
-mpld3Drag.thumbnail = 'mpld3Drag.png'
-mpld3Drag.description = __doc__
+ANALYSIS = databench.Analysis('mpld3Drag', __name__)
+ANALYSIS.thumbnail = 'mpld3Drag.png'
+ANALYSIS.description = __doc__
 
-@mpld3Drag.signals.on('connect')
+@ANALYSIS.signals.on('connect')
 def onconnect():
-    fig, ax = plt.subplots()
+    """Run as soon as a browser connects to this."""
 
-    Path = mpath.Path
+    # initialize plot
+    fig, ax = mpl.pyplot.subplots()
+
+    # create plot elements
     path_data = [
-        (Path.MOVETO, (1.58, -2.57)),
-        (Path.CURVE4, (0.35, -1.1)),
-        (Path.CURVE4, (-1.75, 2.0)),
-        (Path.CURVE4, (0.375, 2.0)),
-        (Path.LINETO, (0.85, 1.15)),
-        (Path.CURVE4, (2.2, 3.2)),
-        (Path.CURVE4, (3, 0.05)),
-        (Path.CURVE4, (2.0, -0.5)),
-        (Path.CLOSEPOLY, (1.58, -2.57)),
-        ]
+        (mpl.path.Path.MOVETO, (1.58, -2.57)),
+        (mpl.path.Path.CURVE4, (0.35, -1.1)),
+        (mpl.path.Path.CURVE4, (-1.75, 2.0)),
+        (mpl.path.Path.CURVE4, (0.375, 2.0)),
+        (mpl.path.Path.LINETO, (0.85, 1.15)),
+        (mpl.path.Path.CURVE4, (2.2, 3.2)),
+        (mpl.path.Path.CURVE4, (3, 0.05)),
+        (mpl.path.Path.CURVE4, (2.0, -0.5)),
+        (mpl.path.Path.CLOSEPOLY, (1.58, -2.57)),
+    ]
     codes, verts = zip(*path_data)
-    path = mpath.Path(verts, codes)
-    patch = mpatches.PathPatch(path, facecolor='r', alpha=0.5)
+    path = mpl.path.Path(verts, codes)
+    patch = mpl.patches.PathPatch(path, facecolor='r', alpha=0.5)
     ax.add_patch(patch)
 
     # plot control points and connecting lines
@@ -64,7 +61,9 @@ def onconnect():
     ax.axis('equal')
     ax.set_title("Drag Points to Change Path", fontsize=18)
 
+    # enable custom plugin
     mpld3.plugins.connect(fig, LinkedDragPlugin(points[0], line[0], patch))
+    # send plot to frontend
+    ANALYSIS.signals.emit('mpld3canvas', mpld3.fig_to_dict(fig))
 
-    mpld3Drag.signals.emit('mpld3canvas', mpld3.fig_to_dict(fig))
-    mpld3Drag.signals.emit('log', {'action': 'done'})
+    ANALYSIS.signals.emit('log', {'action': 'done'})
