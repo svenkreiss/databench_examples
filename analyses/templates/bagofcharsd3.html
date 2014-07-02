@@ -48,9 +48,9 @@ shown in the `log` view below and the `d3.js` visualization is updated.
 
 <br /><br /><hr />
 <h3>Source Code</h3>
-bagofcharsd3.py: {{ include_src('bagofcharsd3.py', 'python') }}
-bagofcharsd3.html: {{ include_src('templates/bagofcharsd3.html') }}
-d3charcount.js: {{ include_src('static/d3charcount.js', 'js') }}
+bagofcharsd3.py: [[ include_src('bagofcharsd3.py', 'python') ]]
+bagofcharsd3.html: [[ include_src('templates/bagofcharsd3.html') ]]
+d3charcount.js: [[ include_src('static/d3charcount.js', 'js') ]]
 {% endblock %}
 
 
@@ -64,7 +64,7 @@ d3charcount.js: {{ include_src('static/d3charcount.js', 'js') }}
 		databench.signals.emit('sentence', {sentence: $(this).val()});
 	});
 
-	
+
 	var d3viz = d3charcount("#viz");
 
 	databench.signals.on('counts', function(msg) {

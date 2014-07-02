@@ -1,5 +1,7 @@
 """Calculating \\(\\pi\\) the simple way, but with mpld3."""
 
+import databench
+
 import math
 from time import sleep
 from random import random
@@ -7,12 +9,10 @@ from random import random
 import mpld3
 import matplotlib.pyplot as plt
 
-import databench
 
-
-ANALYSIS = databench.Analysis('mpld3pi', __name__)
+ANALYSIS = databench.Analysis('mpld3pi', __name__, __doc__)
 ANALYSIS.thumbnail = 'mpld3pi.png'
-ANALYSIS.description = __doc__
+
 
 @ANALYSIS.signals.on('connect')
 def onconnect():
@@ -38,15 +38,15 @@ def onconnect():
         rnd_draws.append((r1, r2))
 
         # every 100 iterations, update status
-        if (i+1)%100 == 0:
+        if (i+1) % 100 == 0:
             draws = i+1
 
             # debug
             ANALYSIS.signals.emit('log', {
-                'draws':draws,
-                'inside':inside,
-                'r1':r1,
-                'r2':r2
+                'draws': draws,
+                'inside': inside,
+                'r1': r1,
+                'r2': r2
             })
 
             # calculate pi and its uncertainty given the current draws

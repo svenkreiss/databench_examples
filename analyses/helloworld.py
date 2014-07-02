@@ -3,10 +3,11 @@
 import databench
 
 
-helloworld = databench.Analysis('helloworld', __name__)
-helloworld.description = __doc__
+ANALYSIS = databench.Analysis('helloworld', __name__)
+ANALYSIS.description = __doc__
 
-@helloworld.signals.on('connect')
+
+@ANALYSIS.signals.on('connect')
 def onconnect():
-    """Run as soon as a browser connects to this."""    
-    helloworld.signals.emit('status', {'message': 'Hello World'})
+    """Run as soon as a browser connects to this."""
+    ANALYSIS.signals.emit('status', {'message': 'Hello World'})

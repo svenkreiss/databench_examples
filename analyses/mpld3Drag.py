@@ -4,10 +4,10 @@ Based on the heart_path example in the mpld3 gallery.
 """
 
 
+import databench
+
 import mpld3
 import matplotlib as mpl
-
-import databench
 
 
 class LinkedDragPlugin(mpld3.plugins.PluginBase):
@@ -24,9 +24,9 @@ class LinkedDragPlugin(mpld3.plugins.PluginBase):
                       "idpatch": mpld3.utils.get_id(patch)}
 
 
-ANALYSIS = databench.Analysis('mpld3Drag', __name__)
+ANALYSIS = databench.Analysis('mpld3Drag', __name__, __doc__)
 ANALYSIS.thumbnail = 'mpld3Drag.png'
-ANALYSIS.description = __doc__
+
 
 @ANALYSIS.signals.on('connect')
 def onconnect():

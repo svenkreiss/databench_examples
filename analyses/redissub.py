@@ -1,15 +1,15 @@
 """Testing async subscription to redis channel."""
 
+import databench
+
 import gevent
 from analyses.redispub import redis_creator
 from flask import copy_current_request_context
 
-import databench
 
+ANALYSIS = databench.Analysis('redissub', __name__, __doc__)
+ANALYSIS.thumbnail = 'redissub.png'
 
-ANALYSIS = databench.Analysis('redissub', __name__)
-ANALYSIS.description = __doc__
-# ANALYSIS.thumbnail = 'redissub.png'
 
 @ANALYSIS.signals.on('connect')
 def onconnect():
@@ -28,10 +28,9 @@ def onconnect():
         redis_client.subscribe('someStatsProvider')
         for m in redis_client.listen():
             ANALYSIS.signals.emit('log', m)
-            if 'type' in m  and  m['type'] == 'message'  and  'data' in m:
+            if ('type' in m) and (m['type'] == 'message') and ('data' in m):
                 ANALYSIS.signals.emit('status', m['data'])
     greenlet = gevent.Greenlet.spawn(listener)
-
 
     @ANALYSIS.signals.on('disconnect')
     def ondisconnect():

@@ -6,9 +6,9 @@ Don't google bag-of-chars. I just made that up.
 import databench
 
 
-ANALYSIS = databench.Analysis('bagofcharsd3', __name__)
-ANALYSIS.description = __doc__
+ANALYSIS = databench.Analysis('bagofcharsd3', __name__, __doc__)
 ANALYSIS.thumbnail = 'bagofcharsd3.png'
+
 
 @ANALYSIS.signals.on('connect')
 def onconnect():
@@ -16,6 +16,7 @@ def onconnect():
     ANALYSIS.signals.emit('log', {
         'backend': 'started and listening for signals from frontend'
     })
+
 
 @ANALYSIS.signals.on('sentence')
 def onsentence(json):
@@ -26,7 +27,8 @@ def onsentence(json):
 
     counts = {}
     for c in sentence:
-        if ord(c) < ord('a')  or  ord(c) > ord('z'):
+        if ord(c) < ord('a') or \
+           ord(c) > ord('z'):
             continue
         if c not in counts:
             counts[c] = sentence.count(c)

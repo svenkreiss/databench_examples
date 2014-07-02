@@ -21,8 +21,8 @@
 
 <br /><br /><hr />
 <h3>Source Code</h3>
-bagofchars.py: {{ include_src('bagofchars.py', 'python') }}
-bagofchars.html: {{ include_src('templates/bagofchars.html') }}
+bagofchars.py: [[ include_src('bagofchars.py', 'python') ]]
+bagofchars.html: [[ include_src('templates/bagofchars.html') ]]
 {% endblock %}
 
 
@@ -31,7 +31,7 @@ bagofchars.html: {{ include_src('templates/bagofchars.html') }}
 	var databench = Databench('bagofchars');
 	databench.genericElements.log($('#log'));
 
-	$('#sentence').on('submit', function(event) {		
+	$('#sentence').on('submit', function(event) {
 		event.preventDefault();
 		databench.signals.emit('sentence', {
 			sentence: $(this).find("input[type=text]").val()

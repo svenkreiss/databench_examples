@@ -7,9 +7,9 @@ import matplotlib.pyplot as plt
 import databench
 
 
-ANALYSIS = databench.Analysis('mpld3PointLabel', __name__)
+ANALYSIS = databench.Analysis('mpld3PointLabel', __name__, __doc__)
 ANALYSIS.thumbnail = 'mpld3PointLabel.png'
-ANALYSIS.description = __doc__
+
 
 @ANALYSIS.signals.on('connect')
 def onconnect():

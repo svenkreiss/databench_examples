@@ -1,15 +1,15 @@
 """Calculating \\(\\pi\\) the simple way with angular.js interface."""
 
+import databench
+
 import math
 from time import sleep
 from random import random
 
-import databench
 
-
-ANALYSIS = databench.Analysis('angular', __name__)
-ANALYSIS.description = __doc__
+ANALYSIS = databench.Analysis('angular', __name__, __doc__)
 ANALYSIS.thumbnail = 'angular.png'
+
 
 @ANALYSIS.signals.on('connect')
 def onconnect():
@@ -26,11 +26,11 @@ def onconnect():
             inside += 1
 
         # every 100 iterations, update status
-        if (i+1)%100 == 0:
+        if (i+1) % 100 == 0:
             draws = i+1
 
             # debug
-            ANALYSIS.signals.emit('log', {'draws':draws, 'inside':inside})
+            ANALYSIS.signals.emit('log', {'draws': draws, 'inside': inside})
 
             # calculate pi and its uncertainty given the current draws
             p = float(inside)/draws

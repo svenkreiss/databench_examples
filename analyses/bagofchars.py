@@ -1,14 +1,11 @@
-"""Providing "bag-of-chars" statistics.
-
-Don't google bag-of-chars. I just made that up.
-"""
+"""Providing "bag-of-chars" statistics."""
 
 import databench
 
 
-ANALYSIS = databench.Analysis('bagofchars', __name__)
-ANALYSIS.description = __doc__
+ANALYSIS = databench.Analysis('bagofchars', __name__, __doc__)
 ANALYSIS.thumbnail = 'bagofchars.png'
+
 
 @ANALYSIS.signals.on('connect')
 def onconnect():
@@ -17,6 +14,7 @@ def onconnect():
         'backend': 'started and listening for signals from frontend'
     })
 
+
 @ANALYSIS.signals.on('sentence')
 def onsentence(json):
     """Takes a sentence and counts the characters."""
@@ -24,7 +22,8 @@ def onsentence(json):
 
     counts = {}
     for c in sentence:
-        if ord(c) < ord('a')  or  ord(c) > ord('z'):
+        if ord(c) < ord('a') or \
+           ord(c) > ord('z'):
             continue
         if c not in counts:
             counts[c] = sentence.count(c)

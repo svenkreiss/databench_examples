@@ -15,7 +15,7 @@
 <br /><br />
 
 <div ng-app="angularApp" ng-strict-di>
-<div ng-controller="navCtrl"> 
+<div ng-controller="navCtrl">
     <ul class="nav nav-pills">
         <li ng-class="{active: navCheck('home')}"><a href='#/home'>Home</a></li>
         <li ng-class="{active: navCheck('simplepi')}"><a href='#/simplepi'>Simplepi</a></li>
@@ -31,7 +31,7 @@ This page shows two of `angular.js` most popular applications. First, you get th
 
 The `simplepi` example that is also included here (in the other tabs) makes use of angular's data-binding. When a `status` signal is received from the Databench backend, the callback function does not use `jQuery` anymore to modify the DOM, but simply assigns the new estimate of \\(\\pi\\) to a variable of an angular controller, say `pi`. In the Databench frontend, the `<span id="pi">0.0</span>` is replaced with an angular variable placeholder <code ng-non-bindable>[[pi]]</code>.
 
-When using `jinja2` templates and `angular.js` together, the notation for variables `{{ '{{myVar}}' }}` conflicts. Therefore, `angular.js` is reconfigured to use <code ng-non-bindable>[[myVar]]</code> instead.
+Note that `jinja2` is configured in a non-standard way `[[ '[[myVar]]' ]]` for variable delimiters. Therefore, `angular.js` does not conflict and <code ng-non-bindable>{{myVar}}</code> can be used. This changed in version 0.2.15.
 
 
 ### Live Demo of Data Binding
@@ -42,7 +42,7 @@ Here is the standard code and right below is the live demo.
 <div ng-non-bindable>
 {% highlight 'html' %}
 <input type="text" ng-model="chapter">
-<p>What you just typed: <code>[[chapter]]</code></p>
+<p>What you just typed: <code>{{chapter}}</code></p>
 {% endhighlight %}
 </div>
 
@@ -52,7 +52,7 @@ Here is the standard code and right below is the live demo.
                        autocomplete="off" autofocus ng-model="chapter" />
             </div>
             <div class="col-md-6">
-                <p>What you just typed: <code>[[chapter]]</code></p>
+                <p>What you just typed: <code>{{chapter}}</code></p>
             </div>
         </div>
     </div>
@@ -60,7 +60,7 @@ Here is the standard code and right below is the live demo.
     <div ng-show="navCheck('simplepi')" ng-controller="simplepi">
         <h3>
             Simplepi
-            <small><i>π = [[pi]]</i></small>
+            <small><i>π = {{pi}}</i></small>
         </h3>
 
         <p>This little demo uses two random numbers \(r_1\) and \(r_2\) and
@@ -75,8 +75,8 @@ Here is the standard code and right below is the live demo.
 
     <div ng-show="navCheck('sourcecode')">
         <h3>Source Code</h3>
-        angular.py: {{ include_src('angular.py', 'python') }}
-        angular.html: {{ include_src('templates/angular.html') }}
+        angular.py: [[ include_src('angular.py', 'python') ]]
+        angular.html: [[ include_src('templates/angular.html') ]]
     </div>
 </div>
 </div>
@@ -90,15 +90,12 @@ Here is the standard code and right below is the live demo.
     databench.genericElements.log($('#log'));
 
 
-    angular.module('angularApp', [], function ($interpolateProvider) {
-        $interpolateProvider.startSymbol('[[');
-        $interpolateProvider.endSymbol(']]');
-    })
+    angular.module('angularApp', [])
     .controller('navCtrl', ['$scope', '$location', function ($scope, $location) {
         $scope.navCheck = function (page) {
             var currentRoute = $location.path().substring(1) || 'home';
             return page === currentRoute;
-        };        
+        };
     }])
     .controller('testingAngular', ['$scope', function($scope) {
         $scope.chapter = 'modify me';

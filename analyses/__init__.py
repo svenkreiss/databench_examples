@@ -6,17 +6,17 @@ code is available on GitHub:
 User guide and API:
 [svenkreiss.com/databench/](http://www.svenkreiss.com/databench/)"""
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 
-import analyses.helloworld
-import analyses.simplepi
-import analyses.slowpi
-import analyses.mpld3pi
-import analyses.mpld3PointLabel
-import analyses.mpld3Drag
-import analyses.bagofchars
-import analyses.bagofcharsd3
-import analyses.angular
-import analyses.redispub
-import analyses.redissub
+import helloworld
+import simplepi
+import slowpi
+import mpld3pi
+import mpld3PointLabel
+import mpld3Drag
+import bagofchars
+import bagofcharsd3
+import angular
+import redispub
+import redissub
