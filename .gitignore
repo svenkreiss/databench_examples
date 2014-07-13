@@ -54,3 +54,4 @@ docs/_build/
 
 venv
 .DS_Store
+.elasticbeanstalk/
