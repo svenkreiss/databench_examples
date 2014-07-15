@@ -1,6 +1,6 @@
 # Databench Examples
 
-> Example analyses for [Databench](https://github.com/svenkreiss/databench). Live demos of some of them are at [databench-examples-viewer.svenkreiss.com](http://databench-examples-viewer.svenkreiss.com).
+> Example analyses for [Databench](https://github.com/svenkreiss/databench). Live demos of some of them are at [databench-examples-viewer.svenkreiss.com](http://databench-examples-viewer.svenkreiss.com) and [Databench documentation here](http://www.svenkreiss.com/databench/).
 
 [![Build Status](https://travis-ci.org/svenkreiss/databench_examples.png?branch=master)](https://travis-ci.org/svenkreiss/databench_examples)
 
@@ -23,8 +23,3 @@ pip install -r requirements.txt
 ![mpld3pi](doc/images/mpld3pi_demo.png)
 ![mpld3pi](doc/images/mpld3_PointLabel.png)
 ![mpld3pi](doc/images/mpld3_heart_path.png)
-
-
-## More Documentation
-
-Please have a look at the first blog post describing analyses with Databench: [www.svenkreiss.com/blog/databench-initial/](www.svenkreiss.com/blog/databench-initial/)
