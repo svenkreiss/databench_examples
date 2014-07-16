@@ -1,6 +1,9 @@
 """Modifies nginx configuration file on AWS Elastic Beanstalk to support
 WebSocket connections."""
 
+__author__ = "Sven Kreiss <me@svenkreiss.com>"
+__version__ = "0.0.1"
+
 import os
 
 
@@ -39,14 +42,14 @@ def add_string_after_block(block='location /', string=NGINX_CONFIG):
         if block in line:
             inside_block = True
         if inside_block and '}' in line:
-            new_f += string.split('\n')
+            new_f += [l+'\n' for l in string.split('\n')]
 
     print new_f
 
     # overwrite config file
     f = open(NGINX_CONF_FILE, 'w')
     for line in new_f:
-        f.write(line+'\n')
+        f.write(line)
     f.close()
 
 
