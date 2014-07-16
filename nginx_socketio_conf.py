@@ -2,7 +2,7 @@
 WebSocket connections."""
 
 __author__ = "Sven Kreiss <me@svenkreiss.com>"
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 
 import os
 
@@ -43,6 +43,7 @@ def add_string_after_block(block='location /', string=NGINX_CONFIG):
             inside_block = True
         if inside_block and '}' in line:
             new_f += [l+'\n' for l in string.split('\n')]
+            inside_block = False
 
     print new_f
 
