@@ -56,7 +56,7 @@ def add_string_after_block(block='location /', string=NGINX_CONFIG):
 
 
 def restart_nginx():
-    os.system("sudo service nginx restart")
+    os.system("service nginx restart")
 
 
 def main():
