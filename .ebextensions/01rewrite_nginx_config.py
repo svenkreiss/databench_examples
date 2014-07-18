@@ -1,3 +1,4 @@
+#! /usr/bin/python
 """Modifies nginx configuration file on AWS Elastic Beanstalk to support
 WebSocket connections."""
 
