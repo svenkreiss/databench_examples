@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+
+{% block title %}Flowers{% endblock %}
+
+
+{% block content %}
+{% filter markdown %}
+# Abstract Flowers
+
+There are various flower generators on the web. Most of them are prettier than this one here. This is a demo showing Databench's interactivity. The values of the sliders are propagated to the Python backend and are used to adopt the generation in real-time.
+
+The real value is when using this example as a template to look at a stream of data you have in-house. Maybe the data is coming over RabbitMQ or Redis channels and you want to look at that stream in real-time and still be able to control your filters on the stream.
+{% endfilter %}
+
+<svg id="canvas" width="800" height="300" />
+
+<hr />
+<div class="row">
+    <div class="col-md-3">
+        <label for="number_of_flowers">number of flowers</label>
+        <input type="range" name="number_of_flowers" min="1" max="20" step="1" value="3" />
+    </div>
+    <div class="col-md-3">
+        <label for="branch_angle">branching angle</label>
+        <input type="range" name="branch_angle" min="1" max="90" step="1" value="10" />
+    </div>
+    <div class="col-md-3">
+        <label for="init_size">trunk thickness</label>
+        <input type="range" name="init_size" min="0.005" max="0.100" step="0.005" value="0.03" />
+    </div>
+    <div class="col-md-3">
+        <label for="init_length">trunk length</label>
+        <input type="range" name="init_length" min="0.01" max="0.2" step="0.01" value="0.05" />
+    </div>
+</div>
+{% endblock %}
+
+
+{% block footerscripts %}
+<script>
+	var databench = Databench();
+
+    var flowers = Flowers('canvas');
+    databench.on('update', function(json) {
+        flowers(json);
+    });
+
+
+    // define how to draw flowers with d3.js
+    function Flowers(id) {
+        var svg = d3.select('#'+id),
+            height = parseFloat(svg.attr('height')),
+            width = parseFloat(svg.attr('width'));
+
+        var line = d3.svg.line()
+            .x(function(d) {return width*d[0];})
+            .y(function(d) {return height*(1.0-d[1]);});
+
+        return function(json) {
+            lines = svg.selectAll(".line").data(json, function(d) { return d[0]; });
+
+            lines.enter()
+                .append("svg:line")
+                .attr("class", "line")
+                .attr("x1", function(d) { return width*d[1]; })
+                .attr("y1", function(d) { return height*(1.0-d[2]); })
+                .attr("x2", function(d) { return width*d[3]; })
+                .attr("y2", function(d) { return height*(1.0-d[4]); })
+                .style("stroke", function(d) { return d3.hsl(100,d[6],d[6]).toString(); })
+                .style("stroke-width", 0.0);
+
+            lines.transition()
+                .duration(250)
+                .style("stroke-width", function(d,i) { return width*d[5]; });
+
+            lines.exit()
+                .remove();
+
+        };
+    }
+</script>
+{% endblock %}

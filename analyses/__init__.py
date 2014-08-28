@@ -22,3 +22,4 @@ import helloworld.analysis
 # import angular.analysis
 # import redispub.analysis
 # import redissub.analysis
+import flowers.analysis
