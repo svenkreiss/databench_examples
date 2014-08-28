@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head><title>Hello World</title></head>
+<body>
+    <p id="output"></p>
+
+    <script src="/static/jquery/jquery-2.1.1.min.js"></script>
+    <script src="/static/databench.js"></script>
+    <script>
+        var databench = Databench();
+        databench.on('status', function(json) {
+            document.getElementById('output').innerHTML =
+                json.message;
+        });
+    </script>
+</body>
+</html>
