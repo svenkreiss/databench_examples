@@ -134,6 +134,10 @@ class Analysis(databench.Analysis):
 
     def init_flowers(self):
         while len(self.flowers) < self.number_of_flowers:
+            new_x = 0.1+0.8*random.random()
+            if self.flowers:
+                while min([abs(f['x']-new_x) for f in self.flowers]) < 0.03:
+                    new_x = 0.1+0.8*random.random()
             self.flowers.append({
                 'x': 0.1+0.8*random.random(),
                 'trunk': Branch(config=self.config)
@@ -167,7 +171,7 @@ class Analysis(databench.Analysis):
                 f['trunk'].generate()
 
             self.emit('update', self.output())
-            time.sleep(0.1)
+            time.sleep(0.15)
 
     """Adjust parameters."""
 
