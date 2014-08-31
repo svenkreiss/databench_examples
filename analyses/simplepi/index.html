@@ -19,17 +19,16 @@ the generated point is inside the first quadrant of the unit circle.</p>
 
 <br /><br /><hr />
 <h3>Source Code</h3>
-simplepi.py: [[ include_src('simplepi.py', 'python') ]]
-simplepi.html: [[ include_src('templates/simplepi.html') ]]
+analysis.py: [[ include_src('simplepi/analysis.py', 'python') ]]
+index.html: [[ include_src('simplepi/index.html') ]]
 {% endblock %}
 
 
 {% block footerscripts %}
 <script>
-	var databench = Databench('simplepi');
-	databench.genericElements.log($('#log'));
+	var databench = Databench();
 
-	databench.signals.on('status', function(msg) {
+	databench.on('status', function(msg) {
 		$('#pi').text(msg['pi-estimate'].toFixed(3)+' ± '+msg['pi-uncertainty'].toFixed(3));
 	});
 </script>

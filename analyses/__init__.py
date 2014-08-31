@@ -11,8 +11,8 @@ Databench user guide and API:
 __version__ = "0.3.0"
 
 
-import helloworld.analysis
-# import simplepi.analysis
+import flowers.analysis
+import simplepi.analysis
 # import slowpi.analysis
 # import mpld3pi.analysis
 # import mpld3PointLabel.anslysis
@@ -22,4 +22,4 @@ import helloworld.analysis
 # import angular.analysis
 # import redispub.analysis
 # import redissub.analysis
-import flowers.analysis
+import helloworld.analysis
