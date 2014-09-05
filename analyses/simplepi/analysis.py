@@ -3,8 +3,8 @@
 import databench
 
 import math
-from time import sleep
-from random import random
+import time
+import random
 
 
 class Analysis(databench.Analysis):
@@ -14,11 +14,11 @@ class Analysis(databench.Analysis):
 
         inside = 0
         for i in xrange(10000):
-            sleep(0.001)
+            time.sleep(0.001)
 
             # generate points and check whether they are inside the unit circle
-            r1 = random()
-            r2 = random()
+            r1 = random.random()
+            r2 = random.random()
             if r1*r1 + r2*r2 < 1.0:
                 inside += 1
 

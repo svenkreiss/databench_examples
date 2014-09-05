@@ -13,7 +13,7 @@ __version__ = "0.3.0"
 
 import flowers.analysis
 import mpld3pi.analysis
-# import slowpi.analysis
+import fastpi.analysis
 import simplepi.analysis
 # import mpld3PointLabel.anslysis
 # import mpld3Drag.analysis
