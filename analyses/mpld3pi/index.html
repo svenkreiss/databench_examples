@@ -24,18 +24,16 @@ in <i>d3.js</i> using <i>mpld3</i>.</p>
 
 <br /><br /><hr />
 <h3>Source Code</h3>
-mpld3pi.py: [[ include_src('mpld3pi.py', 'python') ]]
-mpld3pi.html: [[ include_src('templates/mpld3pi.html') ]]
+analysis.py: [[ include_src('mpld3pi/analysis.py', 'python') ]]
+index.html: [[ include_src('mpld3pi/index.html') ]]
 {% endblock %}
 
 
 {% block footerscripts %}
 <script>
-	var databench = Databench('mpld3pi');
-	databench.genericElements.log($('#log'));
-	databench.genericElements.mpld3canvas($("#mpld3canvas"));
+	var databench = Databench();
 
-	databench.signals.on('status', function(msg) {
+	databench.on('status', function(msg) {
 		$('#pi').text(msg['pi-estimate'].toFixed(3)+' ± '+msg['pi-uncertainty'].toFixed(3));
 	});
 </script>
