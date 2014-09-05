@@ -12,9 +12,10 @@ from rq import Queue
 
 
 def inside(job, draws=100):
+    """The function that will be run on the workers."""
     inside = 0
     for i in xrange(draws):
-        # time.sleep(0.001)
+        time.sleep(0.001)
         r1 = random.random()
         r2 = random.random()
         if r1*r1 + r2*r2 < 1.0:
@@ -76,7 +77,7 @@ class Analysis(databench.Analysis):
         self.emit('log', {'action': 'done'})
 
     def on_disconnect(self):
-        # terminating all workers
+        # terminate all workers
         self.on_workers(0)
 
 
