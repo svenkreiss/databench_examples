@@ -32,20 +32,19 @@ You need something that publishes to the channel. The `redispub` demo does just 
 
 <br /><br /><hr />
 <h3>Source Code</h3>
-redissub.py: [[ include_src('redissub.py', 'python') ]]
-redissub.html: [[ include_src('templates/redissub.html') ]]
+analysis.py: [[ include_src('redissub/analysis.py', 'python') ]]
+index.html: [[ include_src('redissub/index.html') ]]
 {% endblock %}
 
 
 {% block footerscripts %}
 <script>
-	var databench = Databench('redissub');
-	databench.genericElements.log($('#log'));
+	var databench = Databench();
 
 
 	// using d3.js to drive a list of html elements
 	var d3List = function(selector) {
-		var _selector = d3.select(selector);
+		var _selector = d3.select('#'+selector);
 
 		// for layouting with Twitter bootstrap, make this div a row
 		_selector.attr("class", "row");
@@ -77,13 +76,13 @@ redissub.html: [[ include_src('templates/redissub.html') ]]
 		return update;
 	}
 	// new use this d3 element
-	var recValuesList = d3List("#recValues");
+	var recValuesList = d3List("recValues");
 
 
 	// listen for data from backend
 	var inputData = {};
 	var lastUpdate = {};
-	databench.signals.on('status', function(json) {
+	databench.on('status', function(json) {
 		var srcName = json.split('=')[0].trim();
 		inputData[ srcName ] = json.split('=')[1];
 		lastUpdate[ srcName ] = Date.now();

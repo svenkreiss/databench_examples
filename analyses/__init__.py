@@ -17,9 +17,8 @@ import fastpi.analysis
 import simplepi.analysis
 import angular.analysis
 import bagofcharsd3.analysis
-# import bagofchars.analysis
 import mpld3Drag.analysis
 # import mpld3PointLabel.anslysis
-# import redispub.analysis
-# import redissub.analysis
+import redispub.analysis
+import redissub.analysis
 import helloworld.analysis

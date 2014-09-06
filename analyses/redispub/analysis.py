@@ -7,10 +7,6 @@ import redis
 import urlparse
 
 
-ANALYSIS = databench.Analysis('redispub', __name__, __doc__)
-ANALYSIS.thumbnail = 'redispub.png'
-
-
 def redis_creator():
     """Checks enironment for certatin redis providers and creates
     a redis client."""
@@ -26,16 +22,19 @@ def redis_creator():
     return r
 
 
-@ANALYSIS.signals.on('connect')
-def onconnect():
-    """Run as soon as a browser connects to this."""
-    ANALYSIS.signals.emit('log', {'action': 'backend started'})
+class Analysis(databench.Analysis):
 
-    redis_client = redis_creator()
+    def __init__(self):
+        self.redis_client = redis_creator()
 
-    @ANALYSIS.signals.on('stats')
-    def onstats(msg):
+    def on_connect(self):
+        """Run as soon as a browser connects to this."""
+        self.emit('log', {'action': 'backend started'})
+
+    def on_stats(self, msg):
         """Listens for new messages from frontend and pushes to
         redis channel."""
+        self.redis_client.publish('someStatsProvider', msg)
 
-        redis_client.publish('someStatsProvider', msg)
+
+META = databench.Meta('redispub', __name__, __doc__, Analysis)
