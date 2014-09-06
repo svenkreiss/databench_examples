@@ -22,8 +22,8 @@ the Python plugin class directly into the `<script>`-tag on the frontend.
 
 <br /><br /><hr />
 <h3>Source Code</h3>
-mpld3Drag.py: [[ include_src('mpld3Drag.py', 'python') ]]
-mpld3Drag.html: [[ include_src('templates/mpld3Drag.html') ]]
+analysis.py: [[ include_src('mpld3Drag/analysis.py', 'python') ]]
+index.html: [[ include_src('mpld3Drag/index.html') ]]
 {% endblock %}
 
 
@@ -84,8 +84,6 @@ mpld3Drag.html: [[ include_src('templates/mpld3Drag.html') ]]
   mpld3.register_plugin("drag", DragPlugin);
 
 
-  var databench = Databench('mpld3Drag');
-  databench.genericElements.log($('#log'));
-  databench.genericElements.mpld3canvas($("#mpld3canvas"));
+  var databench = Databench();
 </script>
 {% endblock %}

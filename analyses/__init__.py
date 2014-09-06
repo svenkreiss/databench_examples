@@ -15,11 +15,11 @@ import flowers.analysis
 import mpld3pi.analysis
 import fastpi.analysis
 import simplepi.analysis
-# import mpld3PointLabel.anslysis
-# import mpld3Drag.analysis
-# import bagofchars.analysis
-import bagofcharsd3.analysis
 import angular.analysis
+import bagofcharsd3.analysis
+# import bagofchars.analysis
+import mpld3Drag.analysis
+# import mpld3PointLabel.anslysis
 # import redispub.analysis
 # import redissub.analysis
 import helloworld.analysis
