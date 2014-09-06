@@ -8,16 +8,16 @@
 {% block head %}
 <style>
 p{
-	max-width: 60em;
+    max-width: 60em;
 }
 path.slice{
-	stroke-width: 2px;
+    stroke-width: 2px;
 }
 polyline{
-	opacity: .3;
-	stroke: black;
-	stroke-width: 2px;
-	fill: none;
+    opacity: .3;
+    stroke: black;
+    stroke-width: 2px;
+    fill: none;
 }
 </style>
 {% endblock %}
@@ -48,34 +48,33 @@ shown in the `log` view below and the `d3.js` visualization is updated.
 
 <br /><br /><hr />
 <h3>Source Code</h3>
-bagofcharsd3.py: [[ include_src('bagofcharsd3.py', 'python') ]]
-bagofcharsd3.html: [[ include_src('templates/bagofcharsd3.html') ]]
-d3charcount.js: [[ include_src('static/d3charcount.js', 'js') ]]
+analysis.py: [[ include_src('bagofcharsd3/analysis.py', 'python') ]]
+index.html: [[ include_src('bagofcharsd3/index.html') ]]
+d3charcount.js: [[ include_src('bagofcharsd3/d3charcount.js', 'js') ]]
 {% endblock %}
 
 
 {% block footerscripts %}
-<script src="/bagofcharsd3/static/d3charcount.js"></script>
+<script src="/bagofcharsd3/static/d3charcount.js?version=1"></script>
 <script>
-	var databench = Databench('bagofcharsd3');
-	databench.genericElements.log($('#log'));
+    var databench = Databench();
 
-	$('#sentence').on('keyup', function(event) {
-		databench.signals.emit('sentence', {sentence: $(this).val()});
-	});
+    $('#sentence').on('keyup', function(event) {
+        databench.emit('sentence', {sentence: $(this).val()});
+    });
 
 
-	var d3viz = d3charcount("#viz");
+    var d3viz = d3charcount('viz');
 
-	databench.signals.on('counts', function(msg) {
-		console.log(msg);
-		var reformattedData = Object.keys(msg).map(function(letter) {
-			return {label:letter, value:msg[letter]};
-		});
-		console.log(reformattedData);
-		if (reformattedData.length > 0) d3viz(reformattedData);
-	});
+    databench.on('counts', function(msg) {
+        console.log(msg);
+        var reformattedData = Object.keys(msg).map(function(letter) {
+            return {label:letter, value:msg[letter]};
+        });
+        console.log(reformattedData);
+        if (reformattedData.length > 0) d3viz(reformattedData);
+    });
 
-	databench.signals.emit('sentence', {sentence:'type a phrase'});
+    databench.emit('sentence', {sentence:'type a phrase'});
 </script>
 {% endblock %}
