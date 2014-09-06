@@ -13,9 +13,6 @@
 Testing the PointLabelTooltip plugin of [mpld3](http://mpld3.github.io/).
 The plot is created with [matplotlib](http://matplotlib.org/) and rendered
 in [d3.js](http://d3js.org/) using [mpld3](http://mpld3.github.io/).
-
-If you look at the source code for this template, you will also see that
-this documentation is a block of `markdown` embedded in the HTML.
 {% endfilter %}
 
 <div id="mpld3canvas"></div>
@@ -23,15 +20,13 @@ this documentation is a block of `markdown` embedded in the HTML.
 
 <br /><br /><hr />
 <h3>Source Code</h3>
-mpld3PointLabel.py: [[ include_src('mpld3PointLabel.py', 'python') ]]
-mpld3PointLabel.html: [[ include_src('templates/mpld3PointLabel.html') ]]
+analysis.py: [[ include_src('mpld3PointLabel/analysis.py', 'python') ]]
+index.html: [[ include_src('mpld3PointLabel/index.html') ]]
 {% endblock %}
 
 
 {% block footerscripts %}
 <script>
-	var databench = Databench('mpld3PointLabel');
-	databench.genericElements.log($('#log'));
-	databench.genericElements.mpld3canvas($("#mpld3canvas"));
+    var databench = Databench();
 </script>
 {% endblock %}
