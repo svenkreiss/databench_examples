@@ -19,7 +19,7 @@ import simplepi.analysis
 # import mpld3Drag.analysis
 # import bagofchars.analysis
 import bagofcharsd3.analysis
-# import angular.analysis
+import angular.analysis
 # import redispub.analysis
 # import redissub.analysis
 import helloworld.analysis

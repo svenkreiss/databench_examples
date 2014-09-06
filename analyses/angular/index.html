@@ -75,8 +75,8 @@ Here is the standard code and right below is the live demo.
 
     <div ng-show="navCheck('sourcecode')">
         <h3>Source Code</h3>
-        angular.py: [[ include_src('angular.py', 'python') ]]
-        angular.html: [[ include_src('templates/angular.html') ]]
+        analysis.py: [[ include_src('angular/analysis.py', 'python') ]]
+        index.html: [[ include_src('angular/index.html') ]]
     </div>
 </div>
 </div>
@@ -86,9 +86,7 @@ Here is the standard code and right below is the live demo.
 {% block footerscripts %}
 <script src="/angular/static/angular_1.2.15.min.js"></script>
 <script>
-    var databench = Databench('angular');
-    databench.genericElements.log($('#log'));
-
+    var databench = Databench();
 
     angular.module('angularApp', [])
     .controller('navCtrl', ['$scope', '$location', function ($scope, $location) {
@@ -103,7 +101,7 @@ Here is the standard code and right below is the live demo.
     .controller('simplepi', ['$scope', function($scope) {
         $scope.pi = '0.0 ± 1.0';
 
-        databench.signals.on('status', function(msg) {
+        databench.on('status', function(msg) {
             $scope.pi = msg['pi-estimate'].toFixed(3)+' ± '+msg['pi-uncertainty'].toFixed(3);
             $scope.$apply();
         });
