@@ -15,7 +15,6 @@ class Analysis(databench.Analysis):
         redis_client = redis_creator().pubsub()
         redis_client.subscribe('someStatsProvider')
         for m in redis_client.listen():
-            self.emit('log', m)
             if ('type' in m) and (m['type'] == 'message') and ('data' in m):
                 self.emit('status', m['data'])
 
