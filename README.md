@@ -1,8 +1,8 @@
 # Databench Examples
 
-> Example analyses for [Databench](https://github.com/svenkreiss/databench). Live demos of some of them are at [databench-examples-viewer.svenkreiss.com](http://databench-examples-viewer.svenkreiss.com) and [Databench documentation here](http://www.svenkreiss.com/databench/).
+> Example analyses for [Databench](https://github.com/svenkreiss/databench). Live demos of some of them are at [databench-examples.svenkreiss.com](http://databench-examples.svenkreiss.com) and [Databench documentation here](http://www.svenkreiss.com/databench/).
 
-[![Build Status](https://travis-ci.org/svenkreiss/databench_examples.png?branch=master)](https://travis-ci.org/svenkreiss/databench_examples)
+[![Build Status](https://travis-ci.org/svenkreiss/databench_examples.png?branch=dev-0.3)](https://travis-ci.org/svenkreiss/databench_examples)
 
 
 ## Environment and Install

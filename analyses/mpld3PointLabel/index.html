@@ -1,0 +1,32 @@
+{% from 'macros.html' import include_src %}
+{% extends "base.html" %}
+
+
+{% block title %}mpld3PointLabel{% endblock %}
+
+
+{% block content %}
+
+{% filter markdown %}
+# mpld3PointLabel
+
+Testing the PointLabelTooltip plugin of [mpld3](http://mpld3.github.io/).
+The plot is created with [matplotlib](http://matplotlib.org/) and rendered
+in [d3.js](http://d3js.org/) using [mpld3](http://mpld3.github.io/).
+{% endfilter %}
+
+<div id="mpld3canvas"></div>
+<pre id="log"></pre>
+
+<br /><br /><hr />
+<h3>Source Code</h3>
+analysis.py: [[ include_src('mpld3PointLabel/analysis.py', 'python') ]]
+index.html: [[ include_src('mpld3PointLabel/index.html') ]]
+{% endblock %}
+
+
+{% block footerscripts %}
+<script>
+    var databench = Databench();
+</script>
+{% endblock %}

@@ -1,0 +1,80 @@
+{% from 'macros.html' import include_src %}
+{% extends "base.html" %}
+
+
+{% block title %}bagofcharsd3{% endblock %}
+
+
+{% block head %}
+<style>
+p{
+    max-width: 60em;
+}
+path.slice{
+    stroke-width: 2px;
+}
+polyline{
+    opacity: .3;
+    stroke: black;
+    stroke-width: 2px;
+    fill: none;
+}
+</style>
+{% endblock %}
+
+
+{% block content %}
+<h1>Bag of Chars</h1>
+
+<input type="text" class="form-control" id="sentence"
+       placeholder="type a phrase"
+       autocomplete="off" autofocus />
+
+<br />
+<div id="viz" style="height: 300px; width: 100%;"></div>
+
+{% filter markdown %}
+### Documentation
+
+This demo shows the interaction between a frontend input field, a `Python`
+backend that does a trivial analysis and a `d3.js` visualization of the
+analysis. So when you change the phrase, the frontend sends a message to the
+backend with the new input, which replies with a simple dictionary that is also
+shown in the `log` view below and the `d3.js` visualization is updated.
+{% endfilter %}
+
+<h3>Log</h3>
+<pre id="log"></pre>
+
+<br /><br /><hr />
+<h3>Source Code</h3>
+analysis.py: [[ include_src('bagofcharsd3/analysis.py', 'python') ]]
+index.html: [[ include_src('bagofcharsd3/index.html') ]]
+d3charcount.js: [[ include_src('bagofcharsd3/d3charcount.js', 'js') ]]
+{% endblock %}
+
+
+{% block footerscripts %}
+<script src="/bagofcharsd3/static/d3charcount.js?version=1"></script>
+<script>
+    var databench = Databench();
+
+    $('#sentence').on('keyup', function(event) {
+        databench.emit('sentence', {sentence: $(this).val()});
+    });
+
+
+    var d3viz = d3charcount('viz');
+
+    databench.on('counts', function(msg) {
+        console.log(msg);
+        var reformattedData = Object.keys(msg).map(function(letter) {
+            return {label:letter, value:msg[letter]};
+        });
+        console.log(reformattedData);
+        if (reformattedData.length > 0) d3viz(reformattedData);
+    });
+
+    databench.emit('sentence', {sentence:'type a phrase'});
+</script>
+{% endblock %}
