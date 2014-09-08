@@ -13,7 +13,7 @@ Databench Examples
 Environment and Install
 -----------------------
 
-Setup your environment and install dependencies in the current directory with
+Setup your environment and install dependencies in the current directory with:
 
     git clone https://github.com/svenkreiss/databench_examples.git .
 
