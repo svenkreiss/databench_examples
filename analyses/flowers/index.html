@@ -34,7 +34,7 @@
 
 {% block footerscripts %}
 <script>
-	var databench = Databench();
+    var databench = Databench();
 
     var flowers = Flowers('canvas');
     databench.on('update', function(json) {
@@ -47,10 +47,6 @@
         var svg = d3.select('#'+id),
             height = parseFloat(svg.attr('height')),
             width = parseFloat(svg.attr('width'));
-
-        var line = d3.svg.line()
-            .x(function(d) {return width*d[0];})
-            .y(function(d) {return height*(1.0-d[1]);});
 
         return function(json) {
             lines = svg.selectAll(".line").data(json, function(d) { return d[0]; });
