@@ -192,3 +192,4 @@ class Analysis(databench.Analysis):
 
 
 META = databench.Meta('flowers', __name__, __doc__, Analysis)
+META.src_url = 'https://github.com/svenkreiss/databench_examples/tree/master/analyses/flowers'
