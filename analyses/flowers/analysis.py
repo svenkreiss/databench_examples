@@ -1,4 +1,4 @@
-"""Generate flowers. Generation can be adjusted while the generation is
+"""Generate flowers. Parameters can be adjusted while the generation is
 running."""
 
 import databench
