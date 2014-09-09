@@ -1,4 +1,4 @@
-{% from 'macros.html' import include_src %}
+{% from 'macros.html' import include_src, include_md %}
 {% extends "base.html" %}
 
 
@@ -10,22 +10,11 @@
     mpld3pi
     <small><i>π = <span id="pi">0.0 ± 1.0</span></i></small>
 </h1>
+[[ include_md('mpld3pi/README.md') ]]
 
-<p>This little demo uses two random numbers \(r_1\) and \(r_2\) and
-then does a comparison $$r_1^2 + r_2^2 &le; 1.0$$ to figure out whether
-the generated point is inside the first quadrant of the unit circle.</p>
-
-<p>Below are histograms created with <i>matplotlib</i> and rendered
-in <i>d3.js</i> using <i>mpld3</i>.</p>
-
+<br /><br />
 <div id="mpld3canvas"></div>
-
 <pre id="log"></pre>
-
-<br /><br /><hr />
-<h3>Source Code</h3>
-analysis.py: [[ include_src('mpld3pi/analysis.py', 'python') ]]
-index.html: [[ include_src('mpld3pi/index.html') ]]
 {% endblock %}
 
 
