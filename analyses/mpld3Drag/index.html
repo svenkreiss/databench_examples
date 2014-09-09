@@ -1,4 +1,4 @@
-{% from 'macros.html' import include_src %}
+{% from 'macros.html' import include_src, include_md %}
 {% extends "base.html" %}
 
 
@@ -6,24 +6,9 @@
 
 
 {% block content %}
-{% filter markdown %}
-# mpld3Drag
-
-Testing custom plugins for mpld3. The plot is created with `matplotlib` and
-rendered in `d3.js` using `mpld3`. This is based on
-[http://mpld3.github.io/examples/heart_path.html](http://mpld3.github.io/examples/heart_path.html).
-The only difference is that the JavaScript code is moved from the string in
-the Python plugin class directly into the `<script>`-tag on the frontend.
-{% endfilter %}
-
+[[ include_md('mpld3Drag/README.md') ]]
 <div id="mpld3canvas"></div>
-
 <pre id="log"></pre>
-
-<br /><br /><hr />
-<h3>Source Code</h3>
-analysis.py: [[ include_src('mpld3Drag/analysis.py', 'python') ]]
-index.html: [[ include_src('mpld3Drag/index.html') ]]
 {% endblock %}
 
 
