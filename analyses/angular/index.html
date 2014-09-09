@@ -1,4 +1,4 @@
-{% from 'macros.html' import include_src %}
+{% from 'macros.html' import include_src, include_md %}
 {% extends "base.html" %}
 
 
@@ -6,11 +6,7 @@
 
 
 {% block content %}
-{% filter markdown %}
-# Angular.js Demo
-
-[angular.js](https://angularjs.org/) is a popular MVW (Model-View-Whatever) framework. On the [angular.js](https://angularjs.org/) front page, scroll down to __The Basics__ to see an overview of `angular.js` features.
-{% endfilter %}
+[[ include_md('angular/README.md') ]]
 
 <br /><br />
 
