@@ -1,4 +1,4 @@
-{% from 'macros.html' import include_src %}
+{% from 'macros.html' import include_src, include_md %}
 {% extends "base.html" %}
 
 
@@ -33,24 +33,10 @@ polyline{
 <br />
 <div id="viz" style="height: 300px; width: 100%;"></div>
 
-{% filter markdown %}
-### Documentation
-
-This demo shows the interaction between a frontend input field, a `Python`
-backend that does a trivial analysis and a `d3.js` visualization of the
-analysis. So when you change the phrase, the frontend sends a message to the
-backend with the new input, which replies with a simple dictionary that is also
-shown in the `log` view below and the `d3.js` visualization is updated.
-{% endfilter %}
+[[ include_md('bagofcharsd3/README.md') ]]
 
 <h3>Log</h3>
 <pre id="log"></pre>
-
-<br /><br /><hr />
-<h3>Source Code</h3>
-analysis.py: [[ include_src('bagofcharsd3/analysis.py', 'python') ]]
-index.html: [[ include_src('bagofcharsd3/index.html') ]]
-d3charcount.js: [[ include_src('bagofcharsd3/d3charcount.js', 'js') ]]
 {% endblock %}
 
 
