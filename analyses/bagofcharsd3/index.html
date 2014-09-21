@@ -7,13 +7,10 @@
 
 {% block head %}
 <style>
-p{
-    max-width: 60em;
-}
-path.slice{
+path.slice {
     stroke-width: 2px;
 }
-polyline{
+polyline {
     opacity: .3;
     stroke: black;
     stroke-width: 2px;
@@ -53,11 +50,9 @@ polyline{
     var d3viz = d3charcount('viz');
 
     databench.on('counts', function(msg) {
-        console.log(msg);
         var reformattedData = Object.keys(msg).map(function(letter) {
             return {label:letter, value:msg[letter]};
         });
-        console.log(reformattedData);
         if (reformattedData.length > 0) d3viz(reformattedData);
     });
 
