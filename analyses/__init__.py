@@ -22,3 +22,4 @@ import mpld3PointLabel.analysis
 import redispub.analysis
 import redissub.analysis
 import helloworld.analysis
+import tutorial.analysis
