@@ -32,8 +32,8 @@ class Analysis(databench.Analysis):
         # draw something on self.fig
         # regenerate matplotlib plot
         self.ax.cla()
-        self.ax.set_xlabel('100 outputs of random.random()')
-        self.ax.set_ylabel('Normalized Distribtuion')
+        self.ax.set_xlabel('output of random.random()')
+        self.ax.set_ylabel('normalized distribtuion of 100 trials')
         self.ax.set_xlim(0, 1)
         self.ax.set_ylim(0, 1.5)
         self.ax.grid(True)
@@ -45,14 +45,25 @@ class Analysis(databench.Analysis):
 
         # create the data for the Basic d3.js part
         data = [
-            {'id': 1, 'x1': 0.1, 'y1': 0.1, 'x2': 0.8, 'y2': 0.1,
+            {'id': 1, 'x1': 0.1, 'y1': 0.1, 'x2': 0.8, 'y2': 0.5,
              'width': 0.05, 'color': 0.5},
-            {'id': 2, 'x1': 0.1, 'y1': 0.3, 'x2': 0.8, 'y2': 0.3,
+            {'id': 2, 'x1': 0.1, 'y1': 0.3, 'x2': 0.8, 'y2': 0.7,
              'width': 0.05, 'color': 0.7},
-            {'id': 3, 'x1': 0.1, 'y1': 0.5, 'x2': 0.8, 'y2': 0.5,
+            {'id': 3, 'x1': 0.1, 'y1': 0.5, 'x2': 0.8, 'y2': 0.9,
              'width': 0.05, 'color': 0.9},
         ]
         self.emit('update', data)
+        # update with some new data after a short wait
+        time.sleep(1)
+        data2 = [
+            {'id': 1, 'x1': 0.1, 'y1': 0.1, 'x2': 0.8, 'y2': 0.5,
+             'width': 0.2, 'color': 0.5},
+            {'id': 2, 'x1': 0.1, 'y1': 0.3, 'x2': 0.8, 'y2': 0.7,
+             'width': 0.2, 'color': 0.7},
+            {'id': 3, 'x1': 0.1, 'y1': 0.5, 'x2': 0.8, 'y2': 0.9,
+             'width': 0.2, 'color': 0.9},
+        ]
+        self.emit('update', data2)
 
 
 META = databench.Meta('tutorial', __name__, __doc__, Analysis)
