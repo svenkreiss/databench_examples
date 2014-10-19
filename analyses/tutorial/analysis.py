@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 class Analysis(databench.Analysis):
 
     def __init__(self):
-        self.sleep_duration = 3
+        self.sleep_duration = 1
         self.fig = plt.figure(figsize=(4, 4))
         self.ax = self.fig.add_subplot(111)
 
@@ -52,7 +52,7 @@ class Analysis(databench.Analysis):
             {'id': 3, 'x1': 0.1, 'y1': 0.5, 'x2': 0.8, 'y2': 0.9,
              'width': 0.05, 'color': 0.9},
         ]
-        self.emit('update', data)
+        self.emit('update_basic', data)
         # update with some new data after a short wait
         time.sleep(1)
         data2 = [
@@ -63,7 +63,12 @@ class Analysis(databench.Analysis):
             {'id': 3, 'x1': 0.1, 'y1': 0.5, 'x2': 0.8, 'y2': 0.9,
              'width': 0.2, 'color': 0.9},
         ]
-        self.emit('update', data2)
+        self.emit('update_basic', data2)
+
+        # create the data for the d3.js plot
+        self.emit('update_plot', [random.random() for i in xrange(5)])
+        time.sleep(1)
+        self.emit('update_plot', [random.random() for i in xrange(5)])
 
 
 META = databench.Meta('tutorial', __name__, __doc__, Analysis)
