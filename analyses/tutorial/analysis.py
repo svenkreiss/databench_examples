@@ -3,6 +3,7 @@
 import databench
 
 import time
+import numpy
 import random
 
 import mpld3
@@ -65,10 +66,20 @@ class Analysis(databench.Analysis):
         ]
         self.emit('update_basic', data2)
 
-        # create the data for the d3.js plot
+        # create and send data for the d3.js plot
+        self.emit('log', 'Increasing numbers.')
+        self.emit('update_plot', [0.1, 0.3, 0.5, 0.7, 0.9])
+        time.sleep(1)
+        self.emit('log', 'Random numbers.')
         self.emit('update_plot', [random.random() for i in xrange(5)])
         time.sleep(1)
-        self.emit('update_plot', [random.random() for i in xrange(5)])
+        # Animation of a sin wave. Use numpy.
+        self.emit('log', 'Animate a sin wave.')
+        x = numpy.linspace(0, numpy.pi, 5)
+        for t in xrange(50):
+            numpy_data = 0.5 + 0.4*numpy.sin(x + t/3.0)
+            self.emit('update_plot', numpy_data.tolist())
+            time.sleep(0.25)
 
 
 META = databench.Meta('tutorial', __name__, __doc__, Analysis)
