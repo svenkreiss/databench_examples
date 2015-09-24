@@ -9,4 +9,4 @@ the Python plugin class directly into the `<script>`-tag on the frontend.
 <i class="fa fa-fw fa-github"></i>
 This [analysis is on GitHub](https://github.com/svenkreiss/databench_examples/tree/master/analyses/mpld3Drag).<br />
 <i class="fa fa-fw fa-external-link"></i>
-[Live demos](http://databench-examples.svenkreiss.com).
+[Live demos](http://databench-examples.trivial.io).

@@ -7,4 +7,4 @@ The real value is when using this example as a template to look at a stream of d
 <i class="fa fa-fw fa-github"></i>
 This [analysis is on GitHub](https://github.com/svenkreiss/databench_examples/tree/master/analyses/flowers).<br />
 <i class="fa fa-fw fa-external-link"></i>
-[Live demos](http://databench-examples.svenkreiss.com).
+[Live demos](http://databench-examples.trivial.io).
