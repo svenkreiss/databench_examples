@@ -2,7 +2,10 @@ import databench
 
 import os
 import redis
-import urlparse
+try:
+    from urllib.parse import urlparse  # Python 3
+except ImportError:
+    import urlparse  # Python 2
 
 
 def redis_creator():
