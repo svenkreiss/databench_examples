@@ -1,10 +1,10 @@
-.. image:: http://www.svenkreiss.com/databench/logo.svg
-    :target: http://www.svenkreiss.com/databench/v0.3/
+.. image:: http://databench.trivial.io/en/latest/_static/logo-w600.png
+    :target: http://databench.trivial.io
 
 Databench Examples
 ==================
 
-    Example analyses for `Databench <https://github.com/svenkreiss/databench/v0.3/>`_. Live demos of some of them are at `databench-examples.svenkreiss.com <http://databench-examples.svenkreiss.com>`_ and the `Databench documentation is here <http://www.svenkreiss.com/databench/v0.3/>`_.
+    Example analyses for `Databench <https://github.com/svenkreiss/databench/>`_. Live demos of some of them are at `databench-examples.trivial.io <http://databench-examples.trivial.io>`_ and the `Databench documentation is here <http://databench.trivial.io>`_.
 
 .. image:: https://travis-ci.org/svenkreiss/databench_examples.png?branch=master
     :target: https://travis-ci.org/svenkreiss/databench_examples
@@ -26,8 +26,8 @@ Example Outputs
 ---------------
 
 .. image:: doc/images/mpld3pi_demo.png
-    :target: http://databench-examples.svenkreiss.com/mpld3pi/
+    :target: http://databench-examples.trivial.io/mpld3pi/
 .. image:: doc/images/mpld3_PointLabel.png
-    :target: http://databench-examples.svenkreiss.com/mpld3PointLabel/
+    :target: http://databench-examples.trivial.io/mpld3PointLabel/
 .. image:: doc/images/mpld3_heart_path.png
-    :target: http://databench-examples.svenkreiss.com/mpld3Drag/
+    :target: http://databench-examples.trivial.io/mpld3Drag/

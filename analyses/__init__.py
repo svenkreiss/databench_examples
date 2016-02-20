@@ -1,25 +1,22 @@
 """Databench is a tool that connects a Python analysis to a custom html
-frontend. It provides various handy tools like `markdown` and `MathJax` to
-mark up the frontend. It also includes a connector from `matplotlib` to
-`d3.js` using `mpld3`. It even allows for the frontend to make use of
-`angular.js`. Check out the code for these examples on GitHub:
+frontend. Check out the code for these examples on GitHub:
 [github.com/svenkreiss/databench_examples](https://github.com/svenkreiss/databench_examples).
 
 Databench user guide and API:
-[svenkreiss.com/databench/](http://www.svenkreiss.com/databench/)"""
+[databench.trivial.io](http://databench.trivial.io)"""
 
-__version__ = "0.3.0"
+__version__ = "0.4.0"
 
 
-import flowers.analysis
-import mpld3pi.analysis
-import fastpi.analysis
-import simplepi.analysis
-import angular.analysis
-import bagofcharsd3.analysis
-import mpld3Drag.analysis
-import mpld3PointLabel.analysis
-import redispub.analysis
-import redissub.analysis
-import helloworld.analysis
-import tutorial.analysis
+from .flowers import analysis as  flowers_a
+from .mpld3pi import analysis as mpld3pi_a
+from .fastpi import analysis as fastpi_a
+from .simplepi import analysis as simplepi_a
+from .angular import analysis as angular_a
+from .bagofcharsd3 import analysis as bagofcharsd3_a
+from .mpld3Drag import analysis as mpld3Drag_a
+from .mpld3PointLabel import analysis as mpld3PointLabel_a
+from .redispub import analysis as redispub_a
+from .redissub import analysis as redissub_a
+from .helloworld import analysis as helloworld_a
+from .tutorial import analysis as tutorial_a

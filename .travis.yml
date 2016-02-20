@@ -2,10 +2,9 @@ language: python
 services: redis-server
 python:
  - "2.7"
+ - "3.4"
+ - "3.5"
 install:
  - "pip install -r requirements.txt"
- - "pip install -r requirements_tests.txt"
-before_script:
- - "databench &"
- - "sleep 30s"
+ - "pip install -r tests/requirements.txt"
 script: "nosetests tests"
