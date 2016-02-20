@@ -5,6 +5,7 @@ click==6.2
 cycler==0.10.0
 -e git+https://github.com/svenkreiss/databench.git@eeccb118af41305f61aa3f208259649685025a79#egg=databench
 Jinja2==2.8
+Markdown==2.6.5
 MarkupSafe==0.23
 matplotlib==1.5.1
 mpld3==0.2
