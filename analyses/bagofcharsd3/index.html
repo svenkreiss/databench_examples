@@ -1,7 +1,5 @@
 {% extends "templates/analysis.html" %}
 
-{% block title %}bagofcharsd3{% end %}
-
 
 {% block head %}
 <style>
@@ -18,7 +16,7 @@ polyline {
 {% end %}
 
 
-{% block content %}
+{% block analysis %}
 <h1>Bag of Chars</h1>
 
 <input type="text" class="form-control" id="sentence"
@@ -35,7 +33,7 @@ polyline {
 {% end %}
 
 
-{% block footerscripts %}
+{% block footer %}
 <script src="/bagofcharsd3/static/d3charcount.js?version=1"></script>
 <script>
     var databench = Databench();

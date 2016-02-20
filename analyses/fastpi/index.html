@@ -1,9 +1,7 @@
 {% extends "templates/analysis.html" %}
 
-{% block title %}fastpi{% end %}
 
-
-{% block content %}
+{% block analysis %}
 {% filter markdown %}
 # fastpi <small><i>π = <span id="pi-estimate">0.0 ± 1.0</span></i></small>
 
@@ -32,7 +30,7 @@ index.html: [[ include_src('fastpi/index.html') ]]
 {% end %}
 
 
-{% block footerscripts %}
+{% block footer %}
 <script>
     var databench = Databench();
 

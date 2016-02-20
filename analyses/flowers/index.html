@@ -1,11 +1,7 @@
 {% extends "templates/analysis.html" %}
 
-{% block title %}Flowers{% end %}
 
-
-{% block content %}
-[[ include_md('flowers/README.md') ]]
-
+{% block analysis %}
 <svg id="canvas" width="800" height="300" />
 
 <hr />
@@ -30,7 +26,7 @@
 {% end %}
 
 
-{% block footerscripts %}
+{% block footer %}
 <script>
     var databench = Databench();
 

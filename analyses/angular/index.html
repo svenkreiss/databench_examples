@@ -1,13 +1,7 @@
 {% extends "templates/analysis.html" %}
 
-{% block title %}Angular{% end %}
 
-
-{% block content %}
-[[ include_md('angular/README.md') ]]
-
-<br /><br />
-
+{% block analysis %}
 <div ng-app="angularApp" ng-strict-di>
 <div ng-controller="navCtrl">
     <ul class="nav nav-pills">
@@ -77,7 +71,7 @@ Here is the standard code and right below is the live demo.
 {% end %}
 
 
-{% block footerscripts %}
+{% block footer %}
 <script src="/angular/static/angular_1.2.15.min.js"></script>
 <script>
     var databench = Databench();
