@@ -1,5 +1,3 @@
-"""Tutorial analysis. Just a placeholder."""
-
 import databench
 
 import time
@@ -39,7 +37,7 @@ class Analysis(databench.Analysis):
         self.ax.set_ylim(0, 1.5)
         self.ax.grid(True)
         self.ax.hist(
-            [random.random() for i in xrange(100)], 5,
+            [random.random() for _ in range(100)], 5,
             normed=1, facecolor='green', alpha=0.75
         )
         self.emit('mpld3canvas', mpld3.fig_to_dict(self.fig))
@@ -71,15 +69,15 @@ class Analysis(databench.Analysis):
         self.emit('update_plot', [0.1, 0.3, 0.5, 0.7, 0.9])
         time.sleep(1)
         self.emit('log', 'Random numbers.')
-        self.emit('update_plot', [random.random() for i in xrange(5)])
+        self.emit('update_plot', [random.random() for _ in range(5)])
         time.sleep(1)
         # Animation of a sin wave. Use numpy.
         self.emit('log', 'Animate a sin wave.')
         x = numpy.linspace(0, numpy.pi, 5)
-        for t in xrange(50):
+        for t in range(50):
             numpy_data = 0.5 + 0.4*numpy.sin(x + t/3.0)
             self.emit('update_plot', numpy_data.tolist())
             time.sleep(0.25)
 
 
-META = databench.Meta('tutorial', __name__, __doc__, Analysis)
+META = databench.Meta('tutorial', Analysis)

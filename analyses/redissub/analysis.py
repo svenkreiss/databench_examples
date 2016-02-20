@@ -1,5 +1,3 @@
-"""Testing async subscription to redis channel."""
-
 import databench
 
 from analyses.redispub.analysis import redis_creator
@@ -19,4 +17,4 @@ class Analysis(databench.Analysis):
                 self.emit('status', m['data'])
 
 
-META = databench.Meta('redissub', __name__, __doc__, Analysis)
+META = databench.Meta('redissub', Analysis)

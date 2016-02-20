@@ -1,8 +1,6 @@
-{% from 'macros.html' import include_src, include_md %}
-{% extends "base.html" %}
+{% extends "templates/analysis.html" %}
 
-
-{% block title %}bagofcharsd3{% endblock %}
+{% block title %}bagofcharsd3{% end %}
 
 
 {% block head %}
@@ -17,7 +15,7 @@ polyline {
     fill: none;
 }
 </style>
-{% endblock %}
+{% end %}
 
 
 {% block content %}
@@ -34,7 +32,7 @@ polyline {
 
 <h3>Log</h3>
 <pre id="log"></pre>
-{% endblock %}
+{% end %}
 
 
 {% block footerscripts %}
@@ -58,4 +56,4 @@ polyline {
 
     databench.emit('sentence', {sentence:'type a phrase'});
 </script>
-{% endblock %}
+{% end %}

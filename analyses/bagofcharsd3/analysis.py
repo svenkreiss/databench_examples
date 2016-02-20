@@ -1,5 +1,3 @@
-"""Providing "bag-of-chars" statistics."""
-
 import databench
 
 
@@ -25,4 +23,4 @@ class Analysis(databench.Analysis):
         self.emit('counts', counts)
 
 
-META = databench.Meta('bagofcharsd3', __name__, __doc__, Analysis)
+META = databench.Meta('bagofcharsd3', Analysis)

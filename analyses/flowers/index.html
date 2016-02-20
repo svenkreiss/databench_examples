@@ -1,8 +1,6 @@
-{% from 'macros.html' import include_md %}
-{% extends "base.html" %}
+{% extends "templates/analysis.html" %}
 
-
-{% block title %}Flowers{% endblock %}
+{% block title %}Flowers{% end %}
 
 
 {% block content %}
@@ -29,7 +27,7 @@
         <input type="range" name="init_length" min="0.01" max="0.2" step="0.01" value="0.05" />
     </div>
 </div>
-{% endblock %}
+{% end %}
 
 
 {% block footerscripts %}
@@ -71,4 +69,4 @@
         };
     }
 </script>
-{% endblock %}
+{% end %}

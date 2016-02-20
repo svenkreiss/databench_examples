@@ -1,5 +1,3 @@
-"""Calculating \\(\\pi\\) the simple way."""
-
 import databench
 
 import math
@@ -13,7 +11,7 @@ class Analysis(databench.Analysis):
         """Run as soon as a browser connects to this."""
 
         inside = 0
-        for i in xrange(10000):
+        for i in range(10000):
             time.sleep(0.001)
 
             # generate points and check whether they are inside the unit circle
@@ -41,4 +39,4 @@ class Analysis(databench.Analysis):
 
         self.emit('log', {'action': 'done'})
 
-META = databench.Meta('simplepi', __name__, __doc__, Analysis)
+META = databench.Meta('simplepi', Analysis)

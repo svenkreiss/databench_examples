@@ -1,5 +1,3 @@
-"""Testing publishing to a redis channel."""
-
 import databench
 
 import os
@@ -37,4 +35,4 @@ class Analysis(databench.Analysis):
         self.redis_client.publish('someStatsProvider', msg)
 
 
-META = databench.Meta('redispub', __name__, __doc__, Analysis)
+META = databench.Meta('redispub', Analysis)

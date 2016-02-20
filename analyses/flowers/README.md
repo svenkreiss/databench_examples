@@ -1,4 +1,7 @@
-# Abstract Flowers
+<!--
+Title: Abstract Flowers
+Description: Generate flowers. Parameters can be adjusted while the generation is running.
+-->
 
 There are various flower generators on the web. Most of them are prettier than this one here. This is a demo showing Databench's interactivity. The values of the sliders are propagated to the Python backend and are used to adopt the generation in real-time.
 

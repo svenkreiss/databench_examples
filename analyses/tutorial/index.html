@@ -1,10 +1,4 @@
-<!-- This is an HTML file that gets processed by Jinja2
-(http://jinja.pocoo.org/docs/dev/). Jinja2 block commands are included in
-curly braces and percent signs and inline commands in double angular brackets.
-Everything outside these commands is just plain HTML. -->
-{% from 'macros.html' import include_md %}
-{% extends "base.html" %}
-
+{% extends "templates/analysis.html" %}
 
 {% block head %}
 <style>
@@ -14,11 +8,11 @@ Everything outside these commands is just plain HTML. -->
   shape-rendering: crispEdges;
 }
 </style>
-{% endblock %}
+{% end %}
 
 
 <!-- CHANGEME. This sets the content of the HTML <title> element. -->
-{% block title %}Tutorial{% endblock %}
+{% block title %}Tutorial{% end %}
 
 
 

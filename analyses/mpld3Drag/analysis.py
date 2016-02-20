@@ -1,9 +1,3 @@
-"""Testing a custom mpld3 plugin to drag points.
-
-Based on the heart_path example in the mpld3 gallery.
-"""
-
-
 import databench
 
 import mpld3
@@ -70,4 +64,4 @@ class Analysis(databench.Analysis):
         self.emit('mpld3canvas', mpld3.fig_to_dict(self.fig))
 
 
-META = databench.Meta('mpld3Drag', __name__, __doc__, Analysis)
+META = databench.Meta('mpld3Drag', Analysis)

@@ -1,8 +1,6 @@
-{% from 'macros.html' import include_src %}
-{% extends "base.html" %}
+{% extends "templates/analysis.html" %}
 
-
-{% block title %}mpld3PointLabel{% endblock %}
+{% block title %}mpld3PointLabel{% end %}
 
 
 {% block content %}
@@ -22,11 +20,11 @@ in [d3.js](http://d3js.org/) using [mpld3](http://mpld3.github.io/).
 <h3>Source Code</h3>
 analysis.py: [[ include_src('mpld3PointLabel/analysis.py', 'python') ]]
 index.html: [[ include_src('mpld3PointLabel/index.html') ]]
-{% endblock %}
+{% end %}
 
 
 {% block footerscripts %}
 <script>
     var databench = Databench();
 </script>
-{% endblock %}
+{% end %}

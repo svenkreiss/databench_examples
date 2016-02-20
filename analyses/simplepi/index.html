@@ -1,8 +1,6 @@
-{% from 'macros.html' import include_md %}
-{% extends "base.html" %}
+{% extends "templates/analysis.html" %}
 
-
-{% block title %}simplepi{% endblock %}
+{% block title %}simplepi{% end %}
 
 
 {% block content %}
@@ -10,7 +8,7 @@
 [[ include_md('simplepi/README.md') ]]
 
 <pre id="log"></pre>
-{% endblock %}
+{% end %}
 
 
 {% block footerscripts %}
@@ -21,4 +19,4 @@
         $('#pi').text(msg['pi-estimate'].toFixed(3)+' ± '+msg['pi-uncertainty'].toFixed(3));
     });
 </script>
-{% endblock %}
+{% end %}

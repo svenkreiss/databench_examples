@@ -1,5 +1,3 @@
-"""Testing the PointLabelTooltip plugin of mpld3."""
-
 import mpld3
 import numpy as np
 import matplotlib.pyplot as plt
@@ -32,4 +30,4 @@ class Analysis(databench.Analysis):
         self.emit('log', {'action': 'done'})
 
 
-META = databench.Meta('mpld3PointLabel', __name__, __doc__, Analysis)
+META = databench.Meta('mpld3PointLabel', Analysis)

@@ -1,6 +1,3 @@
-"""Generate flowers. Parameters can be adjusted while the generation is
-running."""
-
 import databench
 
 import math
@@ -191,4 +188,4 @@ class Analysis(databench.Analysis):
         self.config.init_color = color
 
 
-META = databench.Meta('flowers', __name__, __doc__, Analysis)
+META = databench.Meta('flowers', Analysis)

@@ -1,5 +1,3 @@
-"""Hello World for Databench."""
-
 import databench
 
 
@@ -10,4 +8,4 @@ class Analysis(databench.Analysis):
         self.emit('status', {'message': 'Hello World'})
 
 
-META = databench.Meta('helloworld', __name__, __doc__, Analysis)
+META = databench.Meta('helloworld', Analysis)

@@ -1,15 +1,13 @@
-{% from 'macros.html' import include_src, include_md %}
-{% extends "base.html" %}
+{% extends "templates/analysis.html" %}
 
-
-{% block title %}mpld3Drag{% endblock %}
+{% block title %}mpld3Drag{% end %}
 
 
 {% block content %}
 [[ include_md('mpld3Drag/README.md') ]]
 <div id="mpld3canvas"></div>
 <pre id="log"></pre>
-{% endblock %}
+{% end %}
 
 
 {% block footerscripts %}
@@ -71,4 +69,4 @@
 
   var databench = Databench();
 </script>
-{% endblock %}
+{% end %}

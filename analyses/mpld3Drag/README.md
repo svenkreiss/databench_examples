@@ -1,4 +1,7 @@
-# mpld3Drag
+<!--
+Title: mpld3Drag
+Description: Testing a custom mpld3 plugin to drag points. Based on the heart_path example in the mpld3 gallery.
+-->
 
 Testing custom plugins for mpld3. The plot is created with `matplotlib` and
 rendered in `d3.js` using `mpld3`. This is based on

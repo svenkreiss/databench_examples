@@ -1,5 +1,3 @@
-"""Calculating \\(\\pi\\) the simple way, but with mpld3."""
-
 import databench
 
 import math
@@ -24,7 +22,7 @@ class Analysis(databench.Analysis):
         inside = 0
         rnd_draws = []
 
-        for i in xrange(10000):
+        for i in range(10000):
             sleep(0.001)
 
             # generate points and check whether they are inside the unit circle
@@ -86,4 +84,4 @@ class Analysis(databench.Analysis):
         self.emit('mpld3canvas', mpld3.fig_to_dict(self.fig))
 
 
-META = databench.Meta('mpld3pi', __name__, __doc__, Analysis)
+META = databench.Meta('mpld3pi', Analysis)

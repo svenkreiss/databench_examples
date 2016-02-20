@@ -1,8 +1,6 @@
-{% from 'macros.html' import include_src, include_md %}
-{% extends "base.html" %}
+{% extends "templates/analysis.html" %}
 
-
-{% block title %}mpld3pi{% endblock %}
+{% block title %}mpld3pi{% end %}
 
 
 {% block content %}
@@ -15,7 +13,7 @@
 <br /><br />
 <div id="mpld3canvas"></div>
 <pre id="log"></pre>
-{% endblock %}
+{% end %}
 
 
 {% block footerscripts %}
@@ -26,4 +24,4 @@
 		$('#pi').text(msg['pi-estimate'].toFixed(3)+' ± '+msg['pi-uncertainty'].toFixed(3));
 	});
 </script>
-{% endblock %}
+{% end %}

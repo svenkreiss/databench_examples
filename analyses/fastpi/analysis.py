@@ -1,5 +1,3 @@
-"""Calculating \\(\\pi\\) the redis-queue way ... yes, in parallel."""
-
 import databench
 
 import math
@@ -14,7 +12,7 @@ from rq import Queue
 def inside(job, draws=100):
     """The function that will be run on the workers."""
     inside = 0
-    for i in xrange(draws):
+    for i in range(draws):
         time.sleep(0.001)
         r1 = random.random()
         r2 = random.random()
@@ -45,7 +43,7 @@ class Analysis(databench.Analysis):
         q = Queue(connection=Redis())
 
         jobs = []
-        for i in xrange(100):
+        for i in range(100):
             jobs.append(q.enqueue(inside, i))
             self.emit('log', {'enqueued_job': i})
 
@@ -81,4 +79,4 @@ class Analysis(databench.Analysis):
         self.on_workers(0)
 
 
-META = databench.Meta('fastpi', __name__, __doc__, Analysis)
+META = databench.Meta('fastpi', Analysis)

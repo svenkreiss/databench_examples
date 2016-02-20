@@ -1,4 +1,7 @@
-# Tutorial
+<!--
+Title: Tutorial
+Description: The resulting analysis from following the Databench Tutorial.
+-->
 
 Follow the [Databench tutorial](). This is the analysis you get after
 completing all the parts of the tutorial.

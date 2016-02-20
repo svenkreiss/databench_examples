@@ -1,6 +1,4 @@
-{% from 'macros.html' import include_src %}
-{% extends "base.html" %}
-
+{% extends "templates/analysis.html" %}
 
 {% block head %}
 <style>
@@ -8,10 +6,10 @@
 	font-size:300%; color:#008;
 }
 </style>
-{% endblock %}
+{% end %}
 
 
-{% block title %}Redis Sub{% endblock %}
+{% block title %}Redis Sub{% end %}
 
 
 {% block content %}
@@ -34,7 +32,7 @@ You need something that publishes to the channel. The `redispub` demo does just 
 <h3>Source Code</h3>
 analysis.py: [[ include_src('redissub/analysis.py', 'python') ]]
 index.html: [[ include_src('redissub/index.html') ]]
-{% endblock %}
+{% end %}
 
 
 {% block footerscripts %}
@@ -96,4 +94,4 @@ index.html: [[ include_src('redissub/index.html') ]]
 		recValuesList(inputData);
 	});
 </script>
-{% endblock %}
+{% end %}

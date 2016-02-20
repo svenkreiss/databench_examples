@@ -1,8 +1,6 @@
-{% from 'macros.html' import include_src, include_md %}
-{% extends "base.html" %}
+{% extends "templates/analysis.html" %}
 
-
-{% block title %}Angular{% endblock %}
+{% block title %}Angular{% end %}
 
 
 {% block content %}
@@ -76,7 +74,7 @@ Here is the standard code and right below is the live demo.
     </div>
 </div>
 </div>
-{% endblock %}
+{% end %}
 
 
 {% block footerscripts %}
@@ -103,4 +101,4 @@ Here is the standard code and right below is the live demo.
         });
     }]);
 </script>
-{% endblock %}
+{% end %}

@@ -1,8 +1,6 @@
-{% from 'macros.html' import include_src %}
-{% extends "base.html" %}
+{% extends "templates/analysis.html" %}
 
-
-{% block title %}fastpi{% endblock %}
+{% block title %}fastpi{% end %}
 
 
 {% block content %}
@@ -31,7 +29,7 @@ __Make sure you have a _redis-server_ running.__
 <h3>Source Code</h3>
 analysis.py: [[ include_src('fastpi/analysis.py', 'python') ]]
 index.html: [[ include_src('fastpi/index.html') ]]
-{% endblock %}
+{% end %}
 
 
 {% block footerscripts %}
@@ -43,4 +41,4 @@ index.html: [[ include_src('fastpi/index.html') ]]
             ' ± '+msg['pi-uncertainty'].toFixed(3));
     });
 </script>
-{% endblock %}
+{% end %}
