@@ -5,16 +5,16 @@ import redis
 try:
     from urllib.parse import urlparse  # Python 3
 except ImportError:
-    import urlparse  # Python 2
+    from urlparse import urlparse  # Python 2
 
 
 def redis_creator():
     """Checks enironment for certatin redis providers and creates
     a redis client."""
 
-    rediscloudenv = os.environ.get('REDISCLOUD_URL')
+    rediscloudenv = os.getenv('REDISCLOUD_URL')
     if rediscloudenv:
-        url = urlparse.urlparse(rediscloudenv)
+        url = urlparse(rediscloudenv)
         r = redis.Redis(host=url.hostname, port=url.port,
                         password=url.password)
     else:
