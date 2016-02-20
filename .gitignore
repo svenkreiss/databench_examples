@@ -55,3 +55,4 @@ docs/_build/
 venv
 .DS_Store
 .elasticbeanstalk/
+analyses/node_modules

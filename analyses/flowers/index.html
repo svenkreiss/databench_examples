@@ -1,6 +1,11 @@
 {% extends "templates/analysis.html" %}
 
 
+{% block head %}
+<link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css" />
+{% end %}
+
+
 {% block analysis %}
 <svg id="canvas" width="800" height="300" />
 
@@ -27,6 +32,7 @@
 
 
 {% block footer %}
+<script src="/node_modules/d3/d3.min.js"></script>
 <script>
     var d = new Databench.Connection();
     Databench.ui.wire(d);

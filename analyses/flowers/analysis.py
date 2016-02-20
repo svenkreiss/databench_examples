@@ -1,8 +1,8 @@
 import databench
 
 import math
-import time
 import random
+import tornado.gen
 
 
 def g(*args):
@@ -117,7 +117,8 @@ class Branch:
 
 class Analysis(databench.Analysis):
 
-    def __init__(self):
+    def __init__(self, id_=None):
+        super(Analysis, self).__init__(id_)
         self.n_flowers = 3
         self.max_height = 0.9
         self.max_width = 0.3
@@ -146,6 +147,7 @@ class Analysis(databench.Analysis):
             lines += f['trunk'].lines(f['x'])
         return lines
 
+    @tornado.gen.coroutine
     def generate_flowers(self):
         while True:
             self.init_flowers()
@@ -168,7 +170,7 @@ class Analysis(databench.Analysis):
                 f['trunk'].generate()
 
             self.emit('update', self.output())
-            time.sleep(0.15)
+            yield tornado.gen.sleep(0.15)
 
     """Adjust parameters."""
 
