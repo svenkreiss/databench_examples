@@ -3,7 +3,11 @@ import databench
 import math
 import time
 import random
-import random.gauss as g
+
+
+def g(*args):
+    """Shorthand for random.gauss()."""
+    return random.gauss(*args)
 
 
 class BranchConfig:
