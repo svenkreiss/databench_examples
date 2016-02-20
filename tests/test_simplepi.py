@@ -20,7 +20,12 @@ def setup_module():
                               stdin=subprocess.PIPE,
                               stdout=subprocess.PIPE,
                               preexec_fn=os.setsid)
-    time.sleep(1)
+
+    # on CI, matplotlib needs time to build a font cache
+    if os.getenv('CI'):
+        time.sleep(3)
+
+    time.sleep(0.2)
 
 
 def teardown_module():
