@@ -7,20 +7,20 @@
 <hr />
 <div class="row">
     <div class="col-md-3">
-        <label for="number_of_flowers">number of flowers</label>
-        <input type="range" name="number_of_flowers" min="1" max="20" step="1" value="3" />
+        <label for="n_flowers">number of flowers</label>
+        <input type="range" name="n_flowers" min="1" max="20" step="1" value="3" data-instance="n_flowers" />
     </div>
     <div class="col-md-3">
         <label for="branch_angle">branching angle</label>
-        <input type="range" name="branch_angle" min="1" max="90" step="1" value="10" />
+        <input type="range" name="branch_angle" min="1" max="90" step="1" value="10" data-instance="branch_angle" />
     </div>
     <div class="col-md-3">
         <label for="init_size">trunk thickness</label>
-        <input type="range" name="init_size" min="0.005" max="0.100" step="0.005" value="0.03" />
+        <input type="range" name="init_size" min="0.005" max="0.100" step="0.005" value="0.03" data-instance="init_size" />
     </div>
     <div class="col-md-3">
         <label for="init_length">trunk length</label>
-        <input type="range" name="init_length" min="0.01" max="0.2" step="0.01" value="0.05" />
+        <input type="range" name="init_length" min="0.01" max="0.2" step="0.01" value="0.05" data-instance="init_length" />
     </div>
 </div>
 {% end %}
@@ -28,12 +28,12 @@
 
 {% block footer %}
 <script>
-    var databench = Databench();
+    var d = new Databench.Connection();
+    Databench.ui.wire(d);
+    d.connect();
 
     var flowers = Flowers('canvas');
-    databench.on('update', function(json) {
-        flowers(json);
-    });
+    d.on('update', function(json) { flowers(json); });
 
 
     // define how to draw flowers with d3.js

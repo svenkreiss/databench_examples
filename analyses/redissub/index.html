@@ -12,7 +12,7 @@
 {% block title %}Redis Sub{% end %}
 
 
-{% block content %}
+{% block analysis %}
 {% filter markdown %}
 # Redis Subscription
 
@@ -35,7 +35,7 @@ index.html: [[ include_src('redissub/index.html') ]]
 {% end %}
 
 
-{% block footerscripts %}
+{% block footer %}
 <script>
 	var databench = Databench();
 

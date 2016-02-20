@@ -1,5 +1,6 @@
 {% extends "templates/analysis.html" %}
 
+
 {% block head %}
 <style>
 .axis path, .axis line {
@@ -11,18 +12,7 @@
 {% end %}
 
 
-<!-- CHANGEME. This sets the content of the HTML <title> element. -->
-{% block title %}Tutorial{% end %}
-
-
-
-{% block content %}
-<!-- The description of the analysis is in README.md. The macro include_md()
-pulls that description in and converts it to html to be shown also here. -->
-[[ include_md('tutorial/README.md') ]]
-
-<hr />
-<!-- CHANGEME. Put your analysis HTML here. -->
+{% block analysis %}
 <h3>Generic UI Elements</h3>
 {% filter markdown %}
 Below are the _slider_ and _button_ as generic UI elements as demonstrated in
@@ -62,11 +52,11 @@ when you click _Run_ above.
 <!-- This log output below is just nice to have when starting to design an
 analysis. Feel free to just delete the line below now or later. -->
 <pre id="log"></pre>
-{% endblock content %}
+{% end %}
 
 
 
-{% block footerscripts %}
+{% block footer %}
 <script>
 // Initialize Databench's frontend library.
 var databench = Databench();

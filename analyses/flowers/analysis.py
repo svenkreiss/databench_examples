@@ -3,11 +3,7 @@ import databench
 import math
 import time
 import random
-
-
-def g(params):
-    """Shorthand for random.gauss()."""
-    return random.gauss(params[0], params[1])
+import random.gauss as g
 
 
 class BranchConfig:
@@ -60,10 +56,10 @@ class Branch:
 
     def new_branch(self):
         return Branch(
-            self.size * g(self.config.size_delta),
-            self.length * g(self.config.length_delta),
-            self.color + g(self.config.color_delta)*self.length,
-            self.angle + g(self.config.angle_delta),
+            self.size * g(*self.config.size_delta),
+            self.length * g(*self.config.length_delta),
+            self.color + g(*self.config.color_delta)*self.length,
+            self.angle + g(*self.config.angle_delta),
             self.config
         )
 
@@ -118,7 +114,7 @@ class Branch:
 class Analysis(databench.Analysis):
 
     def __init__(self):
-        self.number_of_flowers = 3
+        self.n_flowers = 3
         self.max_height = 0.9
         self.max_width = 0.3
         self.config = BranchConfig()
@@ -130,7 +126,7 @@ class Analysis(databench.Analysis):
         self.generate_flowers()
 
     def init_flowers(self):
-        while len(self.flowers) < self.number_of_flowers:
+        while len(self.flowers) < self.n_flowers:
             new_x = 0.1+0.8*random.random()
             if self.flowers:
                 while min([abs(f['x']-new_x) for f in self.flowers]) < 0.03:
@@ -172,20 +168,8 @@ class Analysis(databench.Analysis):
 
     """Adjust parameters."""
 
-    def on_number_of_flowers(self, flowers):
-        self.number_of_flowers = flowers
-
     def on_branch_angle(self, angle_in_degrees):
         self.config.branch_angle = angle_in_degrees/57.0
-
-    def on_init_size(self, size):
-        self.config.init_size = size
-
-    def on_init_length(self, length):
-        self.config.init_length = length
-
-    def on_init_color(self, color):
-        self.config.init_color = color
 
 
 META = databench.Meta('flowers', Analysis)

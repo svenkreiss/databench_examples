@@ -3,7 +3,7 @@
 {% block title %}simplepi{% end %}
 
 
-{% block content %}
+{% block analysis %}
 <h1>simplepi <small><i>π = <span id="pi">0.0 ± 1.0</span></i></small></h1>
 [[ include_md('simplepi/README.md') ]]
 
@@ -11,7 +11,7 @@
 {% end %}
 
 
-{% block footerscripts %}
+{% block footer %}
 <script>
     var databench = Databench();
 

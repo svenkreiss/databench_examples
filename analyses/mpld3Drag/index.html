@@ -3,14 +3,14 @@
 {% block title %}mpld3Drag{% end %}
 
 
-{% block content %}
+{% block analysis %}
 [[ include_md('mpld3Drag/README.md') ]]
 <div id="mpld3canvas"></div>
 <pre id="log"></pre>
 {% end %}
 
 
-{% block footerscripts %}
+{% block footer %}
 <script>
   mpld3.register_plugin("drag", DragPlugin);
   DragPlugin.prototype = Object.create(mpld3.Plugin.prototype);
