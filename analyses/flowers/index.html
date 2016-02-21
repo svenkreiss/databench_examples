@@ -39,7 +39,9 @@
     d.connect();
 
     var flowers = Flowers('canvas');
-    d.on('update', function(json) { flowers(json); });
+    d.on('data', function(msg) {
+        if ('lines' in msg) flowers(msg['lines']);
+    });
 
 
     // define how to draw flowers with d3.js
