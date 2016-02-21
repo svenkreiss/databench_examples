@@ -3,7 +3,7 @@ backports.ssl-match-hostname==3.5.0.1
 certifi==2015.11.20.1
 click==6.2
 cycler==0.10.0
--e git+https://github.com/svenkreiss/databench.git@eeccb118af41305f61aa3f208259649685025a79#egg=databench
+https://github.com/svenkreiss/databench/zipball/dev
 Jinja2==2.8
 Markdown==2.6.5
 MarkupSafe==0.23

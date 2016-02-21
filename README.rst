@@ -22,6 +22,13 @@ Setup your environment and install dependencies in the current directory with::
     pip install -r requirements.txt
 
 
+Docker
+------
+
+    docker build -t svenkreiss/databench_examples
+    docker run --name databench_examples -d -p 5000:5000 svenkreiss/databench_examples
+
+
 Example Outputs
 ---------------
 
