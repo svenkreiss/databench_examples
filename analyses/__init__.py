@@ -1,9 +1,3 @@
-"""Databench is a tool that connects a Python analysis to a custom html
-frontend. Check out the code for these examples on GitHub:
-[github.com/svenkreiss/databench_examples](https://github.com/svenkreiss/databench_examples).
-
-Databench user guide and API:
-[databench.trivial.io](http://databench.trivial.io)"""
 
 __version__ = "0.4.0"
 
