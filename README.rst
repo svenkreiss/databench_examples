@@ -1,4 +1,4 @@
-.. image:: http://databench.trivial.io/en/latest/_static/logo-w600.png
+.. image:: http://www.svenkreiss.com/databench/logo.svg
     :target: http://databench.trivial.io
 
 Databench Examples
@@ -36,12 +36,16 @@ Example Outputs
 Docker
 ------
 
+.. code-block:: bash
+
     docker build -t svenkreiss/databench_examples
     docker run --name databench_examples -d -p 5000:5000 svenkreiss/databench_examples
 
 
 Kubernetes
 ----------
+
+.. code-block:: bash
 
     gcloud container clusters create cluster-1 --num-nodes 1 --machine-type g1-small
     gcloud compute instances list  # for info
