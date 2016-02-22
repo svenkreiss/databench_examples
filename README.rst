@@ -22,13 +22,6 @@ Setup your environment and install dependencies in the current directory with::
     pip install -r requirements.txt
 
 
-Docker
-------
-
-    docker build -t svenkreiss/databench_examples
-    docker run --name databench_examples -d -p 5000:5000 svenkreiss/databench_examples
-
-
 Example Outputs
 ---------------
 
@@ -38,3 +31,21 @@ Example Outputs
     :target: http://databench-examples.trivial.io/mpld3PointLabel/
 .. image:: doc/images/mpld3_heart_path.png
     :target: http://databench-examples.trivial.io/mpld3Drag/
+
+
+Docker
+------
+
+    docker build -t svenkreiss/databench_examples
+    docker run --name databench_examples -d -p 5000:5000 svenkreiss/databench_examples
+
+
+Kubernetes
+----------
+
+    gcloud container clusters create cluster-1 --num-nodes 1 --machine-type g1-small
+    gcloud compute instances list  # for info
+    kubectl run databench-examples --image=svenkreiss/databench_examples --port=5000
+    kubectl expose rc databench-examples --type=LoadBalancer --port=80 --target-port=5000
+    kubectl describe services databench-examples  # for info
+    kubectl get services databench-examples  # for info, get public ip
