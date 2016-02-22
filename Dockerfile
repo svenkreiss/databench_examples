@@ -9,7 +9,6 @@ RUN pip install --upgrade pip
 # install all Python requirements
 ADD requirements.txt requirements.txt
 RUN pip install -r requirements.txt
-RUN pip install https://github.com/svenkreiss/databench/zipball/dev
 
 # add this directory to the working directory of the docker image
 ADD analyses analyses
