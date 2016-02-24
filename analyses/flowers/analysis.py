@@ -124,7 +124,11 @@ class Analysis(databench.Analysis):
         self.data['branch_prob_per_unit'] = 5.0
         self.data['branch_angle'] = 10.0/57.0
 
+        self.connected = True
         self.generate_flowers()
+
+    def on_disconnect(self):
+        self.connected = False
 
     def init_flowers(self):
         while len(self.flowers) < self.data['n_flowers']:
@@ -145,7 +149,7 @@ class Analysis(databench.Analysis):
 
     @tornado.gen.coroutine
     def generate_flowers(self):
-        while True:
+        while self.connected:
             self.init_flowers()
 
             # remove flowers that are larger than self.max_height
