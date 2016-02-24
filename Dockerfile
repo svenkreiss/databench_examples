@@ -15,4 +15,4 @@ ADD analyses analyses
 
 # configure the server
 EXPOSE 5000
-ENTRYPOINT ["databench", "--log=INFO", "--port=5000"]
+ENTRYPOINT ["databench", "--log=INFO", "--port=5000", "--host=0.0.0.0"]
