@@ -5,7 +5,7 @@ import time
 import random
 
 
-class Analysis(databench.Analysis):
+class Angular(databench.Analysis):
 
     def on_connect(self):
         """Run as soon as a browser connects to this."""
@@ -40,4 +40,4 @@ class Analysis(databench.Analysis):
         self.emit('log', {'action': 'done'})
 
 
-META = databench.Meta('angular', Analysis)
+META = databench.Meta('angular', Angular)

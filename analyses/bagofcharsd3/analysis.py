@@ -1,7 +1,7 @@
 import databench
 
 
-class Analysis(databench.Analysis):
+class BagOfChars(databench.Analysis):
 
     def on_connect(self):
         """Run as soon as a browser connects to this."""
@@ -23,4 +23,4 @@ class Analysis(databench.Analysis):
         self.emit('counts', counts)
 
 
-META = databench.Meta('bagofcharsd3', Analysis)
+META = databench.Meta('bagofcharsd3', BagOfChars)

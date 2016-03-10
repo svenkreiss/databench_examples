@@ -21,7 +21,7 @@ def inside(job, draws=100):
     return (job, inside, draws)
 
 
-class Analysis(databench.Analysis):
+class FastPi(databench.Analysis):
 
     def __init__(self):
         self.workers = []
@@ -79,4 +79,4 @@ class Analysis(databench.Analysis):
         self.on_workers(0)
 
 
-META = databench.Meta('fastpi', Analysis)
+META = databench.Meta('fastpi', FastPi)

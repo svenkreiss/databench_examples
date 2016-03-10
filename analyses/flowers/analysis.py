@@ -101,10 +101,10 @@ class Branch:
             return self.left.ends(x, y)
 
 
-class Analysis(databench.Analysis):
+class Flowers(databench.Analysis):
 
     def __init__(self, id_=None):
-        super(Analysis, self).__init__(id_)
+        super(Flowers, self).__init__(id_)
         self.max_height = 0.9
         self.max_width = 0.3
         self.flowers = []
@@ -173,4 +173,4 @@ class Analysis(databench.Analysis):
             yield tornado.gen.sleep(0.15)
 
 
-META = databench.Meta('flowers', Analysis)
+META = databench.Meta('flowers', Flowers)

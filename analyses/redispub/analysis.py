@@ -23,7 +23,7 @@ def redis_creator():
     return r
 
 
-class Analysis(databench.Analysis):
+class RedisPub(databench.Analysis):
 
     def __init__(self):
         self.redis_client = redis_creator()
@@ -38,4 +38,4 @@ class Analysis(databench.Analysis):
         self.redis_client.publish('someStatsProvider', msg)
 
 
-META = databench.Meta('redispub', Analysis)
+META = databench.Meta('redispub', RedisPub)

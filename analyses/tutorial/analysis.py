@@ -4,11 +4,10 @@ import time
 import numpy
 import random
 
-import mpld3
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
 
-class Analysis(databench.Analysis):
+class Tutorial(databench.Analysis):
 
     def __init__(self):
         self.sleep_duration = 1
@@ -40,7 +39,7 @@ class Analysis(databench.Analysis):
             [random.random() for _ in range(100)], 5,
             normed=1, facecolor='green', alpha=0.75
         )
-        self.emit('mpld3canvas', mpld3.fig_to_dict(self.fig))
+        # self.emit('mpld3canvas', mpld3.fig_to_dict(self.fig))
 
         # create the data for the Basic d3.js part
         data = [
@@ -80,4 +79,4 @@ class Analysis(databench.Analysis):
             time.sleep(0.25)
 
 
-META = databench.Meta('tutorial', Analysis)
+META = databench.Meta('tutorial', Tutorial)

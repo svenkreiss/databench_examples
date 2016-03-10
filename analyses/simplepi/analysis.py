@@ -5,7 +5,7 @@ import time
 import random
 
 
-class Analysis(databench.Analysis):
+class SimplePi(databench.Analysis):
 
     def on_connect(self):
         """Run as soon as a browser connects to this."""
@@ -39,4 +39,4 @@ class Analysis(databench.Analysis):
 
         self.emit('log', {'action': 'done'})
 
-META = databench.Meta('simplepi', Analysis)
+META = databench.Meta('simplepi', SimplePi)
