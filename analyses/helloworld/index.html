@@ -6,11 +6,11 @@
 
     <script src="/_static/databench.js"></script>
     <script>
-        var d = new Databench.Connection()
+        var d = new Databench.Connection();
         d.connect();
 
-        d.on('status', function(message) {
-            document.getElementById('output').innerHTML = message;
+        d.on('data', function(data) {
+            document.getElementById('output').innerHTML = data.status;
         });
     </script>
 </body>
