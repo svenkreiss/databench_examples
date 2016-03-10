@@ -1,22 +1,24 @@
 {% extends "analysis.html" %}
 
-{% block title %}simplepi{% end %}
+
+{% block head %}
+<link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css">
+{% end %}
 
 
 {% block analysis %}
-<h1>simplepi <small><i>π = <span id="pi">0.0 ± 1.0</span></i></small></h1>
-[[ include_md('simplepi/README.md') ]]
-
-<pre id="log"></pre>
+<h1><i>π = <span id="pi">0.0 ± 1.0</span></i></h1>
 {% end %}
 
 
 {% block footer %}
 <script>
-    var databench = Databench();
+    var d = new Databench.Connection();
+    Databench.ui.wire();
+    d.connect();
 
-    databench.on('status', function(msg) {
-        $('#pi').text(msg['pi-estimate'].toFixed(3)+' ± '+msg['pi-uncertainty'].toFixed(3));
+    d.on('data', function(data) {
+        document.getElementById('pi').innerText = data['pi']['estimate'].toFixed(3)+' ± '+data['pi']['uncertainty'].toFixed(3);
     });
 </script>
 {% end %}
