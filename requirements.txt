@@ -4,7 +4,6 @@ certifi==2015.11.20.1
 click==6.2
 cycler==0.10.0
 https://github.com/svenkreiss/databench/zipball/dev
-Jinja2==2.8
 Markdown==2.6.5
 MarkupSafe==0.23
 matplotlib==1.5.1
