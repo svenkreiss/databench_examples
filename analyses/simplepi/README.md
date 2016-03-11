@@ -1,6 +1,6 @@
 <!--
-Title: simple pi
-Description: Calculating pi the simple way.
+Title: Simple π
+Description: Calculating π the simple way.
 -->
 
 This little demo uses two random numbers r1 and r2 and
