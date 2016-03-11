@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ubuntu:latest
 MAINTAINER Sven Kreiss email: me@svenkreiss.com
 
 # update the system and install prerequisites
