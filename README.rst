@@ -38,7 +38,7 @@ Docker
 
 .. code-block:: bash
 
-    docker build -t svenkreiss/databench_examples
+    docker build -t svenkreiss/databench_examples .
     docker run --name databench_examples -d -p 5000:5000 svenkreiss/databench_examples
 
 
