@@ -52,10 +52,11 @@ Kubernetes
     gcloud compute instances list  # for info
 
     # set up container
-    kubectl create -f pod.json
+    kubectl create -f rc.json
     kubectl create -f service.json
 
     # for info
+    kubectl describe rc
     kubectl describe pods
     kubectl describe services
 
@@ -64,5 +65,7 @@ Kubernetes
     # ... and open http://localhost:5000
 
     # update
+    docker build -t svenkreiss/databench_examples .
     docker tag svenkreiss/databench_examples svenkreiss/databench_examples:c-$(git rev-parse HEAD)
-    kubectl rolling-update databench-demo --image=svenkreiss/databench_examples:c-$(git rev-parse HEAD)
+    docker push svenkreiss/databench_examples:c-$(git rev-parse HEAD)
+    kubectl rolling-update rc-databench-demo --image=svenkreiss/databench_examples:c-$(git rev-parse HEAD)

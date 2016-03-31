@@ -1,0 +1,39 @@
+{
+  "kind": "ReplicationController",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "rc-databench-demo"
+  },
+  "spec": {
+    "replicas": 1,
+    "selector": {
+      "app": "databench-demo"
+    },
+    "template": {
+      "metadata": {
+        "name": "databench-demo",
+        "labels": {
+          "app": "databench-demo"
+        }
+      },
+      "spec": {
+        "containers": [
+          {
+            "name": "frontend",
+            "image": "svenkreiss/databench_examples",
+            "ports": [
+              {
+                "containerPort": 5000
+              }
+            ],
+            "resources": {
+              "limits": {
+                "cpu": "20m"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
