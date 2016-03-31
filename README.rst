@@ -47,12 +47,22 @@ Kubernetes
 
 .. code-block:: bash
 
+    # create cluster
     gcloud container clusters create cluster-1 --num-nodes 1 --machine-type g1-small
     gcloud compute instances list  # for info
-    kubectl run databench-examples --image=svenkreiss/databench_examples --port=5000
-    kubectl expose rc databench-examples --type=LoadBalancer --port=5000 --target-port=5000 --load-balancer-ip="ip-databench-examples"
-    kubectl describe services databench-examples  # for info
-    kubectl get services databench-examples  # for info, get public ip
 
-    # scale
-    kubectl scale rc databench-examples --replicas=1
+    # set up container
+    kubectl create -f pod.json
+    kubectl create -f service.json
+
+    # for info
+    kubectl describe pods
+    kubectl describe services
+
+    # forward port
+    kubectl port-forward databench-demo 5000
+    # ... and open http://localhost:5000
+
+    # update
+    docker tag svenkreiss/databench_examples svenkreiss/databench_examples:c-$(git rev-parse HEAD)
+    kubectl rolling-update databench-demo --image=svenkreiss/databench_examples:c-$(git rev-parse HEAD)
