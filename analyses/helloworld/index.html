@@ -1,17 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head><title>Hello World</title></head>
-<body>
-    <p id="output"></p>
+{% extends "analysis.html" %}
 
-    <script src="/_static/databench.js"></script>
-    <script>
-        var d = new Databench.Connection();
-        d.connect();
 
-        d.on('data', function(data) {
-            document.getElementById('output').innerHTML = data.status;
-        });
-    </script>
-</body>
-</html>
+{% block analysis %}
+<p id="output"></p>
+{% end %}
+
+
+{% block footer %}
+<script>
+    var d = new Databench.Connection();
+    d.connect();
+
+    d.on('data', function(data) {
+        document.getElementById('output').innerHTML = data.status;
+    });
+</script>
+{% end %}
