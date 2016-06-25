@@ -18,7 +18,7 @@ class SimplePi(databench.Analysis):
             # generate points and check whether they are inside the unit circle
             r1 = random.random()
             r2 = random.random()
-            if r1*r1 + r2*r2 < 1.0:
+            if r1 ** 2 + r2 ** 2 < 1.0:
                 inside += 1
 
             # every 100 iterations, update status
@@ -29,16 +29,13 @@ class SimplePi(databench.Analysis):
             self.emit('log', {'draws': draws, 'inside': inside})
 
             # calculate pi and its uncertainty given the current draws
-            p = float(inside)/draws
-            uncertainty = 4.0*math.sqrt(draws*p*(1.0 - p)) / draws
+            p = inside / draws
+            uncertainty = 4.0 * math.sqrt(draws * p * (1.0 - p)) / draws
 
             # send status to frontend
             self.data['pi'] = {
-                'estimate': 4.0*inside/draws,
+                'estimate': 4.0 * inside / draws,
                 'uncertainty': uncertainty,
             }
 
         self.emit('log', {'action': 'done'})
-
-
-META = databench.Meta('simplepi', SimplePi)

@@ -8,4 +8,6 @@ install:
  - pip install --upgrade pip
  - pip install -r requirements.txt
  - pip install -r tests/requirements.txt
-script: "nosetests tests"
+script:
+ - flake8
+ - nosetests tests

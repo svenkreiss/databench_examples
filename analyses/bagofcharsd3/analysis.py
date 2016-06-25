@@ -21,6 +21,3 @@ class BagOfChars(databench.Analysis):
 
         self.emit('log', counts)
         self.emit('counts', counts)
-
-
-META = databench.Meta('bagofcharsd3', BagOfChars)

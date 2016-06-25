@@ -1,5 +1,4 @@
 import databench
-
 import math
 import random
 import tornado.gen
@@ -10,7 +9,7 @@ def g(*args):
     return random.gauss(*args)
 
 
-class Branch:
+class Branch(object):
     def __init__(self, size=None, length=None, color=None, angle=0.0,
                  config=None):
         if not size:
@@ -35,10 +34,10 @@ class Branch:
             self.color = 0.0
         if self.color > 1.0:
             self.color = 1.0
-        if self.angle < -270.0/57.0:
-            self.angle = -270.0/57.0
-        if self.angle > 270.0/57.0:
-            self.angle = 270.0/57.0
+        if self.angle < -270.0 / 57.0:
+            self.angle = -270.0 / 57.0
+        if self.angle > 270.0 / 57.0:
+            self.angle = 270.0 / 57.0
 
         self.left = None
         self.right = None
@@ -48,7 +47,7 @@ class Branch:
         return Branch(
             self.size * g(*self.config['size_delta']),
             self.length * g(*self.config['length_delta']),
-            self.color + g(*self.config['color_delta'])*self.length,
+            self.color + g(*self.config['color_delta']) * self.length,
             self.angle + g(*self.config['angle_delta']),
             self.config
         )
@@ -66,7 +65,7 @@ class Branch:
         # creating a new branch on the left ...
         self.left = self.new_branch()
         # ... on optionally also on the right
-        if random.random() < self.config['branch_prob_per_unit']*self.length:
+        if random.random() < self.config['branch_prob_per_unit'] * self.length:
             self.right = self.new_branch()
 
             # Left and right are just the abstract tree structure. In real
@@ -75,12 +74,12 @@ class Branch:
             factor = 1.0
             if random.random() < 0.5:
                 factor = -1.0
-            self.left.angle -= factor*self.config['branch_angle']/2.0
-            self.right.angle += factor*self.config['branch_angle']/2.0
+            self.left.angle -= factor * self.config['branch_angle'] / 2.0
+            self.right.angle += factor * self.config['branch_angle'] / 2.0
 
     def lines(self, x=0.0, y=0.0):
-        new_x = x + self.length*math.sin(self.angle)
-        new_y = y + self.length*math.cos(self.angle)
+        new_x = x + self.length * math.sin(self.angle)
+        new_y = y + self.length * math.cos(self.angle)
         lines = [(self.key, x, y, new_x, new_y, self.size, self.color)]
 
         if self.left is not None:
@@ -91,8 +90,8 @@ class Branch:
         return lines
 
     def ends(self, x=0.0, y=0.0):
-        x += self.length*math.sin(self.angle)
-        y += self.length*math.cos(self.angle)
+        x += self.length * math.sin(self.angle)
+        y += self.length * math.cos(self.angle)
         if self.terminal:
             return [(x, y)]
         elif self.right:
@@ -120,9 +119,9 @@ class Flowers(databench.Analysis):
         self.data['size_delta'] = (0.99, 0.02)
         self.data['length_delta'] = (0.99, 0.02)
         self.data['color_delta'] = (0.5, 0.1)
-        self.data['angle_delta'] = (0.0, 5.0/57.0)
+        self.data['angle_delta'] = (0.0, 5.0 / 57.0)
         self.data['branch_prob_per_unit'] = 5.0
-        self.data['branch_angle'] = 10.0/57.0
+        self.data['branch_angle'] = 10.0 / 57.0
 
         self.connected = True
         self.generate_flowers()
@@ -132,12 +131,12 @@ class Flowers(databench.Analysis):
 
     def init_flowers(self):
         while len(self.flowers) < self.data['n_flowers']:
-            new_x = 0.1+0.8*random.random()
+            new_x = 0.1 + 0.8 * random.random()
             if self.flowers:
-                while min([abs(f['x']-new_x) for f in self.flowers]) < 0.03:
-                    new_x = 0.1+0.8*random.random()
+                while min([abs(f['x'] - new_x) for f in self.flowers]) < 0.03:
+                    new_x = 0.1 + 0.8 * random.random()
             self.flowers.append({
-                'x': 0.1+0.8*random.random(),
+                'x': 0.1 + 0.8 * random.random(),
                 'trunk': Branch(config=self.data)
             })
 
@@ -162,7 +161,7 @@ class Flowers(databench.Analysis):
                      for f in self.flowers]
             rights = [max([e[0] for e in f['trunk'].ends(f['x'])])
                       for f in self.flowers]
-            widths = [r-l for l, r in zip(lefts, rights)]
+            widths = [r - l for l, r in zip(lefts, rights)]
             self.flowers = [f for f, w in zip(self.flowers, widths)
                             if w < self.max_width]
 
@@ -171,6 +170,3 @@ class Flowers(databench.Analysis):
 
             self.data['lines'] = self.output()
             yield tornado.gen.sleep(0.15)
-
-
-META = databench.Meta('flowers', Flowers)

@@ -9,8 +9,7 @@ except ImportError:
 
 
 def redis_creator():
-    """Checks enironment for certatin redis providers and creates
-    a redis client."""
+    """Uses environment variables to create a redis client."""
 
     rediscloudenv = os.getenv('REDISCLOUD_URL')
     if rediscloudenv:
@@ -33,9 +32,5 @@ class RedisPub(databench.Analysis):
         self.emit('log', {'action': 'backend started'})
 
     def on_stats(self, msg):
-        """Listens for new messages from frontend and pushes to
-        redis channel."""
+        """Listens for messages from frontend and pushes to redis channel."""
         self.redis_client.publish('someStatsProvider', msg)
-
-
-META = databench.Meta('redispub', RedisPub)

@@ -15,6 +15,3 @@ class RedisSub(databench.Analysis):
         for m in redis_client.listen():
             if ('type' in m) and (m['type'] == 'message') and ('data' in m):
                 self.emit('status', m['data'])
-
-
-META = databench.Meta('redissub', RedisSub)

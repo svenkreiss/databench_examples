@@ -1,12 +1,11 @@
 import databench
-
 import math
-import time
 import random
-import subprocess
-
 from redis import Redis
 from rq import Queue
+import subprocess
+import time
+import tornado.gen
 
 
 def inside(job, draws=100):
@@ -16,15 +15,12 @@ def inside(job, draws=100):
         time.sleep(0.001)
         r1 = random.random()
         r2 = random.random()
-        if r1*r1 + r2*r2 < 1.0:
+        if r1 ** 2 + r2 ** 2 < 1.0:
             inside += 1
     return (job, inside, draws)
 
 
 class FastPi(databench.Analysis):
-
-    def __init__(self):
-        self.workers = []
 
     def on_workers(self, num_workers):
         """Spawns and terminates rqworkers as necessary."""
@@ -37,9 +33,12 @@ class FastPi(databench.Analysis):
 
         self.emit('log', {'workers': len(self.workers)})
 
+    @tornado.gen.coroutine
     def on_connect(self):
         """Run as soon as a browser connects to this."""
 
+        self.workers = []
+        self.on_workers(2)
         q = Queue(connection=Redis())
 
         jobs = []
@@ -60,23 +59,20 @@ class FastPi(databench.Analysis):
                     'inside': inside_count,
                 })
 
-                uncertainty = 4.0*math.sqrt(
-                    draws_count*inside_count/draws_count *
-                    (1.0 - inside_count/draws_count)
+                uncertainty = 4.0 * math.sqrt(
+                    draws_count * inside_count / draws_count *
+                    (1.0 - inside_count / draws_count)
                 ) / draws_count
-                self.emit('status', {
-                    'pi-estimate': 4.0*inside_count/draws_count,
-                    'pi-uncertainty': uncertainty,
-                })
+                self.data['pi'] = {
+                    'estimate': 4.0 * inside_count / draws_count,
+                    'uncertainty': uncertainty,
+                }
 
                 jobs.remove(j)
-            time.sleep(0.1)
+            yield tornado.gen.sleep(0.1)
 
         self.emit('log', {'action': 'done'})
 
     def on_disconnect(self):
         # terminate all workers
         self.on_workers(0)
-
-
-META = databench.Meta('fastpi', FastPi)

@@ -1,42 +1,26 @@
 {% extends "analysis.html" %}
 
 
+{% block head %}
+<link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css">
+{% end %}
+
+
 {% block analysis %}
-{% filter markdown %}
-# fastpi <small><i>π = <span id="pi-estimate">0.0 ± 1.0</span></i></small>
-
-This little demo uses two random numbers \\(r_1\\) and \\(r_2\\) and then
-does a comparison $$r_1^2 + r_2^2 < 1.0$$ to figure out whether the
-generated point is inside the first quadrant of the unit circle.
-
-__Make sure you have a _redis-server_ running.__
-{% endfilter %}
-
-<hr />
-<div class="row">
-    <div class="col-sm-3">
-        <label for="workers">Workers</label>
-        <input type="range" name="workers" min="1" max="24" value="2" />
-    </div>
-</div>
-<hr />
-
-<pre id="log"></pre>
-
-<br /><br /><hr />
-<h3>Source Code</h3>
-analysis.py: [[ include_src('fastpi/analysis.py', 'python') ]]
-index.html: [[ include_src('fastpi/index.html') ]]
+<h1><i>π = <span id="pi">0.0 ± 1.0</span></i></h1>
+<label for="workers">Workers</label>
+<input type="range" name="workers" min="1" max="24" value="2" />
 {% end %}
 
 
 {% block footer %}
 <script>
-    var databench = Databench();
+    var d = new Databench.Connection();
+    Databench.ui.wire(d);
+    d.connect();
 
-    databench.on('status', function(msg) {
-        $('#pi-estimate').text(msg['pi-estimate'].toFixed(3) +
-            ' ± '+msg['pi-uncertainty'].toFixed(3));
+    d.on({data: 'pi'}, function(pi) {
+        document.getElementById('pi').innerHTML = pi.estimate.toFixed(3)+' ± '+pi.uncertainty.toFixed(3);
     });
 </script>
 {% end %}
