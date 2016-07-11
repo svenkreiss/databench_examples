@@ -1,6 +1,11 @@
 {% extends "analysis.html" %}
 
 
+{% block head %}
+<link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css">
+{% end %}
+
+
 {% block analysis %}
 <div ng-app="angularApp" ng-strict-di>
 <div ng-controller="navCtrl">
@@ -8,64 +13,42 @@
         <li ng-class="{active: navCheck('home')}"><a href='#/home'>Home</a></li>
         <li ng-class="{active: navCheck('simplepi')}"><a href='#/simplepi'>Simplepi</a></li>
         <li ng-class="{active: navCheck('logmessages')}"><a href='#/logmessages'>Log Messages</a></li>
-        <li ng-class="{active: navCheck('sourcecode')}"><a href='#/sourcecode'>Source Code</a></li>
     </ul>
 
     <div ng-show="navCheck('home')" ng-controller="testingAngular">
-{% filter markdown %}
-### Angular.js Introduction
 
-This page shows two of `angular.js` most popular applications. First, you get the nav-bar on top almost for free. The four tabs it accesses are part of a single page. This is pure JavaScript and you always stay inside this one page (even though the url bar of your browser updates). Second, the standard hello world example for frameworks like `angular.js` is tested below.
+        <h1>Angular.js Introduction</h1>
 
-The `simplepi` example that is also included here (in the other tabs) makes use of angular's data-binding. When a `status` signal is received from the Databench backend, the callback function does not use `jQuery` anymore to modify the DOM, but simply assigns the new estimate of \\(\\pi\\) to a variable of an angular controller, say `pi`. In the Databench frontend, the `<span id="pi">0.0</span>` is replaced with an angular variable placeholder <code ng-non-bindable>[[pi]]</code>.
+        This page shows two of `angular.js` most popular applications. First, you get the nav-bar on top almost for free. The four tabs it accesses are part of a single page. This is pure JavaScript and you always stay inside this one page (even though the url bar of your browser updates). Second, the standard hello world example for frameworks like `angular.js` is tested below.
 
-Note that `jinja2` is configured in a non-standard way `[[ '[[myVar]]' ]]` for variable delimiters. Therefore, `angular.js` does not conflict and <code ng-non-bindable>{{myVar}}</code> can be used. This changed in version 0.2.15.
+        The `simplepi` example that is also included here (in the other tabs) makes use of angular's data-binding. When a `status` signal is received from the Databench backend, the callback function does not use `jQuery` anymore to modify the DOM, but simply assigns the new estimate of π to a variable of an angular controller, say `pi`. In the Databench frontend, the `<span id="pi">0.0</span>` is replaced with an angular variable placeholder <code ng-non-bindable>[[pi]]</code>.
+
+        Note that `jinja2` is configured in a non-standard way `[[ '[[myVar]]' ]]` for variable delimiters. Therefore, `angular.js` does not conflict and <code ng-non-bindable>{% raw "{{myVar}}" %}</code> can be used. This changed in version 0.2.15.
 
 
-### Live Demo of Data Binding
+        <h1>Live Demo of Data Binding</h1>
 
-Here is the standard code and right below is the live demo.
-{% endfilter %}
+        Here is the standard code and right below is the live demo.
 
-<div ng-non-bindable>
-{% highlight 'html' %}
-<input type="text" ng-model="chapter">
-<p>What you just typed: <code>{{chapter}}</code></p>
-{% endhighlight %}
-</div>
 
-        <div class="row">
-            <div class="col-md-6">
-                <input type="text" class="form-control"
-                       autocomplete="off" autofocus ng-model="chapter" />
-            </div>
-            <div class="col-md-6">
-                <p>What you just typed: <code>{{chapter}}</code></p>
-            </div>
-        </div>
+        <input type="text" ng-model="chapter">
+        <p>What you just typed: <code>{% raw "{{chapter}}" %}</code></p>
     </div>
 
     <div ng-show="navCheck('simplepi')" ng-controller="simplepi">
-        <h3>
+        <h1>
             Simplepi
-            <small><i>π = {{pi}}</i></small>
-        </h3>
+            <small><i>π = {% raw "{{pi}}" %}</i></small>
+        </h1>
 
-        <p>This little demo uses two random numbers \(r_1\) and \(r_2\) and
-        then does a comparison $$r_1^2 + r_2^2 &le; 1.0$$ to figure out whether
-        the generated point is inside the first quadrant of the unit circle.</p>
+        <p>This little demo uses two random numbers r1 and r2 and then does a comparison `r1^2 + r2^2 < 1.0` to figure out whether the generated point is inside the first quadrant of the unit circle.</p>
     </div>
 
     <div ng-show="navCheck('logmessages')">
-        <h3>Log Messages</h3>
+        <h1>Log Messages</h1>
         <pre id="log"></pre>
     </div>
 
-    <div ng-show="navCheck('sourcecode')">
-        <h3>Source Code</h3>
-        analysis.py: [[ include_src('angular/analysis.py', 'python') ]]
-        index.html: [[ include_src('angular/index.html') ]]
-    </div>
 </div>
 </div>
 {% end %}
@@ -74,7 +57,8 @@ Here is the standard code and right below is the live demo.
 {% block footer %}
 <script src="/angular/static/angular_1.2.15.min.js"></script>
 <script>
-    var databench = Databench();
+    var databench = new Databench.Connection();
+    Databench.ui.wire(databench);
 
     angular.module('angularApp', [])
     .controller('navCtrl', ['$scope', '$location', function ($scope, $location) {
@@ -89,10 +73,16 @@ Here is the standard code and right below is the live demo.
     .controller('simplepi', ['$scope', function($scope) {
         $scope.pi = '0.0 ± 1.0';
 
-        databench.on('status', function(msg) {
-            $scope.pi = msg['pi-estimate'].toFixed(3)+' ± '+msg['pi-uncertainty'].toFixed(3);
+
+        databench.on({data: 'pi'}, function(pi) {
+            $scope.pi = pi.estimate.toFixed(3)+' ± '+pi.uncertainty.toFixed(3);
             $scope.$apply();
         });
     }]);
+
+    databench.connect();
 </script>
 {% end %}
+
+
+{% block log %}{% end %}
