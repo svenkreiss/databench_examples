@@ -3,6 +3,11 @@
 
 {% block head %}
 <link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css" />
+<style>
+.sliders { display: flex; flex-wrap: wrap; margin: -10px 0 0 -10px; }
+.slider { flex: 1 0 250px; margin: 10px 0 0 10px; }
+.slider input { clear: left; display: block; width: 98%; }
+</style>
 {% end %}
 
 
@@ -10,22 +15,22 @@
 <svg id="canvas" width="800" height="300" />
 
 <hr />
-<div class="row">
-    <div class="col-md-3">
+<div class="sliders">
+    <div class="slider">
         <label for="n_flowers">number of flowers:</label>
-        <input type="range" name="n_flowers" min="1" max="20" step="1" value="3" data-instance="n_flowers" />
+        <input type="range" id="n_flowers" min="1" max="20" step="1" value="3" />
     </div>
-    <div class="col-md-3">
+    <div class="slider">
         <label for="branch_angle">branching angle:</label>
-        <input type="range" name="branch_angle" min="10" max="90" step="10" value="10" data-instance="branch_angle" id="branch_angle" />
+        <input type="range" id="branch_angle" min="10" max="90" step="10" value="10" />
     </div>
-    <div class="col-md-3">
+    <div class="slider">
         <label for="init_size">trunk thickness:</label>
-        <input type="range" name="init_size" min="0.005" max="0.100" step="0.005" value="0.03" data-instance="init_size" />
+        <input type="range" id="init_size" min="0.005" max="0.100" step="0.005" value="0.03" />
     </div>
-    <div class="col-md-3">
+    <div class="slider">
         <label for="init_length">trunk length:</label>
-        <input type="range" name="init_length" min="0.01" max="0.2" step="0.01" value="0.05" data-instance="init_length" />
+        <input type="range" id="init_length" min="0.01" max="0.2" step="0.01" value="0.05" />
     </div>
 </div>
 {% end %}
@@ -37,18 +42,15 @@
     var d = new Databench.Connection();
     // wire ui elements and reconfigure branching angle slider
     Databench.ui.wire(d);
-    var ba_s = document.getElementById('branch_angle').databench_ui;
-    ba_s.v_to_slider = function(radians) { return radians*57.0; }
-    ba_s.slider_to_v = function(degrees) { return degrees/57.0; }
-    ba_s.v_repr = function(v) { return (v*57.0).toFixed(0)+' degrees'; }
+    var branch_angle_ui = document.getElementById('branch_angle').databenchUI;
+    branch_angle_ui.valueToSlider = function(radians) { return radians*57.0; };
+    branch_angle_ui.sliderToValue = function(degrees) { return degrees/57.0; };
+    branch_angle_ui.formatFn = function(value) { return (value*57.0).toFixed(0)+' degrees'; };
     // now connect to backend
     d.connect();
 
     var flowers = Flowers('canvas');
-    d.on('data', function(msg) {
-        if ('lines' in msg) flowers(msg['lines']);
-    });
-
+    d.on({data: 'lines'}, function(lines) { flowers(lines); });
 
     // define how to draw flowers with d3.js
     function Flowers(id) {

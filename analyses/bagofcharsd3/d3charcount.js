@@ -1,6 +1,7 @@
 // based on http://bl.ocks.org/dbuezas/9572040
 
 function d3charcount(selector) {
+    var parentNode = document.getElementById(selector);
     var svgElement = d3.select('#'+selector)
         .append("svg");
     var svg = svgElement
@@ -13,22 +14,22 @@ function d3charcount(selector) {
     svg.append("g")
         .attr("class", "lines");
 
-    var width = $('#'+selector).width(),
-        height = $('#'+selector).height(),
+    var width = parentNode.clientWidth,
+        height = parentNode.clientHeight,
         radius = Math.min(width-100, height) / 2;
     var aspectRatio = width/height;
 
     // attempt at responsive element
     svgElement.attr("width", width);
     svgElement.attr("height", width/aspectRatio);
-    svgElement.attr("viewBox", "0 0 "+width+" "+height)
-    $(window).on("resize", function() {
-        width = $('#'+selector).width();
-        height = $('#'+selector).width()/aspectRatio;
-        $('#'+selector).height(height);
+    svgElement.attr("viewBox", "0 0 "+width+" "+height);
+    window.addEventListener('resize', function() {
+        width = parentNode.clientWidth;
+        height = parentNode.clientWidth/aspectRatio;
+        // svgElement.height(height);
         svgElement.attr("width", width);
         svgElement.attr("height", height);
-    }).trigger("resize");
+    }); //.trigger("resize");
 
     var pie = d3.layout.pie()
         .sort(null)
