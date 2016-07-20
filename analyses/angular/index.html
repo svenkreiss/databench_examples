@@ -3,6 +3,26 @@
 
 {% block head %}
 <link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css">
+<style>
+.nav {
+    display: block;
+    width: 100%;
+    float: left;
+}
+.nav-pills li {
+    display: block;
+    padding: 5px 20px;
+    border: 1px solid #55a;
+    border-bottom: 0;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    float: left;
+    margin-left: 5px;
+}
+.nav-pills li.active {
+    border-top: 3px solid #55a;
+}
+</style>
 {% end %}
 
 
@@ -11,7 +31,7 @@
 <div ng-controller="navCtrl">
     <ul class="nav nav-pills">
         <li ng-class="{active: navCheck('home')}"><a href='#/home'>Home</a></li>
-        <li ng-class="{active: navCheck('simplepi')}"><a href='#/simplepi'>Simplepi</a></li>
+        <li ng-class="{active: navCheck('simplepi')}"><a href='#/simplepi'>Simple π</a></li>
         <li ng-class="{active: navCheck('logmessages')}"><a href='#/logmessages'>Log Messages</a></li>
     </ul>
 
@@ -19,11 +39,19 @@
 
         <h1>Angular.js Introduction</h1>
 
-        This page shows two of `angular.js` most popular applications. First, you get the nav-bar on top almost for free. The four tabs it accesses are part of a single page. This is pure JavaScript and you always stay inside this one page (even though the url bar of your browser updates). Second, the standard hello world example for frameworks like `angular.js` is tested below.
+        This page shows two of <code>angular.js</code> most popular applications. First,
+        you get the nav-bar on top almost for free. The four tabs it accesses
+        are part of a single page. This is pure JavaScript and you always stay
+        inside this one page (even though the url bar of your browser updates).
+        Second, the standard hello world example for frameworks like
+        <code>angular.js</code> is tested below.
 
-        The `simplepi` example that is also included here (in the other tabs) makes use of angular's data-binding. When a `status` signal is received from the Databench backend, the callback function does not use `jQuery` anymore to modify the DOM, but simply assigns the new estimate of π to a variable of an angular controller, say `pi`. In the Databench frontend, the `<span id="pi">0.0</span>` is replaced with an angular variable placeholder <code ng-non-bindable>[[pi]]</code>.
-
-        Note that `jinja2` is configured in a non-standard way `[[ '[[myVar]]' ]]` for variable delimiters. Therefore, `angular.js` does not conflict and <code ng-non-bindable>{% raw "{{myVar}}" %}</code> can be used. This changed in version 0.2.15.
+        The <code>simplepi</code> example that is also included here (in the other tabs)
+        makes use of angular's data-binding. When a <code>status</code> signal is received
+        from the Databench backend, the callback function simply assigns the new
+        estimate of π to a variable of an angular controller, say <code>pi</code>. In the
+        html file, the value is shown in an angular variable placeholder
+        <code ng-non-bindable>[[pi]]</code>.
 
 
         <h1>Live Demo of Data Binding</h1>
@@ -41,7 +69,9 @@
             <small><i>π = {% raw "{{pi}}" %}</i></small>
         </h1>
 
-        <p>This little demo uses two random numbers r1 and r2 and then does a comparison `r1^2 + r2^2 < 1.0` to figure out whether the generated point is inside the first quadrant of the unit circle.</p>
+        <p>This little demo uses two random numbers r1 and r2 and then does a comparison
+        <code>r1^2 + r2^2 < 1.0</code> to figure out whether the generated point is
+        inside the first quadrant of the unit circle.</p>
     </div>
 
     <div ng-show="navCheck('logmessages')">

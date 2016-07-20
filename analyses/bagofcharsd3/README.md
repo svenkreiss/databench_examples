@@ -1,5 +1,5 @@
 <!--
-Title: Bag of Chars d3
+Title: Bag of Chars with d3.js
 Description: Providing "bag-of-chars" statistics.
 -->
 
