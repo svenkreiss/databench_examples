@@ -1,12 +1,11 @@
 import databench
-
 import math
 import random
 import tornado.gen
 
 import matplotlib
 matplotlib.use('agg')
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt  # noqa: E402
 
 
 class MplPi(databench.Analysis):

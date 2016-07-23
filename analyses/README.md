@@ -1,7 +1,3 @@
-<!--
-Title: Databench Examples
--->
-
 Databench is a tool that connects a Python analysis to a custom html
 frontend.
 

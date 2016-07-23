@@ -1,4 +1,4 @@
-.. image:: http://www.svenkreiss.com/databench/logo.svg
+.. image:: https://raw.githubusercontent.com/svenkreiss/databench/master/logo/logo-w100.png
     :target: http://databench.trivial.io
 
 Databench Examples
@@ -6,7 +6,7 @@ Databench Examples
 
     Example analyses for `Databench <https://github.com/svenkreiss/databench/>`_. Live demos of some of them are at `databench-examples.trivial.io <http://databench-examples.trivial.io>`_ and the `Databench documentation is here <http://databench.trivial.io>`_.
 
-.. image:: https://travis-ci.org/svenkreiss/databench_examples.png?branch=master
+.. image:: https://travis-ci.org/svenkreiss/databench_examples.svg?branch=master
     :target: https://travis-ci.org/svenkreiss/databench_examples
 
 
@@ -20,17 +20,6 @@ Setup your environment and install dependencies in the current directory with::
     virtualenv venv
     source venv/bin/activate
     pip install -r requirements.txt
-
-
-Example Outputs
----------------
-
-.. image:: doc/images/mpld3pi_demo.png
-    :target: http://databench-examples.trivial.io/mpld3pi/
-.. image:: doc/images/mpld3_PointLabel.png
-    :target: http://databench-examples.trivial.io/mpld3PointLabel/
-.. image:: doc/images/mpld3_heart_path.png
-    :target: http://databench-examples.trivial.io/mpld3Drag/
 
 
 Docker

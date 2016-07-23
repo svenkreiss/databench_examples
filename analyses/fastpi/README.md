@@ -1,8 +1,3 @@
-<!--
-Title: Fast π
-Description: Calculating π the redis-queue way ... yes, in parallel processes.
--->
-
 Calculating π the redis-queue way ... yes, in parallel processes.
 
 <i class="fa fa-fw fa-github"></i>

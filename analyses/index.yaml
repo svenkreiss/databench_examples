@@ -1,0 +1,30 @@
+version: 0.4.0
+title: Databench Examples
+
+analyses:
+  - name: flowers
+    title: Abstract Flowers
+    description: Generate flowers. Parameters can be adjusted while the generation is running.
+  - name: bagofcharsd3
+    title: Bag of Chars with d3.js
+    description: Providing "bag-of-chars" statistics.
+  - name: helloreact
+    title: Hello React
+    description: Demoing how to use React with Databench.
+    build: npm run build-helloreact
+    watch: helloreact/main.js
+  - name: angular
+    title: Angular.js Demo
+    description: Calculating π the simple way with angular.js interface.
+  - name: simplepi
+    title: Simple π
+    description: Calculating π the simple way.
+  - name: mplpi
+    title: Matplotlib π
+    description: Calculating π the simple way, but with matplotlib visualization.
+  - name: fastpi
+    title: Fast π
+    description: Calculating π the redis-queue way ... yes, in parallel processes.
+  - name: redispub
+  - name: redissub
+  - name: helloworld
