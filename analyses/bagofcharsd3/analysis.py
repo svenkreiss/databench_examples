@@ -1,15 +1,7 @@
-"""Providing "bag-of-chars" statistics."""
-
 import databench
 
 
-class Analysis(databench.Analysis):
-
-    def on_connect(self):
-        """Run as soon as a browser connects to this."""
-        self.emit('log', {
-            'backend': 'started and listening for signals from frontend'
-        })
+class BagOfChars(databench.Analysis):
 
     def on_sentence(self, sentence):
         """Takes a sentence and counts the characters."""
@@ -22,7 +14,4 @@ class Analysis(databench.Analysis):
                 counts[c] = sentence.count(c)
 
         self.emit('log', counts)
-        self.emit('counts', counts)
-
-
-META = databench.Meta('bagofcharsd3', __name__, __doc__, Analysis)
+        self.data['counts'] = counts

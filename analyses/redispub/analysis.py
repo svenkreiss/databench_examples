@@ -1,19 +1,19 @@
-"""Testing publishing to a redis channel."""
-
 import databench
 
 import os
 import redis
-import urlparse
+try:
+    from urllib.parse import urlparse  # Python 3
+except ImportError:
+    from urlparse import urlparse  # Python 2
 
 
 def redis_creator():
-    """Checks enironment for certatin redis providers and creates
-    a redis client."""
+    """Uses environment variables to create a redis client."""
 
-    rediscloudenv = os.environ.get('REDISCLOUD_URL')
+    rediscloudenv = os.getenv('REDISCLOUD_URL')
     if rediscloudenv:
-        url = urlparse.urlparse(rediscloudenv)
+        url = urlparse(rediscloudenv)
         r = redis.Redis(host=url.hostname, port=url.port,
                         password=url.password)
     else:
@@ -22,7 +22,7 @@ def redis_creator():
     return r
 
 
-class Analysis(databench.Analysis):
+class RedisPub(databench.Analysis):
 
     def __init__(self):
         self.redis_client = redis_creator()
@@ -32,9 +32,5 @@ class Analysis(databench.Analysis):
         self.emit('log', {'action': 'backend started'})
 
     def on_stats(self, msg):
-        """Listens for new messages from frontend and pushes to
-        redis channel."""
+        """Listens for messages from frontend and pushes to redis channel."""
         self.redis_client.publish('someStatsProvider', msg)
-
-
-META = databench.Meta('redispub', __name__, __doc__, Analysis)

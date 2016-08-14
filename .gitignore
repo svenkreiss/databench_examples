@@ -52,6 +52,8 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
-venv
+venv/
+venv3/
 .DS_Store
 .elasticbeanstalk/
+analyses/node_modules

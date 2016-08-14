@@ -1,11 +1,8 @@
-{% from 'macros.html' import include_src, include_md %}
-{% extends "base.html" %}
-
-
-{% block title %}bagofcharsd3{% endblock %}
+{% extends "analysis.html" %}
 
 
 {% block head %}
+<link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css" />
 <style>
 path.slice {
     stroke-width: 2px;
@@ -16,11 +13,22 @@ polyline {
     stroke-width: 2px;
     fill: none;
 }
+input[type=text] {
+    box-sizing: border-box;
+    font-size: 110%;
+    color: #555;
+    display: block;
+    width: 100%;
+    padding: 6px 12px;
+    line-height: 1.4;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
 </style>
-{% endblock %}
+{% end %}
 
 
-{% block content %}
+{% block analysis %}
 <h1>Bag of Chars</h1>
 
 <input type="text" class="form-control" id="sentence"
@@ -29,33 +37,29 @@ polyline {
 
 <br />
 <div id="viz" style="height: 300px; width: 100%;"></div>
-
-[[ include_md('bagofcharsd3/README.md') ]]
-
-<h3>Log</h3>
-<pre id="log"></pre>
-{% endblock %}
+{% end %}
 
 
-{% block footerscripts %}
-<script src="/bagofcharsd3/static/d3charcount.js?version=1"></script>
+{% block footer %}
+<script src="/node_modules/d3/d3.min.js"></script>
+<script src="/bagofcharsd3/static/d3charcount.js?version=2"></script>
 <script>
-    var databench = Databench();
-
-    $('#sentence').on('keyup', function(event) {
-        databench.emit('sentence', {sentence: $(this).val()});
-    });
+    var d = new Databench.Connection();
+    Databench.ui.wire(d);
+    document.getElementById('sentence').databenchUI.triggerOnKeyUp();
 
 
     var d3viz = d3charcount('viz');
 
-    databench.on('counts', function(msg) {
-        var reformattedData = Object.keys(msg).map(function(letter) {
-            return {label:letter, value:msg[letter]};
+    d.on({data: 'counts'}, function(counts) {
+        var reformattedData = Object.keys(counts).map(function(letter) {
+            return {label:letter, value:counts[letter]};
         });
         if (reformattedData.length > 0) d3viz(reformattedData);
     });
 
-    databench.emit('sentence', {sentence:'type a phrase'});
+
+    d.connect();
+    d.emit('sentence', 'type a phrase');
 </script>
-{% endblock %}
+{% end %}

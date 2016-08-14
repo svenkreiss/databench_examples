@@ -1,0 +1,21 @@
+{
+    "kind": "Service",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "databench-demo-service"
+    },
+    "spec": {
+        "selector": {
+            "app": "databench-demo"
+        },
+        "ports": [
+            {
+                "protocol": "TCP",
+                "port": 80,
+                "targetPort": 5000
+            }
+        ],
+        "type": "LoadBalancer",
+        "loadBalancerIP": "104.196.52.158"
+    }
+}

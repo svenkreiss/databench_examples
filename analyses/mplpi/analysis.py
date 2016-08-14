@@ -1,61 +1,59 @@
-"""Calculating \\(\\pi\\) the simple way, but with mpld3."""
-
 import databench
-
 import math
-from time import sleep
-from random import random
+import random
+import tornado.gen
 
-import mpld3
-import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('agg')
+import matplotlib.pyplot as plt  # noqa: E402
 
 
-class Analysis(databench.Analysis):
+class MplPi(databench.Analysis):
 
-    def __init__(self):
+    def __init__(self, analysis_id):
+        super(MplPi, self).__init__(analysis_id)
+
         # initialize the figure with two subplots
         self.fig = plt.figure(figsize=(8, 4))
         self.ax1 = self.fig.add_subplot(121)
         self.ax2 = self.fig.add_subplot(122)
 
+    @tornado.gen.coroutine
     def on_connect(self):
         """Run as soon as a browser connects to this."""
 
         inside = 0
         rnd_draws = []
-
-        for i in xrange(10000):
-            sleep(0.001)
+        for draws in range(1, 10000):
+            yield tornado.gen.sleep(0.001)
 
             # generate points and check whether they are inside the unit circle
-            r1, r2 = (random(), random())
-            if r1*r1 + r2*r2 < 1.0:
+            r1 = random.random()
+            r2 = random.random()
+            if r1 ** 2 + r2 ** 2 < 1.0:
                 inside += 1
 
             # keep history of generated points
             rnd_draws.append((r1, r2))
 
             # every 100 iterations, update status
-            if (i+1) % 100 == 0:
-                draws = i+1
+            if draws % 100 != 0:
+                continue
 
-                # debug
-                self.emit('log', {
-                    'draws': draws,
-                    'inside': inside,
-                    'r1': r1,
-                    'r2': r2
-                })
+            # debug
+            self.emit('log', {'draws': draws, 'inside': inside})
 
-                # calculate pi and its uncertainty given the current draws
-                p = float(inside)/draws
-                uncertainty = 4.0*math.sqrt(draws*p*(1.0 - p)) / draws
-                self.emit('status', {
-                    'pi-estimate': 4.0*inside/draws,
-                    'pi-uncertainty': uncertainty
-                })
+            # calculate pi and its uncertainty given the current draws
+            p = inside / draws
+            uncertainty = 4.0 * math.sqrt(draws * p * (1.0 - p)) / draws
 
-                self.update_figure(rnd_draws)
+            # send status to frontend
+            self.data['pi'] = {
+                'estimate': 4.0 * inside / draws,
+                'uncertainty': uncertainty,
+            }
+
+            self.update_figure(rnd_draws)
 
         self.emit('log', {'action': 'done'})
 
@@ -82,8 +80,4 @@ class Analysis(databench.Analysis):
             normed=1, facecolor='blue', alpha=0.75
         )
 
-        # send new matplotlib plots to frontend
-        self.emit('mpld3canvas', mpld3.fig_to_dict(self.fig))
-
-
-META = databench.Meta('mpld3pi', __name__, __doc__, Analysis)
+        self.emit('mpl', databench.fig_to_src(self.fig, 'svg'))

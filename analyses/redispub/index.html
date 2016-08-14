@@ -1,6 +1,4 @@
-{% from 'macros.html' import include_src %}
-{% extends "base.html" %}
-
+{% extends "analysis.html" %}
 
 {% block head %}
 <style>
@@ -8,13 +6,13 @@
     font-size:600%; color:#008;
 }
 </style>
-{% endblock %}
+{% end %}
 
 
-{% block title %}Redis Pub{% endblock %}
+{% block title %}Redis Pub{% end %}
 
 
-{% block content %}
+{% block analysis %}
 {% filter markdown %}
 # Redis Publishing
 
@@ -39,10 +37,10 @@ Publishing numbers is the easy part. The interesting part happens in the `rediss
 <h3>Source Code</h3>
 analysis.py: [[ include_src('redispub/analysis.py', 'python') ]]
 index.html: [[ include_src('redispub/index.html') ]]
-{% endblock %}
+{% end %}
 
 
-{% block footerscripts %}
+{% block footer %}
 <script>
     var databench = Databench();
 
@@ -85,4 +83,4 @@ index.html: [[ include_src('redispub/index.html') ]]
         $("#btnSlow").addClass("btn-default");
     });
 </script>
-{% endblock %}
+{% end %}

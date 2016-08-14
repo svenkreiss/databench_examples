@@ -1,11 +1,9 @@
-"""Testing async subscription to redis channel."""
-
 import databench
 
 from analyses.redispub.analysis import redis_creator
 
 
-class Analysis(databench.Analysis):
+class RedisSub(databench.Analysis):
 
     def on_connect(self):
         """Run as soon as a browser connects to this."""
@@ -17,6 +15,3 @@ class Analysis(databench.Analysis):
         for m in redis_client.listen():
             if ('type' in m) and (m['type'] == 'message') and ('data' in m):
                 self.emit('status', m['data'])
-
-
-META = databench.Meta('redissub', __name__, __doc__, Analysis)
