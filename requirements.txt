@@ -1,4 +1,4 @@
-https://github.com/svenkreiss/databench/zipball/dev
+https://github.com/svenkreiss/databench/zipball/master
 Markdown==2.6.5
 matplotlib==1.5.1
 numpy==1.10.4
