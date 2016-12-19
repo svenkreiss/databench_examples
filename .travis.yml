@@ -8,6 +8,10 @@ install:
  - pip install --upgrade pip
  - pip install -r requirements.txt
  - pip install -r tests/requirements.txt
+ - npm install
 script:
  - flake8
+ - npm run lint
+ - localcrawl --start http://localhost:5000 --run databench --log DEBUG
+ - html5validator --root _crawled/
  - nosetests tests

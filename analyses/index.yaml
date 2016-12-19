@@ -1,31 +1,68 @@
-version: 0.4.0
 title: Databench Examples
+desctiption: Examples that demo Databench features.
+version: 0.4.1
 
 analyses:
   - name: flowers
     title: Abstract Flowers
     description: Generate flowers. Parameters can be adjusted while the generation is running.
+    watch:
+      - flowers/*.js
+      - flowers/*.html
   - name: bagofcharsd3
     title: Bag of Chars with d3.js
     description: Providing "bag-of-chars" statistics.
+    watch:
+      - bagofcharsd3/*.css
+      - bagofcharsd3/*.js
+      - bagofcharsd3/*.html
   - name: helloreact
     title: Hello React
     description: Demoing how to use React with Databench.
     build: npm run build-helloreact
     watch:
       - helloreact/main.js
+      - helloreact/*.html
   - name: angular
     title: Angular.js Demo
     description: Calculating π the simple way with angular.js interface.
+    watch:
+      - angular/*.css
+      - angular/*.js
+      - angular/*.html
   - name: simplepi
     title: Simple π
     description: Calculating π the simple way.
+    watch:
+      - simplepi/*.js
+      - simplepi/*.html
   - name: mplpi
     title: Matplotlib π
     description: Calculating π the simple way, but with matplotlib visualization.
+    watch:
+      - mplpi/*.js
+      - mplpi/*.html
   - name: fastpi
     title: Fast π
     description: Calculating π the redis-queue way ... yes, in parallel processes.
+    watch:
+      - fastpi/*.js
+      - fastpi/*.html
   - name: redispub
+    title: Redis Pub
+    description: Publish Redis messages.
+    watch:
+      - redissub/*.js
+      - redissub/*.html
   - name: redissub
+    title: Redis Sub
+    description: Subscribe to Redis messages.
+    watch:
+      - redispub/*.js
+      - redispub/*.html
   - name: helloworld
+    title: Hello World
+    description: Hello World demo.
+    watch:
+      - helloworld/*.js
+      - helloworld/*.html

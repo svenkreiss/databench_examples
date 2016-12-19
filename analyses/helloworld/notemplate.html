@@ -4,14 +4,7 @@
 <body>
     <p id="output"></p>
 
-    <script src="/_static/databench.js"></script>
-    <script>
-        var d = new Databench.Connection();
-        d.connect();
-
-        d.on('data', function(data) {
-            document.getElementById('output').innerHTML = data.status;
-        });
-    </script>
+    <script src="/_static/databench.js?v={{ databench_version }}"></script>
+    <script src="/helloworld/static/analysis.js?v={{ version }}"></script>
 </body>
 </html>

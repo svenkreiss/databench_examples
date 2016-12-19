@@ -1,26 +1,25 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
+let React = require('react');
+let ReactDOM = require('react-dom');
 
 
-var StatusText = React.createClass({
+let StatusText = React.createClass({
   getInitialState: function() {
     return {status: 'initial status'};
   },
   componentDidMount: function() {
     this.props.databench.on('data', data => {
       this.setState(data);
-      this.props.databench.emit('ack');
+      this.props.databench.emit('ack', [data]);
     });
   },
   render: function() {
-    return (
-      <p>Status: {this.state.status}</p>
-    );
+    return (<p>Status: {this.state.status}</p>);
   }
 });
 
 
-var d = new Databench.Connection();
+let d = new Databench.Connection();
+Databench.ui.wire(d);
 ReactDOM.render(
   <StatusText databench={d} />,
   document.getElementById('example')

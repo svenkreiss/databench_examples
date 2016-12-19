@@ -54,10 +54,9 @@ class Branch(object):
 
     def generate(self):
         if not self.terminal:
-            if self.right is not None and random.random() > 0.5:
+            self.left.generate()
+            if self.right is not None:
                 self.right.generate()
-            else:
-                self.left.generate()
             return
 
         self.terminal = False
@@ -112,7 +111,7 @@ class Flowers(databench.Analysis):
         """Run as soon as a browser connects to this."""
         self.data['n_flowers'] = 3
 
-        self.data['init_size'] = 0.03
+        self.data['init_size'] = 0.02
         self.data['init_length'] = 0.05
         self.data['init_color'] = 0.1
 

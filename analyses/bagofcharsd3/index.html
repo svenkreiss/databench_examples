@@ -2,64 +2,24 @@
 
 
 {% block head %}
-<link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css" />
-<style>
-path.slice {
-    stroke-width: 2px;
-}
-polyline {
-    opacity: .3;
-    stroke: black;
-    stroke-width: 2px;
-    fill: none;
-}
-input[type=text] {
-    box-sizing: border-box;
-    font-size: 110%;
-    color: #555;
-    display: block;
-    width: 100%;
-    padding: 6px 12px;
-    line-height: 1.4;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-</style>
+<link rel="stylesheet" href="/_static/databench.css?version={{ databench_version }}">
+<link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css?v={{ version }}" />
+<link rel="stylesheet" href="/bagofcharsd3/static/analysis.css?v={{ version }}" />
 {% end %}
 
 
 {% block analysis %}
-<h1>Bag of Chars</h1>
-
 <input type="text" class="form-control" id="sentence"
        placeholder="type a phrase"
        autocomplete="off" autofocus />
 
-<br />
-<div id="viz" style="height: 300px; width: 100%;"></div>
+<svg id="viz"></svg>
 {% end %}
 
 
 {% block footer %}
-<script src="/node_modules/d3/d3.min.js"></script>
-<script src="/bagofcharsd3/static/d3charcount.js?version=2"></script>
-<script>
-    var d = new Databench.Connection();
-    Databench.ui.wire(d);
-    document.getElementById('sentence').databenchUI.triggerOnKeyUp();
-
-
-    var d3viz = d3charcount('viz');
-
-    d.on({data: 'counts'}, function(counts) {
-        var reformattedData = Object.keys(counts).map(function(letter) {
-            return {label:letter, value:counts[letter]};
-        });
-        if (reformattedData.length > 0) d3viz(reformattedData);
-    });
-
-
-    d.connect();
-    d.emit('sentence', 'type a phrase');
-</script>
+<script src="/_static/databench.js?v={{ databench_version }}"></script>
+<script src="/node_modules/d3/d3.min.js?v={{ version }}"></script>
+<script src="/bagofcharsd3/static/d3charcount.js?v={{ version }}"></script>
+<script src="/bagofcharsd3/static/analysis.js?v={{ version }}"></script>
 {% end %}

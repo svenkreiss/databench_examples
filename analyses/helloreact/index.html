@@ -2,17 +2,20 @@
 
 
 {% block head %}
-<link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/_static/databench.css?version={{ databench_version }}">
+<link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css?v={{ version }}">
 {% end %}
 
 
 {% block analysis %}
-<div id="example">status not set</div>
+<h1>React App</h1>
+<div id="example">react-dom not rendered</div>
 {% end %}
 
 
 {% block footer %}
-<script src="/helloreact/static/bundle.js"></script>
+<script src="/_static/databench.js?v={{ databench_version }}"></script>
+<script src="/helloreact/static/bundle.js?v={{ version }}"></script>
 {% end %}
 
 

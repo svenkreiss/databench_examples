@@ -1,3 +1,5 @@
+_crawled/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -57,3 +59,5 @@ venv3/
 .DS_Store
 .elasticbeanstalk/
 analyses/node_modules
+node_modules/
+.vscode/

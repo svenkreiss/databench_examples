@@ -1,18 +1,17 @@
 {% extends "analysis.html" %}
 
 
+{% block head %}
+<link rel="stylesheet" href="/_static/databench.css?version={{ databench_version }}">
+{% end %}
+
+
 {% block analysis %}
 <p id="output"></p>
 {% end %}
 
 
 {% block footer %}
-<script>
-    var d = new Databench.Connection();
-    d.connect();
-
-    d.on('data', function(data) {
-        document.getElementById('output').innerHTML = data.status;
-    });
-</script>
+<script src="/_static/databench.js?v={{ databench_version }}"></script>
+<script src="/helloworld/static/analysis.js?v={{ version }}"></script>
 {% end %}

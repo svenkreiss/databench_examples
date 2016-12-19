@@ -1,7 +1,7 @@
 import databench
-
 import os
 import redis
+
 try:
     from urllib.parse import urlparse  # Python 3
 except ImportError:
@@ -24,7 +24,8 @@ def redis_creator():
 
 class RedisPub(databench.Analysis):
 
-    def __init__(self):
+    def __init__(self, id_=None):
+        super(RedisPub, self).__init__(id_)
         self.redis_client = redis_creator()
 
     def on_connect(self):
