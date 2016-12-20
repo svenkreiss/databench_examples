@@ -21,7 +21,7 @@ analyses:
     description: Demoing how to use React with Databench.
     build: npm run build-helloreact
     watch:
-      - helloreact/main.js
+      - helloreact/analysis.js
       - helloreact/*.html
   - name: angular
     title: Angular.js Demo
