@@ -5,13 +5,18 @@ python:
  - "3.4"
  - "3.5"
 install:
- - pip install --upgrade pip
- - pip install -r requirements.txt
- - pip install -r tests/requirements.txt
- - npm install
+ # install Node 6
+ - rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install 6
+ - node -v
  # Java 8 for html5validator
  - sudo apt-get install oracle-java8-installer
  - sudo update-java-alternatives -s java-8-oracle
+ # upgrade Python
+ - pip install --upgrade pip
+ # actual install
+ - pip install -r requirements.txt
+ - pip install -r tests/requirements.txt
+ - npm install
 script:
  - flake8
  - npm run lint
