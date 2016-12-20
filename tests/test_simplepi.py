@@ -25,7 +25,7 @@ def setup_module():
     if os.getenv('CI'):
         time.sleep(3)
 
-    time.sleep(0.2)
+    time.sleep(10)
 
 
 def teardown_module():

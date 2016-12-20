@@ -9,7 +9,7 @@ Add to the `scripts` in `package.json`:
 
     "build-helloreact": "webpack ./helloreact/main.js ./helloreact/bundle.js --module-bind 'js=babel-loader'"
 
-And add to the `README.md` header:
+And add to the `index.yaml` section:
 
     build: npm run build-helloreact
 

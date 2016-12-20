@@ -2,6 +2,7 @@
 
 
 {% block head %}
+<link rel="stylesheet" href="/_static/databench.css?version={{ databench_version }}">
 <link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css" />
 <style>
 .sliders { display: flex; flex-wrap: wrap; margin: -10px 0 0 -10px; }
@@ -26,7 +27,7 @@
     </div>
     <div class="slider">
         <label for="init_size">trunk thickness:</label>
-        <input type="range" id="init_size" min="0.005" max="0.100" step="0.005" value="0.03" />
+        <input type="range" id="init_size" min="0.005" max="0.100" step="0.005" value="0.02" />
     </div>
     <div class="slider">
         <label for="init_length">trunk length:</label>
@@ -37,48 +38,7 @@
 
 
 {% block footer %}
-<script src="/node_modules/d3/d3.min.js"></script>
-<script>
-    var d = new Databench.Connection();
-    // wire ui elements and reconfigure branching angle slider
-    Databench.ui.wire(d);
-    var branch_angle_ui = document.getElementById('branch_angle').databenchUI;
-    branch_angle_ui.valueToSlider = function(radians) { return radians*57.0; };
-    branch_angle_ui.sliderToValue = function(degrees) { return degrees/57.0; };
-    branch_angle_ui.formatFn = function(value) { return (value*57.0).toFixed(0)+' degrees'; };
-    // now connect to backend
-    d.connect();
-
-    var flowers = Flowers('canvas');
-    d.on({data: 'lines'}, function(lines) { flowers(lines); });
-
-    // define how to draw flowers with d3.js
-    function Flowers(id) {
-        var svg = d3.select('#'+id),
-            height = parseFloat(svg.attr('height')),
-            width = parseFloat(svg.attr('width'));
-
-        return function(json) {
-            lines = svg.selectAll(".line").data(json, function(d) { return d[0]; });
-
-            lines.enter()
-                .append("svg:line")
-                .attr("class", "line")
-                .attr("x1", function(d) { return width*d[1]; })
-                .attr("y1", function(d) { return height*(1.0-d[2]); })
-                .attr("x2", function(d) { return width*d[3]; })
-                .attr("y2", function(d) { return height*(1.0-d[4]); })
-                .style("stroke", function(d) { return d3.hsl(100,d[6],d[6]).toString(); })
-                .style("stroke-width", 0.0);
-
-            lines.transition()
-                .duration(250)
-                .style("stroke-width", function(d,i) { return width*d[5]; });
-
-            lines.exit()
-                .remove();
-
-        };
-    }
-</script>
+<script src="/_static/databench.js?v={{ databench_version }}"></script>
+<script src="/node_modules/d3/d3.min.js?v={{ version }}"></script>
+<script src="/flowers/static/analysis.js?v={{ version }}"></script>
 {% end %}

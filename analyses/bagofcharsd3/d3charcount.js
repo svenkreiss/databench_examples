@@ -1,223 +1,192 @@
+/* global d3 */
+
 // based on http://bl.ocks.org/dbuezas/9572040
 
-function d3charcount(selector) {
-    var parentNode = document.getElementById(selector);
-    var svgElement = d3.select('#'+selector)
-        .append("svg");
-    var svg = svgElement
-        .append("g");
+function d3charcount(selector) {  // eslint-disable-line no-unused-vars
+  const svg = d3.select(`#${selector}`);
 
-    svg.append("g")
-        .attr("class", "slices");
-    svg.append("g")
-        .attr("class", "labels");
-    svg.append("g")
-        .attr("class", "lines");
+  svg.append('g').attr('class', 'slices');
+  svg.append('g').attr('class', 'labels');
+  svg.append('g').attr('class', 'lines');
 
-    var width = parentNode.clientWidth,
-        height = parentNode.clientHeight,
-        radius = Math.min(width-100, height) / 2;
-    var aspectRatio = width/height;
+  let width = svg.node().clientWidth;
+  let height = svg.node().clientHeight;
+  const radius = Math.min(width - 100, height) / 2;
+  const aspectRatio = width / height;
 
-    // attempt at responsive element
-    svgElement.attr("width", width);
-    svgElement.attr("height", width/aspectRatio);
-    svgElement.attr("viewBox", "0 0 "+width+" "+height);
-    window.addEventListener('resize', function() {
-        width = parentNode.clientWidth;
-        height = parentNode.clientWidth/aspectRatio;
-        // svgElement.height(height);
-        svgElement.attr("width", width);
-        svgElement.attr("height", height);
-    }); //.trigger("resize");
+  // attempt at responsive element
+  svg.attr('width', width);
+  svg.attr('height', width / aspectRatio);
+  svg.attr('viewBox', `-${width / 2} -${height / 2} ${width} ${height}`);
+  svg.on('resize', () => {
+    width = svg.node().clientWidth;
+    height = width / aspectRatio;
+    svg.attr('width', width);
+    svg.attr('height', height);
+  });
 
-    var pie = d3.layout.pie()
-        .sort(null)
-        .value(function(d) { return d.value; });
+  const pie = d3.layout.pie()
+    .sort(null)
+    .value(d => d.value);
 
-    var arc = d3.svg.arc()
-        .outerRadius(radius * 0.8)
-        .innerRadius(radius * 0.4);
+  const arc = d3.svg.arc()
+    .outerRadius(radius * 0.8)
+    .innerRadius(radius * 0.4);
 
-    var outerArc = d3.svg.arc()
-        .innerRadius(radius * 0.9)
-        .outerRadius(radius * 0.9);
+  const outerArc = d3.svg.arc()
+    .innerRadius(radius * 0.9)
+    .outerRadius(radius * 0.9);
 
-    svg.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+  const key = d => d.data.label;
 
-    var key = function(d){ return d.data.label; };
+  const color = d3.scale.category20()
+    .domain(...'abcdefghijklmnopqrstuvwxyz');
 
-    var color = d3.scale.category20()
-        .domain(Array.apply(null, {length: 26}).map(function (x,i) {
-            return String.fromCharCode(97 + i);
-        }));    // all lower case chars
+  function randomData() {
+    return color.domain()
+      .map(label => ({ label, value: Math.random() }))
+      .filter(() => Math.random() > 0.6)
+      .sort((a, b) => d3.ascending(a.label, b.label));
+  }
 
-    function randomData (){
-        var labels = color.domain();
-        return labels.map(function(label){
-            return { label: label, value: Math.random() }
-        }).filter(function() {
-            return Math.random() > .6;
-        }).sort(function(a,b) {
-            return d3.ascending(a.label, b.label);
-        });
+  function mergeWithFirstEqualZero(first, second) {
+    const secondSet = d3.set(second.map(d => d.label));
+
+    const onlyFirst = first
+      .filter(d => !secondSet.has(d.label))
+      .map(d => ({ label: d.label, value: 0 }));
+
+    return d3.merge([second, onlyFirst])
+      .sort((a, b) => d3.ascending(a.label, b.label));
+  }
+
+  function change(data) {
+    /* expect data of the form
+     * [
+     *    {label:'a', value:3},
+     *    ...
+     * ]
+     */
+
+    const duration = 800;
+    let data0 = svg.select('.slices').selectAll('path.slice')
+      .data().map(d => d.data);
+    if (data0.length === 0) data0 = data;
+    const was = mergeWithFirstEqualZero(data, data0);
+    const is = mergeWithFirstEqualZero(data0, data);
+
+    /* ------- SLICE ARCS -------*/
+
+    let slice = svg.select('.slices').selectAll('path.slice')
+      .data(pie(was), key);
+
+    slice.enter()
+      .insert('path')
+      .attr('class', 'slice')
+      .style('fill', d => color(d.data.label))
+      .each(function assignSliceData(d) { this.current_d = d; });
+
+    slice = svg.select('.slices').selectAll('path.slice')
+      .data(pie(is), key);
+
+    slice
+      .transition().duration(duration)
+      .attrTween('d', function sliceAttrTween(d) {
+        const interpolate = d3.interpolate(this.current_d, d);
+        return (t) => {
+          this.current_d = interpolate(t);
+          return arc(this.current_d);
+        };
+      });
+
+    slice = svg.select('.slices').selectAll('path.slice')
+      .data(pie(data), key);
+
+    slice
+      .exit().transition().delay(duration).duration(0)
+      .remove();
+
+    /* ------- TEXT LABELS -------*/
+
+    let text = svg.select('.labels').selectAll('text')
+      .data(pie(was), key);
+
+    text.enter()
+      .append('text')
+      .attr('dy', '.35em')
+      .style('opacity', 0)
+      .text(d => d.data.label)
+      .each(function assignTextData(d) { this.current_d = d; });
+
+    function midAngle(d) {
+      return d.startAngle + ((d.endAngle - d.startAngle) / 2);
     }
 
-    change(randomData());
+    text = svg.select('.labels').selectAll('text')
+      .data(pie(is), key);
 
-    function mergeWithFirstEqualZero(first, second){
-        var secondSet = d3.set(); second.forEach(function(d) { secondSet.add(d.label); });
+    text.transition().duration(duration)
+      .style('opacity', d => (d.data.value === 0 ? 0 : 1))
+      .attrTween('transform', function tweenTextAttr(d) {
+        const interpolate = d3.interpolate(this.current_d, d);
+        return (t) => {
+          const d2 = interpolate(t);
+          this.current_d = d2;
+          const pos = outerArc.centroid(d2);
+          pos[0] = radius * (midAngle(d2) < Math.PI ? 1 : -1);
+          return `translate(${pos})`;
+        };
+      })
+      .styleTween('text-anchor', function tweenTextStyle(d) {
+        const interpolate = d3.interpolate(this.current_d, d);
+        return (t) => {
+          const d2 = interpolate(t);
+          return midAngle(d2) < Math.PI ? 'start' : 'end';
+        };
+      });
 
-        var onlyFirst = first
-            .filter(function(d){ return !secondSet.has(d.label) })
-            .map(function(d) { return {label: d.label, value: 0}; });
-        return d3.merge([ second, onlyFirst ])
-            .sort(function(a,b) {
-                return d3.ascending(a.label, b.label);
-            });
-    }
+    text = svg.select('.labels').selectAll('text')
+      .data(pie(data), key);
 
-    function change(data) {
-        /* expect data of the form
-         * [
-         *    {label:'a', value:3},
-         *    ...
-         * ]
-         */
-        var duration = 800;
-        var data0 = svg.select(".slices").selectAll("path.slice")
-            .data().map(function(d) { return d.data });
-        if (data0.length == 0) data0 = data;
-        var was = mergeWithFirstEqualZero(data, data0);
-        var is = mergeWithFirstEqualZero(data0, data);
+    text
+      .exit().transition().delay(duration)
+      .remove();
 
-        /* ------- SLICE ARCS -------*/
+    /* ------- SLICE TO TEXT POLYLINES -------*/
 
-        var slice = svg.select(".slices").selectAll("path.slice")
-            .data(pie(was), key);
+    let polyline = svg.select('.lines').selectAll('polyline')
+      .data(pie(was), key);
 
-        slice.enter()
-            .insert("path")
-            .attr("class", "slice")
-            .style("fill", function(d) { return color(d.data.label); })
-            .each(function(d) {
-                this._current = d;
-            });
+    polyline.enter()
+      .append('polyline')
+      .style('opacity', 0)
+      .each(function assignPolylineData(d) { this.current_d = d; });
 
-        slice = svg.select(".slices").selectAll("path.slice")
-            .data(pie(is), key);
+    polyline = svg.select('.lines').selectAll('polyline')
+      .data(pie(is), key);
 
-        slice
-            .transition().duration(duration)
-            .attrTween("d", function(d) {
-                var interpolate = d3.interpolate(this._current, d);
-                var _this = this;
-                return function(t) {
-                    _this._current = interpolate(t);
-                    return arc(_this._current);
-                };
-            });
+    polyline.transition().duration(duration)
+      .style('opacity', d => (d.data.value === 0 ? 0 : 0.5))
+      .attrTween('points', function lineAttrTween(d) {
+        this.current_d = this.current_d;
+        const interpolate = d3.interpolate(this.current_d, d);
+        return (t) => {
+          const d2 = interpolate(t);
+          this.current_d = d2;
+          const pos = outerArc.centroid(d2);
+          pos[0] = radius * 0.95 * (midAngle(d2) < Math.PI ? 1 : -1);
+          return [arc.centroid(d2), outerArc.centroid(d2), pos];
+        };
+      });
 
-        slice = svg.select(".slices").selectAll("path.slice")
-            .data(pie(data), key);
+    polyline = svg.select('.lines').selectAll('polyline')
+      .data(pie(data), key);
 
-        slice
-            .exit().transition().delay(duration).duration(0)
-            .remove();
+    polyline
+      .exit().transition().delay(duration)
+      .remove();
+  }
 
-        /* ------- TEXT LABELS -------*/
-
-        var text = svg.select(".labels").selectAll("text")
-            .data(pie(was), key);
-
-        text.enter()
-            .append("text")
-            .attr("dy", ".35em")
-            .style("opacity", 0)
-            .text(function(d) {
-                return d.data.label;
-            })
-            .each(function(d) {
-                this._current = d;
-            });
-
-        function midAngle(d){
-            return d.startAngle + (d.endAngle - d.startAngle)/2;
-        }
-
-        text = svg.select(".labels").selectAll("text")
-            .data(pie(is), key);
-
-        text.transition().duration(duration)
-            .style("opacity", function(d) {
-                return d.data.value == 0 ? 0 : 1;
-            })
-            .attrTween("transform", function(d) {
-                var interpolate = d3.interpolate(this._current, d);
-                var _this = this;
-                return function(t) {
-                    var d2 = interpolate(t);
-                    _this._current = d2;
-                    var pos = outerArc.centroid(d2);
-                    pos[0] = radius * (midAngle(d2) < Math.PI ? 1 : -1);
-                    return "translate("+ pos +")";
-                };
-            })
-            .styleTween("text-anchor", function(d){
-                var interpolate = d3.interpolate(this._current, d);
-                return function(t) {
-                    var d2 = interpolate(t);
-                    return midAngle(d2) < Math.PI ? "start":"end";
-                };
-            });
-
-        text = svg.select(".labels").selectAll("text")
-            .data(pie(data), key);
-
-        text
-            .exit().transition().delay(duration)
-            .remove();
-
-        /* ------- SLICE TO TEXT POLYLINES -------*/
-
-        var polyline = svg.select(".lines").selectAll("polyline")
-            .data(pie(was), key);
-
-        polyline.enter()
-            .append("polyline")
-            .style("opacity", 0)
-            .each(function(d) {
-                this._current = d;
-            });
-
-        polyline = svg.select(".lines").selectAll("polyline")
-            .data(pie(is), key);
-
-        polyline.transition().duration(duration)
-            .style("opacity", function(d) {
-                return d.data.value == 0 ? 0 : .5;
-            })
-            .attrTween("points", function(d){
-                this._current = this._current;
-                var interpolate = d3.interpolate(this._current, d);
-                var _this = this;
-                return function(t) {
-                    var d2 = interpolate(t);
-                    _this._current = d2;
-                    var pos = outerArc.centroid(d2);
-                    pos[0] = radius * 0.95 * (midAngle(d2) < Math.PI ? 1 : -1);
-                    return [arc.centroid(d2), outerArc.centroid(d2), pos];
-                };
-            });
-
-        polyline = svg.select(".lines").selectAll("polyline")
-            .data(pie(data), key);
-
-        polyline
-            .exit().transition().delay(duration)
-            .remove();
-    };
-
-
-    return change;
+  change(randomData());
+  return change;
 }
