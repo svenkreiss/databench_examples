@@ -1,8 +1,8 @@
 /* global document */
 
-let Databench = require('databench');
-let React = require('react');
-let ReactDOM = require('react-dom');
+const Databench = require('databench');
+const React = require('react');
+const ReactDOM = require('react-dom');
 
 
 class StatusText extends React.Component {

@@ -8,22 +8,22 @@
     "test": "tests"
   },
   "dependencies": {
+    "databench": "^0.5.3",
     "d3": "^3.5.16",
-    "font-awesome": "^4.5.0"
+    "font-awesome": "^4.5.0",
+    "react": "^15.2.1",
+    "react-dom": "^15.2.1"
   },
   "devDependencies": {
     "babel-core": "^6.11.4",
     "babel-loader": "^6.2.4",
     "babel-preset-react": "^6.11.1",
     "babelify": "^7.3.0",
-    "databench": "^0.5.3",
     "eslint": "^3.12.2",
     "eslint-config-airbnb": "^13.0.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.8.0",
-    "react": "^15.2.1",
-    "react-dom": "^15.2.1",
     "webpack": "^1.13.1"
   },
   "scripts": {

@@ -46,9 +46,9 @@
 
 	/* global document */
 
-	let Databench = __webpack_require__(1);
-	let React = __webpack_require__(2);
-	let ReactDOM = __webpack_require__(33);
+	const Databench = __webpack_require__(1);
+	const React = __webpack_require__(2);
+	const ReactDOM = __webpack_require__(33);
 
 	class StatusText extends React.Component {
 	  constructor(props) {
