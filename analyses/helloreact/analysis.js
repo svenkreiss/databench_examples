@@ -1,6 +1,6 @@
-/* global Databench */
 /* global document */
 
+let Databench = require('databench');
 let React = require('react');
 let ReactDOM = require('react-dom');
 
