@@ -19,9 +19,8 @@ analyses:
   - name: helloreact
     title: Hello React
     description: Demoing how to use React with Databench.
-    build: npm run build-helloreact
     watch:
-      - helloreact/analysis.js
+      - helloreact/bundle.js
       - helloreact/*.html
   - name: angular
     title: Angular.js Demo

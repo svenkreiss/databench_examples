@@ -26,7 +26,7 @@
     "eslint-plugin-react": "^6.8.0"
   },
   "scripts": {
-    "build-helloreact": "webpack ./analyses/helloreact/analysis.js ./analyses/helloreact/bundle.js --module-bind 'js=babel-loader'",
+    "watch-helloreact": "webpack ./analyses/helloreact/analysis.js ./analyses/helloreact/bundle.js --module-bind 'js=babel-loader' --watch",
     "lint": "eslint analyses/**/analysis.js && eslint analyses/bagofcharsd3/d3charcount.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

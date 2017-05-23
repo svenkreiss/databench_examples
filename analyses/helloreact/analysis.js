@@ -1,12 +1,8 @@
 /* global Databench */
 /* global document */
-/* global React */
-/* global ReactDOM */
 
-// Alternatively, this would add React into the bundle, but that takes
-// longer to to build which is annoying during development:
-// let React = require('react');
-// let ReactDOM = require('react-dom');
+let React = require('react');
+let ReactDOM = require('react-dom');
 
 
 class StatusText extends React.Component {
