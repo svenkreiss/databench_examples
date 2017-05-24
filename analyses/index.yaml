@@ -65,9 +65,3 @@ analyses:
     watch:
       - helloworld/*.js
       - helloworld/*.html
-  - name: hellotypescript
-    title: Hello TypeScript
-    description: Demo of TypeScript and Databench.
-    watch:
-      - hellotypescript/*.js
-      - hellotypescript/*.html
