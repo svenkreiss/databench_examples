@@ -2,19 +2,21 @@ This analysis roughly follows the [React package management example](https://fac
 To create an analysis scaffold, run:
 
     scaffold-databench helloreact
-    cd analyses
     npm install --save react react-dom babel-preset-react babel-loader babel-core webpack
 
-Add to the `scripts` in `package.json`:
+Run this in a separate terminal to create the `bundle.js` file and keep it up to date as you update `analysis.js`:
 
-    "build-helloreact": "webpack ./helloreact/main.js ./helloreact/bundle.js --module-bind 'js=babel-loader'"
+    webpack ./analyses/helloreact/analysis.js ./analyses/helloreact/bundle.js --module-bind 'js=babel-loader' --watch
 
-And add to the `index.yaml` section:
+Databench can watch the `bundle.js` file and dynamically reload when you add
 
-    build: npm run build-helloreact
+    watch:
+      - helloreact/bundle.js
+
+to the `index.yaml` file and run Databench with the `--log=DEBUG` option.
+
 
 <i class="fa fa-fw fa-github"></i>
 This [analysis is on GitHub](https://github.com/svenkreiss/databench_examples/tree/master/analyses/helloreact).<br />
 <i class="fa fa-fw fa-external-link"></i>
 [Live demos](http://databench-examples.trivial.io).
-
