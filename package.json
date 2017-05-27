@@ -8,7 +8,7 @@
     "test": "tests"
   },
   "dependencies": {
-    "databench": "^0.5.3",
+    "databench": "^0.6.0",
     "d3": "^3.5.16",
     "font-awesome": "^4.5.0",
     "react": "^15.2.1",
@@ -24,11 +24,16 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.8.0",
+    "json-loader": "^0.5.4",
+    "ts-loader": "^2.1.0",
+    "tslint": "^5.3.2",
+    "typescript": "^2.3.3",
     "webpack": "^1.13.1"
   },
   "scripts": {
+    "watch-hellotypescript": "webpack ./analyses/hellotypescript/analysis.ts ./analyses/hellotypescript/bundle.js --module-bind 'ts=awesome-typescript-loader' --module-bind 'json=json-loader' --watch",
     "watch-helloreact": "webpack ./analyses/helloreact/analysis.js ./analyses/helloreact/bundle.js --module-bind 'js=babel-loader' --watch",
-    "lint": "eslint analyses/**/analysis.js && eslint analyses/bagofcharsd3/d3charcount.js",
+    "lint": "eslint analyses/**/analysis.js && eslint analyses/bagofcharsd3/d3charcount.js && tslint analyses/**/*.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -40,5 +45,5 @@
   "bugs": {
     "url": "https://github.com/svenkreiss/databench_examples/issues"
   },
-  "homepage": "https://github.com/svenkreiss/databench_examples#readme"
+  "homepage": "https://github.com/svenkreiss/databench_examples"
 }
