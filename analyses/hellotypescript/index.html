@@ -1,0 +1,17 @@
+{% extends "analysis.html" %}
+
+
+{% block head %}
+<link rel="stylesheet" href="/_static/databench.css?version={{ databench_version }}">
+{% end %}
+
+
+{% block analysis %}
+<h1>Analysis Output</h1>
+<p>The current status: <span id="status">unknown</span></p>
+{% end %}
+
+
+{% block footer %}
+<script src="/hellotypescript/static/bundle.js?v={{ version }}"></script>
+{% end %}
