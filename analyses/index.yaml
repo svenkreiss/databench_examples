@@ -71,3 +71,9 @@ analyses:
     watch:
       - hellotypescript/*.js
       - hellotypescript/*.html
+  - name: reactandtypescript
+    title: React and Typescript
+    description: A simple analysis demonstrating React and TypeScript.
+    watch:
+      - reactandtypescript/bundle.js*
+      - reactandtypescript/*.html
