@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 83);
+/******/ 	return __webpack_require__(__webpack_require__.s = 84);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -9530,31 +9530,42 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Databench = __webpack_require__(85);
 var React = __webpack_require__(50);
-var DatabenchConnection = (function (_super) {
-    __extends(DatabenchConnection, _super);
-    function DatabenchConnection(props) {
+var Hello = (function (_super) {
+    __extends(Hello, _super);
+    function Hello(props) {
         var _this = _super.call(this, props) || this;
-        _this.state = { status: 'no status' };
-        // initialize Databench's frontend library
-        var databench = new Databench.Connection();
-        databench.on({ data: 'status' }, function (value) { return _this.setState({ status: value }); });
-        databench.connect();
+        _this.state = { status: 'unknown' };
+        props.databench.on({ data: 'status' }, function (value) { return _this.setState({ status: value }); });
         return _this;
     }
-    DatabenchConnection.prototype.render = function () {
+    Hello.prototype.render = function () {
         return React.createElement("h1", null,
-            "And also state: ",
+            "Status: ",
             this.state.status);
     };
-    return DatabenchConnection;
+    return Hello;
 }(React.Component));
-exports.DatabenchConnection = DatabenchConnection;
+exports.Hello = Hello;
 
 
 /***/ }),
 /* 82 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Databench
+ */
+
+var connection_1 = __webpack_require__(85);
+exports.Connection = connection_1.Connection;
+var ui = __webpack_require__(86);
+exports.ui = ui;
+
+
+/***/ }),
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9564,21 +9575,25 @@ module.exports = __webpack_require__(116);
 
 
 /***/ }),
-/* 83 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-/* global document */
 Object.defineProperty(exports, "__esModule", { value: true });
+var Databench = __webpack_require__(82);
 var React = __webpack_require__(50);
-var ReactDOM = __webpack_require__(82);
-var DatabenchConnection_1 = __webpack_require__(81);
-ReactDOM.render(React.createElement(DatabenchConnection_1.DatabenchConnection, null), document.getElementById("example"));
+var ReactDOM = __webpack_require__(83);
+var Hello_1 = __webpack_require__(81);
+// initialize Databench's frontend library
+var databench = new Databench.Connection();
+Databench.ui.wire(databench);
+ReactDOM.render(React.createElement(Hello_1.Hello, { databench: databench }), document.getElementById("example"));
+databench.connect();
 
 
 /***/ }),
-/* 84 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9801,21 +9816,6 @@ var Connection = (function () {
     return Connection;
 }());
 exports.Connection = Connection;
-
-
-/***/ }),
-/* 85 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * Databench
- */
-
-var connection_1 = __webpack_require__(84);
-exports.Connection = connection_1.Connection;
-var ui = __webpack_require__(86);
-exports.ui = ui;
 
 
 /***/ }),
