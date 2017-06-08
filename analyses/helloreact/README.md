@@ -6,14 +6,14 @@ To create an analysis scaffold, run:
 
 Run this in a separate terminal to create the `bundle.js` file and keep it up to date as you update `analysis.js`:
 
-    webpack ./analyses/helloreact/analysis.js ./analyses/helloreact/bundle.js --module-bind 'js=babel-loader' --watch
+    webpack --config analyses/helloreact/webpack.config.js --watch
 
 Databench can watch the `bundle.js` file and dynamically reload when you add
 
     watch:
       - helloreact/bundle.js
 
-to the `index.yaml` file and run Databench with the `--log=DEBUG` option.
+to the `index.yaml` file.
 
 
 <i class="fa fa-fw fa-github"></i>
