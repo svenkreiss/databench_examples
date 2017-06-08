@@ -1,10 +1,12 @@
 /* global document */
 
-const Databench = require('databench');
-const React = require('react');
-const ReactDOM = require('react-dom');
+import * as Databench from 'databench';
+import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 
+// define a component and its propTypes
 class StatusText extends React.Component {
   constructor(props) {
     super(props);
@@ -26,17 +28,19 @@ class StatusText extends React.Component {
 }
 
 StatusText.propTypes = {
-  databench: React.PropTypes.shape({
-    emit: React.PropTypes.function,
-    on: React.PropTypes.function,
+  databench: PropTypes.shape({
+    emit: PropTypes.function,
+    on: PropTypes.function,
   }),
 };
 
 
 const databench = new Databench.Connection();
 Databench.ui.wire(databench);
+
 ReactDOM.render(
   <StatusText databench={databench} />,
   document.getElementById('example'),
 );
+
 databench.connect();
