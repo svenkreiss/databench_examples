@@ -1,7 +1,9 @@
+/* global document */
+
 import * as Databench from 'databench';
 import PropTypes from 'prop-types';
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 
 // define a component and its propTypes
