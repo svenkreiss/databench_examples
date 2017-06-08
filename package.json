@@ -35,7 +35,7 @@
     "webpack": "^2.6.1"
   },
   "scripts": {
-    "lint": "eslint analyses/**/analysis.js && eslint analyses/bagofcharsd3/d3charcount.js && tslint analyses/**/*.ts",
+    "lint": "eslint analyses/**/analysis.js && eslint analyses/bagofcharsd3/d3charcount.js && tslint 'analyses/**/*.ts?(x)'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

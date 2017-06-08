@@ -1,8 +1,8 @@
 import * as Databench from 'databench';
-import * as React from "react";
+import * as React from 'react';
 
-export interface HelloProps {databench: Databench.Connection}
-export interface HelloState {status: string}
+export interface HelloProps { databench: Databench.Connection; }
+export interface HelloState { status: string; }
 
 export class Hello extends React.Component<HelloProps, HelloState> {
   constructor(props: HelloProps) {
