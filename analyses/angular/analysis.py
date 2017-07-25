@@ -8,7 +8,7 @@ import tornado.gen
 class Angular(databench.Analysis):
 
     @tornado.gen.coroutine
-    def on_connect(self):
+    def on_connected(self):
         """Run as soon as a browser connects to this."""
 
         inside = 0
@@ -26,7 +26,7 @@ class Angular(databench.Analysis):
                 continue
 
             # debug
-            self.emit('log', {'draws': draws, 'inside': inside})
+            yield self.emit('log', {'draws': draws, 'inside': inside})
 
             # calculate pi and its uncertainty given the current draws
             p = inside / draws
@@ -38,4 +38,4 @@ class Angular(databench.Analysis):
                 'uncertainty': uncertainty,
             }
 
-        self.emit('log', {'action': 'done'})
+        yield self.emit('log', {'action': 'done'})

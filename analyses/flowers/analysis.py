@@ -101,13 +101,13 @@ class Branch(object):
 
 class Flowers(databench.Analysis):
 
-    def __init__(self, id_=None):
-        super(Flowers, self).__init__(id_)
+    def __init__(self):
         self.max_height = 0.9
         self.max_width = 0.3
         self.flowers = []
+        self.connected = False
 
-    def on_connect(self):
+    def on_connected(self):
         """Run as soon as a browser connects to this."""
         self.data['n_flowers'] = 3
 
