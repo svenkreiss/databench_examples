@@ -1,5 +1,2 @@
-Build and keep building on changes in the Typescript source:
-
-```
-webpack --config analyses/hellotypescript/webpack.config.js --watch
-```
+Run `webpack` (optionally with `--watch`)
+in a separate terminal to create `bundle.js`.

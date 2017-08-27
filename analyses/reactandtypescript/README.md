@@ -1,2 +1,2 @@
-Run `webpack --config analyses/reactandtypescript/webpack.config.js --watch`
+Run `webpack` (optionally with `--watch`)
 in a separate terminal to create `bundle.js`.
