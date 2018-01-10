@@ -2,9 +2,9 @@
 
 
 {% block head %}
-<link rel="stylesheet" href="/_static/databench.css?version={{ databench_version }}">
-<link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css?v={{ version }}" />
-<link rel="stylesheet" href="/bagofcharsd3/static/analysis.css?v={{ version }}" />
+<link rel="stylesheet" href="/_static/databench.css?v={{databench_version}}">
+<link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css?v={{version}}" />
+<link rel="stylesheet" href="/bagofcharsd3/static/analysis.css?v={{version}}" />
 {% end %}
 
 
@@ -18,8 +18,8 @@
 
 
 {% block footer %}
-<script src="/_static/databench.js?v={{ databench_version }}"></script>
-<script src="/node_modules/d3/d3.min.js?v={{ version }}"></script>
-<script src="/bagofcharsd3/static/d3charcount.js?v={{ version }}"></script>
-<script src="/bagofcharsd3/static/analysis.js?v={{ version }}"></script>
+<script src="/_static/databench.js?v={{databench_version}}"></script>
+<script src="/node_modules/d3/d3.min.js?v={{version}}"></script>
+<script src="/bagofcharsd3/static/d3charcount.js?v={{version}}"></script>
+<script src="/bagofcharsd3/static/analysis.js?v={{version}}"></script>
 {% end %}

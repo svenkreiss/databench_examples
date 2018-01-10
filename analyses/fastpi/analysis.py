@@ -5,7 +5,6 @@ from redis import Redis
 from rq import Queue
 import subprocess
 import time
-import tornado.gen
 
 
 def inside(job, draws=100):
@@ -22,29 +21,28 @@ def inside(job, draws=100):
 
 class FastPi(databench.Analysis):
 
-    def on_workers(self, num_workers):
+    @databench.on
+    def workers(self, num_workers):
         """Spawns and terminates rqworkers as necessary."""
 
-        while num_workers > len(self.workers):
-            self.workers.append(subprocess.Popen(['rqworker']))
+        while num_workers > len(self.active_workers):
+            self.active_workers.append(subprocess.Popen(['rqworker']))
 
-        while num_workers < len(self.workers):
-            self.workers.pop().terminate()
+        while num_workers < len(self.active_workers):
+            self.active_workers.pop().terminate()
 
-        self.emit('log', {'workers': len(self.workers)})
+        yield self.emit('log', {'workers': len(self.active_workers)})
 
-    @tornado.gen.coroutine
-    def on_connect(self):
+    @databench.on
+    def connected(self):
         """Run as soon as a browser connects to this."""
 
-        self.workers = []
-        self.on_workers(2)
+        self.active_workers = []
+        yield self.workers(12)
         q = Queue(connection=Redis())
 
-        jobs = []
-        for i in range(100):
-            jobs.append(q.enqueue(inside, i))
-            self.emit('log', {'enqueued_job': i})
+        jobs = [q.enqueue(inside, i) for i in range(100)]
+        yield self.emit('log', 'enqueued {} jobs'.format(len(jobs)))
 
         draws_count = 0
         inside_count = 0
@@ -53,26 +51,27 @@ class FastPi(databench.Analysis):
             for j in finished_jobs:
                 draws_count += j.result[2]
                 inside_count += j.result[1]
-                self.emit('log', {
+                yield self.emit('log', {
                     'result': j.result,
                     'draws': draws_count,
                     'inside': inside_count,
                 })
 
-                uncertainty = 4.0 * math.sqrt(
-                    draws_count * inside_count / draws_count *
-                    (1.0 - inside_count / draws_count)
-                ) / draws_count
-                self.data['pi'] = {
-                    'estimate': 4.0 * inside_count / draws_count,
+                p = inside_count / draws_count
+                uncertainty = (4.0 * math.sqrt(draws_count * p * (1.0 - p)) /
+                               draws_count)
+                yield self.set_state(pi={
+                    'estimate': 4.0 * p,
                     'uncertainty': uncertainty,
-                }
+                })
 
                 jobs.remove(j)
-            yield tornado.gen.sleep(0.1)
 
-        self.emit('log', {'action': 'done'})
+            yield None
 
-    def on_disconnect(self):
+        yield self.emit('log', {'action': 'done'})
+
+    @databench.on
+    def disconnected(self):
         # terminate all workers
-        self.on_workers(0)
+        yield self.workers(0)

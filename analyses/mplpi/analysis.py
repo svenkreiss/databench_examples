@@ -16,8 +16,8 @@ class MplPi(databench.Analysis):
         self.ax1 = self.fig.add_subplot(121)
         self.ax2 = self.fig.add_subplot(122)
 
-    @databench.on('connected')
-    def connected_action(self):
+    @databench.on
+    def connected(self):
         """Run as soon as a browser connects to this."""
 
         inside = 0
