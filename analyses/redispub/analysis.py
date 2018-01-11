@@ -24,14 +24,15 @@ def redis_creator():
 
 class RedisPub(databench.Analysis):
 
-    def __init__(self, id_=None):
-        super(RedisPub, self).__init__(id_)
+    def __init__(self):
         self.redis_client = redis_creator()
 
-    def on_connect(self):
+    @databench.on
+    def connected(self):
         """Run as soon as a browser connects to this."""
-        self.emit('log', {'action': 'backend started'})
+        yield self.emit('log', {'action': 'backend started'})
 
-    def on_stats(self, msg):
+    @databench.on
+    def stats(self, msg):
         """Listens for messages from frontend and pushes to redis channel."""
         self.redis_client.publish('someStatsProvider', msg)

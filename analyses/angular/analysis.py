@@ -1,20 +1,16 @@
 import databench
-
 import math
 import random
-import tornado.gen
 
 
 class Angular(databench.Analysis):
 
-    @tornado.gen.coroutine
-    def on_connected(self):
+    @databench.on
+    def connected(self):
         """Run as soon as a browser connects to this."""
 
         inside = 0
         for draws in range(1, 10000):
-            yield tornado.gen.sleep(0.001)
-
             # generate points and check whether they are inside the unit circle
             r1 = random.random()
             r2 = random.random()
@@ -33,9 +29,9 @@ class Angular(databench.Analysis):
             uncertainty = 4.0 * math.sqrt(draws * p * (1.0 - p)) / draws
 
             # send status to frontend
-            self.data['pi'] = {
+            yield self.set_state(pi={
                 'estimate': 4.0 * inside / draws,
                 'uncertainty': uncertainty,
-            }
+            })
 
         yield self.emit('log', {'action': 'done'})
