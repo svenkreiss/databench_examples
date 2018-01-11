@@ -1,6 +1,6 @@
 title: Databench Examples
 desctiption: Examples that demo Databench features.
-version: 0.4.1
+version: 0.7.0
 
 analyses:
   - name: flowers

@@ -18,4 +18,3 @@ databench.on({ data: 'counts' }, (counts) => {
 
 
 databench.connect();
-databench.emit('sentence', 'type a phrase');
