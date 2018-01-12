@@ -8,6 +8,9 @@ install:
  # install Node 6
  - rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install 6
  - node -v
+ # npm update
+ - npm install -g npm
+ - npm -v
  # Java 8 for html5validator
  - sudo apt-get install oracle-java8-installer
  - sudo update-java-alternatives -s java-8-oracle
@@ -21,5 +24,5 @@ script:
  - flake8
  - npm run lint
  - localcrawl --start http://localhost:5001 --run-delay 10.0 --run databench --log DEBUG --port 5001
- - html5validator --root _crawled/ --ignore-re 'Attribute "ng-[a-z-]+" not allowed'
+ - html5validator --root _crawled/ --ignore-re 'Attribute "ng-[a-z-]+" not allowed' --no-langdetect
  - nosetests tests

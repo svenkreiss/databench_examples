@@ -18,7 +18,7 @@ databench.on('status', (json) => {
   });
 
   // visualize
-  console.log(inputData);
+  databench.emit('log', inputData);
 });
 
 databench.connect();

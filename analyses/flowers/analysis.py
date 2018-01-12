@@ -101,32 +101,54 @@ class Branch(object):
 
 class Flowers(databench.Analysis):
 
-    def __init__(self, id_=None):
-        super(Flowers, self).__init__(id_)
+    def __init__(self):
         self.max_height = 0.9
         self.max_width = 0.3
         self.flowers = []
+        self.periodic_callback = tornado.ioloop.PeriodicCallback(
+            self.generate_flowers,
+            200,
+        )
 
-    def on_connect(self):
+    @databench.on
+    def connected(self):
         """Run as soon as a browser connects to this."""
-        self.data['n_flowers'] = 3
+        yield self.data.init({
+            'n_flowers': 3,
 
-        self.data['init_size'] = 0.02
-        self.data['init_length'] = 0.05
-        self.data['init_color'] = 0.1
+            'init_size': 0.02,
+            'init_length': 0.05,
+            'init_color': 0.1,
 
-        self.data['size_delta'] = (0.99, 0.02)
-        self.data['length_delta'] = (0.99, 0.02)
-        self.data['color_delta'] = (0.5, 0.1)
-        self.data['angle_delta'] = (0.0, 5.0 / 57.0)
-        self.data['branch_prob_per_unit'] = 5.0
-        self.data['branch_angle'] = 10.0 / 57.0
+            'size_delta': (0.99, 0.02),
+            'length_delta': (0.99, 0.02),
+            'color_delta': (0.5, 0.1),
+            'angle_delta': (0.0, 5.0 / 57.0),
+            'branch_prob_per_unit': 5.0,
+            'branch_angle': 10.0 / 57.0,
+        })
 
-        self.connected = True
-        self.generate_flowers()
+        self.periodic_callback.start()
 
-    def on_disconnect(self):
-        self.connected = False
+    @databench.on
+    def n_flowers(self, value):
+        self.set_state(n_flowers=value)
+
+    @databench.on
+    def init_size(self, value):
+        self.set_state(init_size=value)
+
+    @databench.on
+    def init_length(self, value):
+        self.set_state(init_length=value)
+
+    @databench.on
+    def branch_angle(self, value):
+        self.set_state(branch_angle=value)
+
+    @databench.on
+    def disconnected(self):
+        self.periodic_callback.stop()
 
     def init_flowers(self):
         while len(self.flowers) < self.data['n_flowers']:
@@ -145,27 +167,25 @@ class Flowers(databench.Analysis):
             lines += f['trunk'].lines(f['x'])
         return lines
 
-    @tornado.gen.coroutine
+    @databench.on
     def generate_flowers(self):
-        while self.connected:
-            self.init_flowers()
+        self.init_flowers()
 
-            # remove flowers that are larger than self.max_height
-            heights = [max([e[1] for e in f['trunk'].ends(f['x'])])
-                       for f in self.flowers]
-            self.flowers = [f for f, h in zip(self.flowers, heights)
-                            if h < self.max_height]
-            # remove flowers that are wider than self.max_width
-            lefts = [min([e[0] for e in f['trunk'].ends(f['x'])])
-                     for f in self.flowers]
-            rights = [max([e[0] for e in f['trunk'].ends(f['x'])])
-                      for f in self.flowers]
-            widths = [r - l for l, r in zip(lefts, rights)]
-            self.flowers = [f for f, w in zip(self.flowers, widths)
-                            if w < self.max_width]
+        # remove flowers that are larger than self.max_height
+        heights = [max([e[1] for e in f['trunk'].ends(f['x'])])
+                   for f in self.flowers]
+        self.flowers = [f for f, h in zip(self.flowers, heights)
+                        if h < self.max_height]
+        # remove flowers that are wider than self.max_width
+        lefts = [min([e[0] for e in f['trunk'].ends(f['x'])])
+                 for f in self.flowers]
+        rights = [max([e[0] for e in f['trunk'].ends(f['x'])])
+                  for f in self.flowers]
+        widths = [r - l for l, r in zip(lefts, rights)]
+        self.flowers = [f for f, w in zip(self.flowers, widths)
+                        if w < self.max_width]
 
-            for f in self.flowers:
-                f['trunk'].generate()
+        for f in self.flowers:
+            f['trunk'].generate()
 
-            self.data['lines'] = self.output()
-            yield tornado.gen.sleep(0.15)
+        yield self.set_state(lines=self.output())

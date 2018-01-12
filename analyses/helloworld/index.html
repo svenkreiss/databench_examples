@@ -2,7 +2,7 @@
 
 
 {% block head %}
-<link rel="stylesheet" href="/_static/databench.css?version={{ databench_version }}">
+<link rel="stylesheet" href="/_static/databench.css?v={{databench_version}}">
 {% end %}
 
 
@@ -12,6 +12,6 @@
 
 
 {% block footer %}
-<script src="/_static/databench.js?v={{ databench_version }}"></script>
-<script src="/helloworld/static/analysis.js?v={{ version }}"></script>
+<script src="/_static/databench.js?v={{databench_version}}"></script>
+<script src="/helloworld/static/analysis.js?v={{version}}"></script>
 {% end %}

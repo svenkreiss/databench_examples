@@ -10,21 +10,19 @@ import matplotlib.pyplot as plt  # noqa: E402
 
 class MplPi(databench.Analysis):
 
-    def __init__(self, analysis_id):
-        super(MplPi, self).__init__(analysis_id)
-
+    def __init__(self):
         # initialize the figure with two subplots
         self.fig = plt.figure(figsize=(8, 4))
         self.ax1 = self.fig.add_subplot(121)
         self.ax2 = self.fig.add_subplot(122)
 
-    @tornado.gen.coroutine
-    def on_connect(self):
+    @databench.on
+    def connected(self):
         """Run as soon as a browser connects to this."""
 
         inside = 0
         rnd_draws = []
-        for draws in range(1, 10000):
+        for draws in range(1, 1000):
             yield tornado.gen.sleep(0.001)
 
             # generate points and check whether they are inside the unit circle
@@ -41,7 +39,7 @@ class MplPi(databench.Analysis):
                 continue
 
             # debug
-            self.emit('log', {'draws': draws, 'inside': inside})
+            yield self.emit('log', {'draws': draws, 'inside': inside})
 
             # calculate pi and its uncertainty given the current draws
             p = inside / draws
@@ -53,9 +51,9 @@ class MplPi(databench.Analysis):
                 'uncertainty': uncertainty,
             }
 
-            self.update_figure(rnd_draws)
+            yield self.update_figure(rnd_draws)
 
-        self.emit('log', {'action': 'done'})
+        yield self.emit('log', {'action': 'done'})
 
     def update_figure(self, rnd_draws):
         # regenerate matplotlib plot
@@ -80,4 +78,4 @@ class MplPi(databench.Analysis):
             normed=1, facecolor='blue', alpha=0.75
         )
 
-        self.emit('mpl', databench.fig_to_src(self.fig, 'svg'))
+        return self.emit('mpl', databench.utils.fig_to_src(self.fig, 'svg'))

@@ -4,9 +4,8 @@ To create an analysis scaffold, run:
     scaffold-databench helloreact
     npm install --save react react-dom babel-preset-react babel-loader babel-core webpack
 
-Run this in a separate terminal to create the `bundle.js` file and keep it up to date as you update `analysis.js`:
-
-    webpack --config analyses/helloreact/webpack.config.js --watch
+Run `webpack` (optionally with `--watch`)
+in a separate terminal to create `bundle.js`.
 
 Databench can watch the `bundle.js` file and dynamically reload when you add
 
