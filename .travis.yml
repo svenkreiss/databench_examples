@@ -24,5 +24,5 @@ script:
  - flake8
  - npm run lint
  - localcrawl --start http://localhost:5001 --run-delay 10.0 --run databench --log DEBUG --port 5001
- - html5validator --root _crawled/ --ignore-re 'Attribute "ng-[a-z-]+" not allowed'
+ - html5validator --root _crawled/ --ignore-re 'Attribute "ng-[a-z-]+" not allowed' --no-langdetect
  - nosetests tests
