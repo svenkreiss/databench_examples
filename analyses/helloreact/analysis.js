@@ -29,9 +29,9 @@ class StatusText extends React.Component {
 
 StatusText.propTypes = {
   databench: PropTypes.shape({
-    emit: PropTypes.function,
-    on: PropTypes.function,
-  }),
+    emit: PropTypes.func,
+    on: PropTypes.func,
+  }).isRequired,
 };
 
 

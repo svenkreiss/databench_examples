@@ -35,11 +35,9 @@ setInterval(() => {
 
 document.getElementById('btnSlow').onclick = () => {
   dt = 0.001;
-  console.log('slow');
 };
 document.getElementById('btnFast').onclick = () => {
   dt = 0.05;
-  console.log('fast');
 };
 
 databench.connect();
