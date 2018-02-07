@@ -2,7 +2,7 @@
 
 // based on http://bl.ocks.org/dbuezas/9572040
 
-function d3charcount(selector) {  // eslint-disable-line no-unused-vars
+function d3charcount(selector) { // eslint-disable-line no-unused-vars
   const svg = d3.select(`#${selector}`);
 
   svg.append('g').attr('class', 'slices');

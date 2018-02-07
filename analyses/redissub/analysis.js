@@ -1,5 +1,4 @@
 /* global Databench */
-/* global document */
 
 const databench = new Databench.Connection();
 Databench.ui.wire(databench);
@@ -8,8 +7,9 @@ Databench.ui.wire(databench);
 const inputData = {};
 const lastUpdate = {};
 databench.on('status', (json) => {
-  const srcName = json.split('=')[0].trim();
-  inputData[srcName] = json.split('=')[1];
+  const [key, value] = json.split('=')[0];
+  const srcName = key.trim();
+  inputData[srcName] = value;
   lastUpdate[srcName] = Date.now();
 
   // remove old values from data
