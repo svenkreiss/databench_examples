@@ -3,7 +3,7 @@
 
 {% block head %}
 <link rel="stylesheet" href="/_static/databench.css?v={{databench_version}}">
-<link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css" />
+<link rel="stylesheet" href="/static/font-awesome.min.css?v={{version}}" />
 <style>
 .sliders { display: flex; flex-wrap: wrap; margin: -10px 0 0 -10px; }
 .slider { flex: 1 0 250px; margin: 10px 0 0 10px; }
@@ -39,6 +39,6 @@
 
 {% block footer %}
 <script src="/_static/databench.js?v={{databench_version}}"></script>
-<script src="/node_modules/d3/d3.min.js?v={{version}}"></script>
+<script src="/static/d3.min.js?v={{version}}"></script>
 <script src="/flowers/static/analysis.js?v={{version}}"></script>
 {% end %}
