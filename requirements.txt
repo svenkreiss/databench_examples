@@ -1,4 +1,4 @@
-databench==0.7.0
+databench==0.7.1
 hacking>=0.13
 Markdown==2.6.11
 matplotlib==2.1.1
