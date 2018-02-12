@@ -2,9 +2,10 @@ title: Databench Examples
 desctiption: Examples that demo Databench features.
 version: 0.7.0
 static:
-  static/(font-awesome.min.css): node_modules/font-awesome/css/
+  static/(font-awesome\.min\.css): node_modules/font-awesome/css/
   fonts/(fontawesome-webfont.*): node_modules/font-awesome/fonts/
-  static/(d3.min.js): node_modules/d3/
+  static/(d3\.min\.js): node_modules/d3/
+  static/(angular_1\.2\.15\.min\.js): static/
 
 analyses:
   - name: flowers
