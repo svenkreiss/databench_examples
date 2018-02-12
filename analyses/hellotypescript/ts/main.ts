@@ -7,7 +7,10 @@ Databench.ui.wire(databench);
 // listen for updates to 'status' in 'data'
 databench.on({ data: 'status' }, (status: string) => {
   console.log(`received ${JSON.stringify(status)}`);
-  document.getElementById('status').innerHTML = status;
+
+  const statusElement = document.getElementById('status');
+  if (!statusElement) return;
+  statusElement.innerHTML = status;
 });
 
 databench.connect();

@@ -1,9 +1,9 @@
 module.exports = {
   context: __dirname,
-  entry: './analysis.ts',
+  entry: './ts/main.ts',
   output: {
     path: __dirname,
-    filename: './bundle.js',
+    filename: './analysis.js',
   },
 
   // Enable sourcemaps for debugging webpack's output.

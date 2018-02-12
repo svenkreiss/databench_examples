@@ -24,7 +24,7 @@ analyses:
     title: Hello React
     description: Demoing how to use React with Databench.
     watch:
-      - helloreact/bundle.js
+      - helloreact/analysis.js
       - helloreact/*.html
   - name: angular
     title: Angular.js Demo
@@ -79,5 +79,5 @@ analyses:
     title: React and Typescript
     description: A simple analysis demonstrating React and TypeScript.
     watch:
-      - reactandtypescript/bundle.js*
+      - reactandtypescript/analysis.js*
       - reactandtypescript/*.html
