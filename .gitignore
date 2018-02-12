@@ -54,11 +54,11 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
-venv/
-venv3/
+venv*/
 .DS_Store
 .elasticbeanstalk/
-analyses/node_modules
 node_modules/
 .vscode/
-bundle.js*
+analyses/helloreact/analysis.js*
+analyses/hellotypescript/analysis.js*
+analyses/reactandtypescript/analysis.js*
