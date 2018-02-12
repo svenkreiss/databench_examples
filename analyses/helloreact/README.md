@@ -5,12 +5,12 @@ To create an analysis scaffold, run:
     npm install --save react react-dom babel-preset-react babel-loader babel-core webpack
 
 Run `webpack` (optionally with `--watch`)
-in a separate terminal to create `bundle.js`.
+in a separate terminal to create `analysis.js`.
 
-Databench can watch the `bundle.js` file and dynamically reload when you add
+Databench can watch the `analysis.js` file and dynamically reload when you add
 
     watch:
-      - helloreact/bundle.js
+      - helloreact/analysis.js
 
 to the `index.yaml` file.
 
